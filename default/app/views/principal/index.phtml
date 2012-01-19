@@ -1,0 +1,84 @@
+<?php Tag::css('galeria') ?>
+<?php echo Tag::js('jquery/easySlider'); ?>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#slider").easySlider({ prevText: '', nextText: '', controlsBefore: '<p id="controls">', controlsAfter: '</p>', controlsShow: true, auto: true, pause: 5000, continuous: true });
+    });    
+</script>
+
+
+<!-- Slider -->
+<div class="contenedor">
+    <div class="slider">
+        <div id="slider">
+            <ul>
+                <li class="slide">
+                    <p class="slide_img"><?php echo Html::img('slide/img_web.png', 'Diseño web', array('width'=>'450', 'height'=>'225', 'border'=>'0')); ?></p>
+                    <div class="slide_text">
+                        <h2>Diseño Web <br /><span>Lleve su empresa a la nube!</span></h2>
+                        <p>Desarrollamos sitios web dinámicos<br />
+                         con los últimos estándares mundiales, <br />
+                         que proveen la mejor solución para <br />su empresa o negocio.</p>
+                        <a href="<?php echo PUBLIC_PATH; ?>portafolio/web/"><?php echo Html::img('pagina/mas_informacion.png', 'mas información', array('width'=>'130', 'height'=>'30', 'border'=>'0', 'class'=>'more')); ?></a>
+                    </div>
+                </li>
+                <li class="slide">
+                    <p class="slide_img"><?php echo Html::img('slide/img_app.png', 'Aplicaciones web', array('width'=>'450', 'height'=>'225', 'border'=>'0')); ?></p>
+                    <div class="slide_text">
+                        <h2>Aplicaciones Web <br /><span>Aumente su productividad!</span></h2>
+                        <p class="list">Portales web.</p>
+                        <p class="list">Sistemas de información.</p>
+                        <p class="list">Desarrollo de software a su medida.</p>
+                        <a href="<?php echo PUBLIC_PATH; ?>portafolio/app/"><?php echo Html::img('pagina/mas_informacion.png', 'más información', array('width'=>'130', 'height'=>'30', 'border'=>'0', 'class'=>'more')); ?></a>
+                    </div>
+                </li>
+                <li class="slide">
+                    <p class="slide_img"><?php echo Html::img('slide/img_media.jpg', 'Diseño gráfico', array('width'=>'450', 'height'=>'225', 'border'=>'0')); ?></p>
+                    <div class="slide_text">
+                        <h2>Diseño Gráfico<br /><span>Soluciones innovadoras para su empresa!</span></h2>
+                        <p class="list">Diseño vectorial.</p>
+                        <p class="list">Animaciones en 2D y 3D.</p>
+                        <p class="list">Creación gráfica comunicativa.</p>
+                        <a href="<?php echo PUBLIC_PATH; ?>portafolio/media/"><?php echo Html::img('pagina/mas_informacion.png', 'mas información', array('width'=>'130', 'height'=>'30', 'border'=>'0', 'class'=>'more')); ?></a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="slider_shadow"></div>
+    <div id="resumen-galeria">
+        <a href="<?php echo PUBLIC_PATH;?>know-how/"><?php echo Html::img('pagina/know_how.png', 'Información general', array('width'=>'224', 'height'=>'44', 'border'=>0)); ?></a>
+        <h2>Nos gusta hacer lo que hacemos, nos apasiona la web, como funciona y su innovación.<br />
+        <span>La pasión por nuestro trabajo se ve reflejada en cada proyecto.</span></h2>
+        <div class="clr"></div>
+    </div>
+    <div class="clr"></div>
+</div>
+
+<!-- Contenido -->
+<div class="contenedor">
+    <div class="contenido">
+        <div class="left">
+            <h3 class="contenido-subtitulo">Welcome to Our Website<span></span></h3>
+            <p>Morbi pharetra mollis tempus. Donec leo urna, sodales vel imperdiet ut, adipiscing ac mi. Praesent laoreet imperdiet orci in posuere. Quisque ipsum lorem, interdum et adipiscing vitae, venenatis ac lectus. Vivamus sed dui porttitor quam venenatis posuere.<br />
+              Morbi pharetra mollis tempus. Donec leo urna, sodales vel imperdiet ut, adipiscing. Praesent laoreet imperdiet orci in posuere.<a href="#"> View More »</a></p>
+            <p>&nbsp;</p>
+            <h3 class="contenido-subtitulo">About us<span></span></h3>
+            <p>orci massa feugiat ligula, sed bibendum nibh dui porta lorem. Duis nulla enim, porta in mattis quis, tristique vitae metus. Donec quam arcu, bibendum a feugiat eget, vehicula in elit. Cum sociis natoque penatibus et magnis dis parturient montes<a href="#"> View More »</a></p>
+        </div>
+        <div class="right">
+            <h3 class="contenido-subtitulo">What Do We Do</h3>
+            <?php echo Html::img('pagina/img_1.gif', 'picture', array('class'=>'floated',' border'=>'0')); ?>
+            <p><strong>Fusce vehicula dignissim ligula</strong>. <br />
+              Vestibulum sit amet neque eu neque suscipit consequat quis vel risus. <a href="#">More »</a><br />
+            </p>
+            <div class="bg"></div>
+            <?php echo Html::img('pagina/img_2.gif', 'picture', array('class'=>'floated',' border'=>'0')); ?>
+            <p><strong>Fusce vehicula dignissim ligula</strong>. <br />
+              Vestibulum sit amet neque eu neque suscipit consequat quis vel risus. <a href="#">More »</a><br />
+            </p>
+        </div>
+        <div class="clr"></div>
+    </div>
+    <div class="clr"></div>
+</div>

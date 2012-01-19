@@ -1,0 +1,51 @@
+<div class="contenido">
+    <script type="text/javascript">
+        $(function() {
+            $("input:submit, input:button", "#contenido-formulario").button();
+            $("input:button", "#contenido-formulario").click(function() { location.href="<?php echo PUBLIC_PATH;?>"; return false; });
+	});        
+    </script>
+    <div id="contenedor-formulario">        
+        <div id="titulo-formulario">            
+            <h2>Iniciar sesión</h2>            
+        </div>
+        <div id="contenido-formulario">
+            <div class="contenedor-mensaje">
+                <div class="validateTips"></div>
+                <div class="mensaje">
+                    <?php View::content(); echo "\r\n"; ?>
+                </div>                
+            </div>
+            <?php echo ExtForm::open('dc-admin/usuario/entrar/', 'post', array('id'=>'formulario', 'name'=>'formulario'), true); ?>
+            <ul>
+                <li class="twoColumns">
+                    <div>
+                        <span class="left"><label for="login" class="desc">Usuario:</label></span>
+                        <span class="right"><?php echo ExtForm::text('login', array('class'=>'alfanumerico full'),'', '', true, true); ?></span>
+                    </div>                    
+                </li>
+                <li class="twoColumns">
+                    <div>
+                        <span class="left"><label for="pass" class="desc">Password:</label></span>
+                        <span class="right"><?php echo ExtForm::pass('pass', array('class'=>'alfanumerico full'), '', '', true, true); ?></span>
+                    </div>
+                </li>
+                <li class="twoColumns">
+                    <div>
+                        <span class="left">&nbsp;</span>
+                        <span class="right" style="text-align: center; font-size: 0.7em">
+                            <?php echo ExtForm::submit('&nbsp;&nbsp;Entrar&nbsp;&nbsp;', array('class'=>'')); ?>
+                            <?php echo ExtForm::button('Cancelar', array('class'=>'')); ?>
+                        </span>
+                    </div>
+                    <div>
+                        <?php echo SecurityKey::generateKey(); ?>
+                    </div>
+                </li>
+            </ul>
+            <?php echo ExtForm::close(); ?>
+        </div>
+        <div id="pie-formulario"></div>
+    </div>
+    <div class="clr"></div>
+</div>

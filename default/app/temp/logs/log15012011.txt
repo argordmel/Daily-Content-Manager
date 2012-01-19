@@ -1,0 +1,22 @@
+[Sat, 15 Jan 11 11:20:52 -0500][DEBUG] DESCRIBE `post`
+[Sat, 15 Jan 11 11:20:52 -0500][DEBUG] DESCRIBE `taxonomia`
+[Sat, 15 Jan 11 11:20:52 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado != 4
+[Sat, 15 Jan 11 11:20:52 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado = '1'
+[Sat, 15 Jan 11 11:20:52 -0500][DEBUG] SELECT COUNT(*) FROM taxonomia  WHERE tipo = 1
+[Sat, 15 Jan 11 11:20:52 -0500][DEBUG] SELECT COUNT(*) FROM taxonomia  WHERE tipo = 2
+[Sat, 15 Jan 11 11:20:52 -0500][DEBUG] DESCRIBE `usuario`
+[Sat, 15 Jan 11 11:20:52 -0500][DEBUG] SELECT id,login,mail,password,grupo_id,nombre,apellido,estado,registrado_at,modificado_in FROM usuario WHERE id=2 LIMIT 1
+[Sat, 15 Jan 11 11:20:55 -0500][DEBUG] DESCRIBE `taxonomia`
+[Sat, 15 Jan 11 11:20:55 -0500][DEBUG] SELECT taxonomia.id,taxonomia.tipo,taxonomia.nombre,url,taxonomia.registrado_at, COUNT(post_taxonomia.taxonomia_id) AS total_post FROM taxonomia LEFT JOIN post_taxonomia ON taxonomia.id = post_taxonomia.taxonomia_id LEFT JOIN post ON post.id = post_taxonomia.post_id WHERE taxonomia.tipo = '1' GROUP BY taxonomia.id ORDER BY taxonomia.registrado_at ASC
+[Sat, 15 Jan 11 11:20:55 -0500][DEBUG] DESCRIBE `usuario`
+[Sat, 15 Jan 11 11:20:55 -0500][DEBUG] SELECT usuario.id,usuario.login,usuario.mail,usuario.grupo_id,usuario.nombre,usuario.apellido,usuario.estado,grupo.grupo_descripcion FROM usuario INNER JOIN grupo ON grupo.id = usuario.grupo_id WHERE usuario.estado = '1'
+[Sat, 15 Jan 11 11:58:20 -0500][DEBUG] DESCRIBE `post`
+[Sat, 15 Jan 11 11:58:20 -0500][DEBUG] DESCRIBE `usuario`
+[Sat, 15 Jan 11 11:58:20 -0500][DEBUG] SELECT id,login,mail,password,grupo_id,nombre,apellido,estado,registrado_at,modificado_in FROM usuario WHERE id=2 LIMIT 1
+[Sat, 15 Jan 11 11:58:21 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado != 4
+[Sat, 15 Jan 11 11:58:21 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado = '1'
+[Sat, 15 Jan 11 11:58:21 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado = '2'
+[Sat, 15 Jan 11 11:58:21 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado = '3'
+[Sat, 15 Jan 11 11:58:21 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado != 4 AND visibilidad = '2'
+[Sat, 15 Jan 11 11:58:23 -0500][DEBUG] DESCRIBE `taxonomia`
+[Sat, 15 Jan 11 11:58:23 -0500][DEBUG] SELECT taxonomia.id,taxonomia.tipo,taxonomia.nombre,url,taxonomia.registrado_at, COUNT(post_taxonomia.taxonomia_id) AS total_post FROM taxonomia LEFT JOIN post_taxonomia ON taxonomia.id = post_taxonomia.taxonomia_id LEFT JOIN post ON post.id = post_taxonomia.post_id WHERE taxonomia.tipo = '1' GROUP BY taxonomia.id ORDER BY taxonomia.registrado_at DESC

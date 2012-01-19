@@ -1,0 +1,18 @@
+<div class="widget">
+    <h3 class="widget-titulo">Categorías</h3>
+    <div class="widget-content">
+        <?php $categorias = Load::model('taxonomia')->listarTaxonomia(Taxonomia::CATEGORIA,'asc',true); ?>
+        <?php if($categorias) { ?>
+        <ul>            
+            <?php foreach($categorias as $fila) : ?>
+            <li><?php echo Html::linkAction('categoria/'.$fila->url.'/', "$fila->nombre", array('class'=>'')); ?></li>
+            <?php endforeach; ?>            
+        </ul>
+        <?php } else { ?>
+        <div class="widget-not-found">Aún no tenemos categorías.</div>
+        <?php } ?>
+    </div>
+</div>
+<div class="bg"></div>
+    
+

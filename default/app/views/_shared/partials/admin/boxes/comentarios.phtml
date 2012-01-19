@@ -1,0 +1,19 @@
+<!-- Box comentarios -->
+<div class="box ui-corner-all ui-widget-content" id="comentarios">
+    <div class="box-titulo ui-state-default ui-corner-tl ui-corner-tr box-expandido" id="comentarios-titulo">
+        <h3 class="text-shadow">Comentarios</h3><span class="box-icono ui-icon ui-icon-circle-triangle-s"></span>
+    </div>
+    <div class="box-contenido">
+        <?php $comentarios = null; ?>
+        <?php if(!$comentarios) { ?>
+            <p>Por el momento no hay comentarios.</p>
+        <?php } ?>
+        <div class="box-botones">
+            <div class="right">
+                <?php echo Html::link('dc-admin/comentario/','Ver todos'); ?>
+            </div>
+            <div class="clr"></div>
+        </div>
+    </div>
+</div>
+<div class="break"></div>

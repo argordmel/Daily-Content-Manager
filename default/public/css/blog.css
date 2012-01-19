@@ -1,0 +1,32 @@
+/*
+ * @category    Hoja de estilo
+ * @copyright   Copyright (c) 2010 Dailyscript Team (http://www.dailyscript.com.co)
+ * @version     1.0.1.20101129
+*/
+
+
+/* Blog */
+
+div.post { margin: 0px 0px 48px;padding: 0;vertical-align: baseline;display: block; }
+div.post h2 { display: block;margin: 0px;padding: 0px;text-shadow: white 0px 1px 0px;}
+div.post h2 a {color:#282828;font-size: 20px;text-decoration: none;font-weight: bold;}
+div.post h2 a:hover { color: #dd4200; }
+
+div.post-meta { color: #333;font-size: 12px; border: 0; padding: 0; margin: 0; line-height: 24px;}
+div.post-meta a:hover { text-decoration: underline; }
+
+div.post-contenido { font-size: 14px;line-height: 20px;padding: 12px 0px 0px;text-align: inherit;}
+div.post-contenido p { margin-bottom: 24px; color: #5d5d5d; padding-left: 0px;}
+
+#sidebar { margin: 20px auto 0 auto; width:  100%; font-size: 13px; }
+#sidebar h3.widget-titulo { font-size: 13px; text-align: left;}
+
+div.widget-content ul { list-style-type: none; padding: 0px; margin: 0px; width: 100%;}
+div.widget-content ul li { color: #d45500; line-height: 20px; width: 100%; }
+div.widget-content ul li a { font-size: 13px; text-decoration: none;}
+
+
+div.widget-not-found { font-size: 13px; color: #d45500; padding: 10px 0px 0px;  }
+
+/*Iconos*/
+.dc-icon-reloj { width: 16px; height: 16px; background-image: url(../img/blog/tiempo.png); }

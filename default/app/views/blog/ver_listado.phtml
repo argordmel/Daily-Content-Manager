@@ -1,0 +1,79 @@
+<?php Tag::css('jquery-ui/jquery.ui.all');?>
+<?php Tag::css('blog'); ?>
+<?php echo Tag::js('jquery/jquery-ui.min');?>
+
+<div class="contenido">
+    
+    <?php View::partial('mensaje'); ?>
+
+    <div class="left" style="margin-top: 15px;">        
+        <?php 
+        while($fila = $post->fetchPagedRow()) {
+            //Armo la llave de la url
+            $validKey= md5($fila->id.$ipKey.$expKey.'post');
+            //Selecciono el usuario por medio de las relaciones del framework
+            $usuario = $fila->getUsuario()->login;
+            //Busco los comentarios
+            $comentarios = "Deja un comentario";
+            //Consulto las taxonomias de cada post
+            $taxonomias = $fila->getTaxonomiaPost();
+            //Armo las taxonomias
+            $tax_categorias = array();
+            $tax_etiquetas = array();
+            foreach($taxonomias as $taxonomia):
+                if($taxonomia->tipo == Taxonomia::CATEGORIA) {
+                    $tax_categorias[] = Html::link('blog/categoria/'.$taxonomia->url.'/', $taxonomia->nombre);
+                } else {
+                    $tax_etiquetas[] = Html::link('blog/etiqueta/'.$taxonomia->url.'/', $taxonomia->nombre);
+                }
+            endforeach;
+        ?>
+        <div id="post-<?php echo $fila->id;?>" class="post">
+
+            <!-- Titulo -->
+            <h2 class="post-titulo"><?php echo Html::link($fila->getUrlPost('blog'), $fila->titulo, array('title'=>"Enlace permanente a $fila->titulo"));?></h2>
+            
+            <!-- Meta superior -->
+            <div class="post-meta">
+                <span class="dc-icon-reloj" style="float: left; margin: 3px 5px 0px 0px;"></span><span>Publicado el <?php echo strtolower(ExtDate::getDateSpecial($fila->fecha_publicacion)); ?> por <?php echo Html::link("blog/autor/$usuario/",$usuario, array('title'=>'Ver todas las entradas de '.$usuario)); ?></span>
+            </div>
+
+            <!-- Contenido del post -->
+            <div class="post-contenido">
+                <?php echo $fila->resumen; ?>
+            </div>
+
+            <!-- Meta inferior -->
+            <div class="post-meta">
+
+                <!-- Taxonomias -->                
+                <?php if(count($tax_etiquetas) > 0) { ?>
+                <span>Etiquetado en <?php echo join(', ', $tax_etiquetas); ?></span><br />
+                <?php } ?>
+
+                <span>Publicado en <?php echo join(', ', $tax_categorias); ?></span>
+                <span class="meta-separador">|</span>
+                
+                <span><?php echo Html::link($fila->getUrlPost('blog')."#comentar", $comentarios, array('title'=>"Comentarios en $fila->titulo")); ?></span>
+                
+                <?php if(Auth::is_valid()) { ?>
+                <span class="meta-separador">|</span>
+                <span><?php echo Html::link("dc-admin/post/editar/$fila->id/key/$validKey/", 'Editar', array('class'=>'post-editar','title'=>'Editar entrada')); ?></span>
+                <?php } ?>
+                
+            </div>
+        </div>
+        <?php } ?>
+        
+        <?php View::partial('paginacion',false,array('objeto'=>$post)); ?>
+        
+    </div>
+
+    <div class="right">
+        <?php View::partial('blog/sidebar', false); ?>
+    </div>
+
+    <div class="clr"></div>
+
+</div>
+  

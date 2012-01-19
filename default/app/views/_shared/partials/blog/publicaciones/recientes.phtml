@@ -1,0 +1,18 @@
+<div class="widget">
+    <h3 class="widget-titulo">Publicaciones recientes</h3>
+    <div class="widget-content">       
+        <?php $publicaciones = Load::model('post')->filtrarPost(Post::PUBLICADO,Post::PUBLICO,'','','desc',POST_POR_WIDGET); ?>
+        <?php if($publicaciones) { ?>
+        <ul>
+            <?php foreach($publicaciones as $fila) : ?>
+            <li><?php echo Html::link($fila->getUrlPost('blog'), $fila->titulo); ?></li>
+            <?php endforeach; ?>
+        </ul>
+        <?php } else { ?>
+        <div class="widget-not-found">Aún no tenemos publicaciones.</div>
+        <?php } ?>
+    </div>
+</div>
+<div class="bg"></div>
+    
+

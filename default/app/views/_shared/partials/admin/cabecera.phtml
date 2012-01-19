@@ -1,0 +1,11 @@
+<div id="contenedor-cabecera">
+    <div id="cabecera">
+        <div id="cabecera-left">
+            <p><?php echo Html::link('blog/','Ver sitio', array('target'=>'_blank')); ?></p>
+        </div>
+        <div id="cabecera-right">
+            <p>Hola, <?php echo Html::link('dc-admin/perfil/', Session::get('usuario') ); ?> | <?php echo Html::link('dc-admin/usuario/salir/', 'Cerrar sesión'); ?></p>
+        </div>
+    </div>
+    <div class="clr"></div>
+</div>

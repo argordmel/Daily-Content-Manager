@@ -1,0 +1,49 @@
+<?php View::partial('mensaje'); ?>
+
+<div class="contenido">
+    <div class="left large"><h1 class="text-shadow">Editar <?php echo $clasificacion; ?></h1></div>
+    <div class="clr"></div>
+    <div class="full">
+        <div class="box ui-corner-all ui-widget-content" id="editar-etiqueta">
+            <div class="box-titulo ui-state-default ui-corner-tl ui-corner-tr"><h3 class="text-shadow">Editar <?php echo $clasificacion; ?></h3></div>
+            <div class="box-contenido box-form">
+                <?php echo ExtForm::open('dc-admin/'.Filter::get($clasificacion,'acento').'/editar/', 'post', '', true); ?>
+                <ul>
+                    <li>
+                        <label for="taxonomia_nombre" class="desc">Nombre<span class="req">*</span></label>
+                        <div>
+                            <?php echo ExtForm::text('taxonomia.nombre', array('class'=>'texto full'), $taxonomia->nombre, '', true, true); ?>
+                            <div class="input-info">Nombre como se mostrará en el blog.<br />Ejemplo: Tutorial</div>
+                        </div>
+                    </li>
+                    <li>
+                        <label for="taxonomia_url" class="desc">Slug</label>
+                        <div>
+                            <?php echo ExtForm::text('taxonomia.url', array('class'=>'slug full'), $taxonomia->url, '', false, true); ?>
+                            <div class="input-info">El "slug" es la versión amigable de la url.<br />Ejemplo: mis-tutoriales</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <?php echo SecurityKey::generateKey(); ?>
+                        </div>
+                        <div>
+                            <?php echo ExtForm::hidden('taxonomia.id', '', $taxonomia->id); ?>
+                        </div>
+                        <div>
+                            <?php echo ExtForm::hidden('taxonomia.tipo', '', $tipo); ?>
+                        </div>
+                    </li>
+                </ul>
+                 <div class="box-botones">
+                    <div class="left">
+                        <span><?php echo ExtForm::submit('Actualizar'); ?></span>
+                    </div>
+                    <div class="clr"></div>
+                </div>
+                <?php echo ExtForm::close(); ?>
+            </div>
+        </div>
+    </div>
+    <div class="break"></div>    
+</div>

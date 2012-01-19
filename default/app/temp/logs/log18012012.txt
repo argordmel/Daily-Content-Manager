@@ -1,0 +1,353 @@
+[Wed, 18 Jan 12 14:05:19 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:05:19 -0500][DEBUG] SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios FROM post INNER JOIN usuario ON usuario.id = post.usuario_id INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  LEFT JOIN comentario ON comentario.post_id = post.id WHERE post.estado = '3' AND post.visibilidad = '1' AND usuario.estado = '1' GROUP BY post.id ORDER BY post.fecha_publicacion DESC
+[Wed, 18 Jan 12 14:05:23 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:05:23 -0500][DEBUG] SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios FROM post INNER JOIN usuario ON usuario.id = post.usuario_id INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  LEFT JOIN comentario ON comentario.post_id = post.id WHERE post.estado = '3' AND post.visibilidad = '1' AND usuario.estado = '1' GROUP BY post.id ORDER BY post.fecha_publicacion DESC
+[Wed, 18 Jan 12 14:05:38 -0500][DEBUG] DESCRIBE `usuario`
+[Wed, 18 Jan 12 14:05:47 -0500][DEBUG] DESCRIBE `usuario`
+[Wed, 18 Jan 12 14:05:47 -0500][DEBUG] SELECT COUNT(*) FROM usuario  WHERE login = 'admin' AND password = '8250c4233bac0db8ee3a5db9499622bb2fe0b73c' AND estado = '1'
+[Wed, 18 Jan 12 14:08:44 -0500][DEBUG] DESCRIBE `usuario`
+[Wed, 18 Jan 12 14:08:44 -0500][DEBUG] SELECT COUNT(*) FROM usuario  WHERE login = 'admin' AND password = '8250c4233bac0db8ee3a5db9499622bb2fe0b73c' AND estado = '1'
+[Wed, 18 Jan 12 14:08:51 -0500][DEBUG] DESCRIBE `usuario`
+[Wed, 18 Jan 12 14:08:51 -0500][DEBUG] SELECT COUNT(*) FROM usuario  WHERE login = 'admin' AND password = '8250c4233bac0db8ee3a5db9499622bb2fe0b73c' AND estado = '1'
+[Wed, 18 Jan 12 14:09:55 -0500][DEBUG] DESCRIBE `usuario`
+[Wed, 18 Jan 12 14:09:55 -0500][DEBUG] SELECT COUNT(*) FROM usuario  WHERE login = 'admin' AND password = '61be2a14e813011cde599926dcc72c2c' AND estado = '1'
+[Wed, 18 Jan 12 14:09:55 -0500][DEBUG] SELECT id,login,password,nombre,apellido,mail,grupo_id,estado,registrado_at,modificado_in FROM usuario WHERE login = 'admin' AND password = '61be2a14e813011cde599926dcc72c2c' AND estado = '1' LIMIT 1
+[Wed, 18 Jan 12 14:09:55 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:09:55 -0500][DEBUG] DESCRIBE `taxonomia`
+[Wed, 18 Jan 12 14:09:55 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado != 4
+[Wed, 18 Jan 12 14:09:55 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado = '1'
+[Wed, 18 Jan 12 14:09:55 -0500][DEBUG] SELECT COUNT(*) FROM taxonomia  WHERE tipo = 1
+[Wed, 18 Jan 12 14:09:55 -0500][ERROR] Unknown column 'tipo' in 'where clause' al ejecutar <em>"SELECT COUNT(*) FROM taxonomia  WHERE tipo = 1"</em>
+[Wed, 18 Jan 12 14:10:44 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:10:44 -0500][DEBUG] DESCRIBE `taxonomia`
+[Wed, 18 Jan 12 14:10:44 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado != 4
+[Wed, 18 Jan 12 14:10:44 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado = '1'
+[Wed, 18 Jan 12 14:10:44 -0500][DEBUG] SELECT COUNT(*) FROM taxonomia  WHERE tipo = 1
+[Wed, 18 Jan 12 14:10:44 -0500][DEBUG] SELECT COUNT(*) FROM taxonomia  WHERE tipo = 2
+[Wed, 18 Jan 12 14:10:44 -0500][DEBUG] DESCRIBE `usuario`
+[Wed, 18 Jan 12 14:10:44 -0500][DEBUG] SELECT id,login,password,nombre,apellido,mail,grupo_id,estado,registrado_at,modificado_in FROM usuario WHERE id=1 LIMIT 1
+[Wed, 18 Jan 12 14:11:03 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:11:03 -0500][DEBUG] DESCRIBE `usuario`
+[Wed, 18 Jan 12 14:11:03 -0500][DEBUG] SELECT id,login,password,nombre,apellido,mail,grupo_id,estado,registrado_at,modificado_in FROM usuario WHERE id=1 LIMIT 1
+[Wed, 18 Jan 12 14:11:03 -0500][DEBUG] SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios FROM post INNER JOIN usuario ON usuario.id = post.usuario_id INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  LEFT JOIN comentario ON comentario.post_id = post.id WHERE post.estado != '4' AND usuario.estado = '1' AND usuario.id = 1 GROUP BY post.id ORDER BY post.fecha_publicacion DESC
+[Wed, 18 Jan 12 14:11:03 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado != 4
+[Wed, 18 Jan 12 14:11:03 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado = '1'
+[Wed, 18 Jan 12 14:11:03 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado = '2'
+[Wed, 18 Jan 12 14:11:03 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado = '3'
+[Wed, 18 Jan 12 14:11:03 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado != 4 AND visibilidad = '2'
+[Wed, 18 Jan 12 14:11:06 -0500][DEBUG] DESCRIBE `taxonomia`
+[Wed, 18 Jan 12 14:11:06 -0500][DEBUG] SELECT taxonomia.id,taxonomia.tipo,taxonomia.nombre,url,taxonomia.registrado_at, COUNT(post_taxonomia.taxonomia_id) AS total_post FROM taxonomia LEFT JOIN post_taxonomia ON taxonomia.id = post_taxonomia.taxonomia_id LEFT JOIN post ON post.id = post_taxonomia.post_id WHERE taxonomia.tipo = '1' GROUP BY taxonomia.id ORDER BY taxonomia.registrado_at ASC
+[Wed, 18 Jan 12 14:11:06 -0500][ERROR] Unknown column 'taxonomia.nombre' in 'field list' al ejecutar <em>"SELECT taxonomia.id,taxonomia.tipo,taxonomia.nombre,url,taxonomia.registrado_at, COUNT(post_taxonomia.taxonomia_id) AS total_post FROM taxonomia LEFT JOIN post_taxonomia ON taxonomia.id = post_taxonomia.taxonomia_id LEFT JOIN post ON post.id = post_taxonomia.post_id WHERE taxonomia.tipo = '1' GROUP BY taxonomia.id ORDER BY taxonomia.registrado_at ASC"</em>
+[Wed, 18 Jan 12 14:11:27 -0500][DEBUG] DESCRIBE `taxonomia`
+[Wed, 18 Jan 12 14:11:27 -0500][DEBUG] SELECT taxonomia.id,taxonomia.tipo,taxonomia.nombre,url,taxonomia.registrado_at, COUNT(post_taxonomia.taxonomia_id) AS total_post FROM taxonomia LEFT JOIN post_taxonomia ON taxonomia.id = post_taxonomia.taxonomia_id LEFT JOIN post ON post.id = post_taxonomia.post_id WHERE taxonomia.tipo = '1' GROUP BY taxonomia.id ORDER BY taxonomia.registrado_at ASC
+[Wed, 18 Jan 12 14:11:27 -0500][ERROR] Unknown column 'taxonomia.nombre' in 'field list' al ejecutar <em>"SELECT taxonomia.id,taxonomia.tipo,taxonomia.nombre,url,taxonomia.registrado_at, COUNT(post_taxonomia.taxonomia_id) AS total_post FROM taxonomia LEFT JOIN post_taxonomia ON taxonomia.id = post_taxonomia.taxonomia_id LEFT JOIN post ON post.id = post_taxonomia.post_id WHERE taxonomia.tipo = '1' GROUP BY taxonomia.id ORDER BY taxonomia.registrado_at ASC"</em>
+[Wed, 18 Jan 12 14:11:41 -0500][DEBUG] DESCRIBE `taxonomia`
+[Wed, 18 Jan 12 14:11:41 -0500][DEBUG] SELECT taxonomia.id,taxonomia.tipo,taxonomia.nombre,url,taxonomia.registrado_at, COUNT(post_taxonomia.taxonomia_id) AS total_post FROM taxonomia LEFT JOIN post_taxonomia ON taxonomia.id = post_taxonomia.taxonomia_id LEFT JOIN post ON post.id = post_taxonomia.post_id WHERE taxonomia.tipo = '1' GROUP BY taxonomia.id ORDER BY taxonomia.registrado_at ASC
+[Wed, 18 Jan 12 14:11:41 -0500][ERROR] Unknown column 'url' in 'field list' al ejecutar <em>"SELECT taxonomia.id,taxonomia.tipo,taxonomia.nombre,url,taxonomia.registrado_at, COUNT(post_taxonomia.taxonomia_id) AS total_post FROM taxonomia LEFT JOIN post_taxonomia ON taxonomia.id = post_taxonomia.taxonomia_id LEFT JOIN post ON post.id = post_taxonomia.post_id WHERE taxonomia.tipo = '1' GROUP BY taxonomia.id ORDER BY taxonomia.registrado_at ASC"</em>
+[Wed, 18 Jan 12 14:12:37 -0500][DEBUG] DESCRIBE `taxonomia`
+[Wed, 18 Jan 12 14:12:37 -0500][DEBUG] SELECT taxonomia.*, COUNT(post_taxonomia.taxonomia_id) AS total_post FROM taxonomia LEFT JOIN post_taxonomia ON taxonomia.id = post_taxonomia.taxonomia_id LEFT JOIN post ON post.id = post_taxonomia.post_id WHERE taxonomia.tipo = '1' GROUP BY taxonomia.id ORDER BY taxonomia.registrado_at ASC
+[Wed, 18 Jan 12 14:12:37 -0500][DEBUG] DESCRIBE `usuario`
+[Wed, 18 Jan 12 14:12:37 -0500][DEBUG] SELECT usuario.id,usuario.login,usuario.mail,usuario.grupo_id,usuario.nombre,usuario.apellido,usuario.estado,grupo.grupo_descripcion FROM usuario INNER JOIN grupo ON grupo.id = usuario.grupo_id WHERE usuario.estado = '1'
+[Wed, 18 Jan 12 14:12:37 -0500][ERROR] Unknown column 'grupo.grupo_descripcion' in 'field list' al ejecutar <em>"SELECT usuario.id,usuario.login,usuario.mail,usuario.grupo_id,usuario.nombre,usuario.apellido,usuario.estado,grupo.grupo_descripcion FROM usuario INNER JOIN grupo ON grupo.id = usuario.grupo_id WHERE usuario.estado = '1'"</em>
+[Wed, 18 Jan 12 14:13:09 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:13:09 -0500][DEBUG] DESCRIBE `usuario`
+[Wed, 18 Jan 12 14:13:09 -0500][DEBUG] SELECT id,login,password,nombre,apellido,mail,grupo_id,estado,registrado_at,modificado_in FROM usuario WHERE id=1 LIMIT 1
+[Wed, 18 Jan 12 14:13:09 -0500][DEBUG] SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios FROM post INNER JOIN usuario ON usuario.id = post.usuario_id INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  LEFT JOIN comentario ON comentario.post_id = post.id WHERE post.estado != '4' AND usuario.estado = '1' AND usuario.id = 1 GROUP BY post.id ORDER BY post.fecha_publicacion DESC
+[Wed, 18 Jan 12 14:13:09 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado != 4
+[Wed, 18 Jan 12 14:13:09 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado = '1'
+[Wed, 18 Jan 12 14:13:09 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado = '2'
+[Wed, 18 Jan 12 14:13:09 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado = '3'
+[Wed, 18 Jan 12 14:13:09 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado != 4 AND visibilidad = '2'
+[Wed, 18 Jan 12 14:13:11 -0500][DEBUG] DESCRIBE `taxonomia`
+[Wed, 18 Jan 12 14:13:11 -0500][DEBUG] SELECT taxonomia.*, COUNT(post_taxonomia.taxonomia_id) AS total_post FROM taxonomia LEFT JOIN post_taxonomia ON taxonomia.id = post_taxonomia.taxonomia_id LEFT JOIN post ON post.id = post_taxonomia.post_id WHERE taxonomia.tipo = '1' GROUP BY taxonomia.id ORDER BY taxonomia.registrado_at DESC
+[Wed, 18 Jan 12 14:13:19 -0500][DEBUG] DESCRIBE `taxonomia`
+[Wed, 18 Jan 12 14:13:19 -0500][DEBUG] SELECT url FROM taxonomia WHERE url = 'categoria' AND tipo = '1' LIMIT 1
+[Wed, 18 Jan 12 14:13:19 -0500][ERROR] Unknown column 'url' in 'field list' al ejecutar <em>"SELECT url FROM taxonomia WHERE url = 'categoria' AND tipo = '1' LIMIT 1"</em>
+[Wed, 18 Jan 12 14:13:57 -0500][DEBUG] DESCRIBE `taxonomia`
+[Wed, 18 Jan 12 14:13:57 -0500][DEBUG] SELECT url FROM taxonomia WHERE url = 'categoria' AND tipo = '1' LIMIT 1
+[Wed, 18 Jan 12 14:13:57 -0500][DEBUG] INSERT INTO taxonomia (nombre,url,tipo,registrado_at,modificado_in) VALUES ('Categoria','categoria',1,'2012-01-18 14:13:57','1969-12-31 19:00:00')
+[Wed, 18 Jan 12 14:13:58 -0500][DEBUG] SELECT id,nombre,url,tipo,registrado_at,modificado_in FROM taxonomia WHERE id = '1' LIMIT 1
+[Wed, 18 Jan 12 14:13:58 -0500][DEBUG] DESCRIBE `taxonomia`
+[Wed, 18 Jan 12 14:13:58 -0500][DEBUG] SELECT taxonomia.*, COUNT(post_taxonomia.taxonomia_id) AS total_post FROM taxonomia LEFT JOIN post_taxonomia ON taxonomia.id = post_taxonomia.taxonomia_id LEFT JOIN post ON post.id = post_taxonomia.post_id WHERE taxonomia.tipo = '1' GROUP BY taxonomia.id ORDER BY taxonomia.registrado_at DESC
+[Wed, 18 Jan 12 14:14:02 -0500][DEBUG] DESCRIBE `taxonomia`
+[Wed, 18 Jan 12 14:14:02 -0500][DEBUG] SELECT id,nombre,url,tipo,registrado_at,modificado_in FROM taxonomia WHERE tipo = 1 AND id = '1' LIMIT 1
+[Wed, 18 Jan 12 14:14:04 -0500][DEBUG] DESCRIBE `taxonomia`
+[Wed, 18 Jan 12 14:14:04 -0500][DEBUG] SELECT COUNT(*) FROM taxonomia WHERE  id = '1'
+[Wed, 18 Jan 12 14:14:04 -0500][DEBUG] SELECT COUNT(*) FROM taxonomia WHERE  id = '1'
+[Wed, 18 Jan 12 14:14:04 -0500][DEBUG] SELECT url FROM taxonomia WHERE url = 'categoria' AND tipo = '1' AND id != '1' LIMIT 1
+[Wed, 18 Jan 12 14:14:04 -0500][DEBUG] DESCRIBE `taxonomia`
+[Wed, 18 Jan 12 14:14:04 -0500][DEBUG] SELECT taxonomia.*, COUNT(post_taxonomia.taxonomia_id) AS total_post FROM taxonomia LEFT JOIN post_taxonomia ON taxonomia.id = post_taxonomia.taxonomia_id LEFT JOIN post ON post.id = post_taxonomia.post_id WHERE taxonomia.tipo = '1' GROUP BY taxonomia.id ORDER BY taxonomia.registrado_at DESC
+[Wed, 18 Jan 12 14:14:07 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:14:07 -0500][DEBUG] DESCRIBE `usuario`
+[Wed, 18 Jan 12 14:14:07 -0500][DEBUG] SELECT id,login,password,nombre,apellido,mail,grupo_id,estado,registrado_at,modificado_in FROM usuario WHERE id=1 LIMIT 1
+[Wed, 18 Jan 12 14:14:07 -0500][DEBUG] SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios FROM post INNER JOIN usuario ON usuario.id = post.usuario_id INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  LEFT JOIN comentario ON comentario.post_id = post.id WHERE post.estado != '4' AND usuario.estado = '1' AND usuario.id = 1 GROUP BY post.id ORDER BY post.fecha_publicacion DESC
+[Wed, 18 Jan 12 14:14:07 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado != 4
+[Wed, 18 Jan 12 14:14:07 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado = '1'
+[Wed, 18 Jan 12 14:14:07 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado = '2'
+[Wed, 18 Jan 12 14:14:07 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado = '3'
+[Wed, 18 Jan 12 14:14:07 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado != 4 AND visibilidad = '2'
+[Wed, 18 Jan 12 14:14:09 -0500][DEBUG] DESCRIBE `taxonomia`
+[Wed, 18 Jan 12 14:14:09 -0500][DEBUG] SELECT taxonomia.*, COUNT(post_taxonomia.taxonomia_id) AS total_post FROM taxonomia LEFT JOIN post_taxonomia ON taxonomia.id = post_taxonomia.taxonomia_id LEFT JOIN post ON post.id = post_taxonomia.post_id WHERE taxonomia.tipo = '1' GROUP BY taxonomia.id ORDER BY taxonomia.registrado_at ASC
+[Wed, 18 Jan 12 14:14:09 -0500][DEBUG] DESCRIBE `usuario`
+[Wed, 18 Jan 12 14:14:09 -0500][DEBUG] SELECT usuario.id,usuario.login,usuario.mail,usuario.grupo_id,usuario.nombre,usuario.apellido,usuario.estado,grupo.grupo_descripcion FROM usuario INNER JOIN grupo ON grupo.id = usuario.grupo_id WHERE usuario.estado = '1'
+[Wed, 18 Jan 12 14:14:30 -0500][DEBUG] DESCRIBE `taxonomia`
+[Wed, 18 Jan 12 14:14:30 -0500][DEBUG] SELECT taxonomia.*, COUNT(post_taxonomia.taxonomia_id) AS total_post FROM taxonomia LEFT JOIN post_taxonomia ON taxonomia.id = post_taxonomia.taxonomia_id LEFT JOIN post ON post.id = post_taxonomia.post_id WHERE taxonomia.tipo = '1' GROUP BY taxonomia.id ORDER BY taxonomia.registrado_at ASC
+[Wed, 18 Jan 12 14:14:30 -0500][DEBUG] DESCRIBE `usuario`
+[Wed, 18 Jan 12 14:14:30 -0500][DEBUG] SELECT usuario.id,usuario.login,usuario.mail,usuario.grupo_id,usuario.nombre,usuario.apellido,usuario.estado,grupo.grupo_descripcion FROM usuario INNER JOIN grupo ON grupo.id = usuario.grupo_id WHERE usuario.estado = '1'
+[Wed, 18 Jan 12 14:14:30 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:14:30 -0500][DEBUG] SELECT id,login,password,nombre,apellido,mail,grupo_id,estado,registrado_at,modificado_in FROM usuario WHERE id=1 LIMIT 1
+[Wed, 18 Jan 12 14:15:22 -0500][DEBUG] DESCRIBE `taxonomia`
+[Wed, 18 Jan 12 14:15:22 -0500][DEBUG] SELECT taxonomia.*, COUNT(post_taxonomia.taxonomia_id) AS total_post FROM taxonomia LEFT JOIN post_taxonomia ON taxonomia.id = post_taxonomia.taxonomia_id LEFT JOIN post ON post.id = post_taxonomia.post_id WHERE taxonomia.tipo = '1' GROUP BY taxonomia.id ORDER BY taxonomia.registrado_at ASC
+[Wed, 18 Jan 12 14:15:22 -0500][DEBUG] DESCRIBE `usuario`
+[Wed, 18 Jan 12 14:15:22 -0500][DEBUG] SELECT usuario.id,usuario.login,usuario.mail,usuario.grupo_id,usuario.nombre,usuario.apellido,usuario.estado,grupo.grupo_descripcion FROM usuario INNER JOIN grupo ON grupo.id = usuario.grupo_id WHERE usuario.estado = '1'
+[Wed, 18 Jan 12 14:15:22 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:15:22 -0500][DEBUG] SELECT id,login,password,nombre,apellido,mail,grupo_id,estado,registrado_at,modificado_in FROM usuario WHERE id=1 LIMIT 1
+[Wed, 18 Jan 12 14:15:22 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE slug = ''
+[Wed, 18 Jan 12 14:15:22 -0500][DEBUG] INSERT INTO post (usuario_id,titulo,contenido,slug,fecha_publicacion,hora_publicacion,resumen,estado,visibilidad,habilitar_comentarios,registrado_at,modificado_in) VALUES (1,'Primera publicación','<p>Esta es una publicaci&oacute;n de ejemplo</p>','primera-publicacion','2012-01-18 14:15:22','14:15:22','<p>Esta es una publicaci&oacute;n de ejemplo</p>',2,1,NO,'2012-01-18 14:15:22','1969-12-31 19:00:00')
+[Wed, 18 Jan 12 14:15:22 -0500][ERROR] [Error Desconocido en MySQL:  al ejecutar <em>"INSERT INTO post (usuario_id,titulo,contenido,slug,fecha_publicacion,hora_publicacion,resumen,estado,visibilidad,habilitar_comentarios,registrado_at,modificado_in) VALUES (1,'Primera publicación','<p>Esta es una publicaci&oacute;n de ejemplo</p>','primera-publicacion','2012-01-18 14:15:22','14:15:22','<p>Esta es una publicaci&oacute;n de ejemplo</p>',2,1,NO,'2012-01-18 14:15:22','1969-12-31 19:00:00')"</em>] al ejecutar <em>"INSERT INTO post (usuario_id,titulo,contenido,slug,fecha_publicacion,hora_publicacion,resumen,estado,visibilidad,habilitar_comentarios,registrado_at,modificado_in) VALUES (1,'Primera publicación','<p>Esta es una publicaci&oacute;n de ejemplo</p>','primera-publicacion','2012-01-18 14:15:22','14:15:22','<p>Esta es una publicaci&oacute;n de ejemplo</p>',2,1,NO,'2012-01-18 14:15:22','1969-12-31 19:00:00')"</em>
+[Wed, 18 Jan 12 14:19:21 -0500][DEBUG] DESCRIBE `taxonomia`
+[Wed, 18 Jan 12 14:19:21 -0500][DEBUG] SELECT taxonomia.*, COUNT(post_taxonomia.taxonomia_id) AS total_post FROM taxonomia LEFT JOIN post_taxonomia ON taxonomia.id = post_taxonomia.taxonomia_id LEFT JOIN post ON post.id = post_taxonomia.post_id WHERE taxonomia.tipo = '1' GROUP BY taxonomia.id ORDER BY taxonomia.registrado_at ASC
+[Wed, 18 Jan 12 14:19:21 -0500][DEBUG] DESCRIBE `usuario`
+[Wed, 18 Jan 12 14:19:21 -0500][DEBUG] SELECT usuario.id,usuario.login,usuario.mail,usuario.grupo_id,usuario.nombre,usuario.apellido,usuario.estado,grupo.grupo_descripcion FROM usuario INNER JOIN grupo ON grupo.id = usuario.grupo_id WHERE usuario.estado = '1'
+[Wed, 18 Jan 12 14:19:21 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:19:21 -0500][DEBUG] SELECT id,login,password,nombre,apellido,mail,grupo_id,estado,registrado_at,modificado_in FROM usuario WHERE id=1 LIMIT 1
+[Wed, 18 Jan 12 14:19:21 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE slug = ''
+[Wed, 18 Jan 12 14:19:21 -0500][DEBUG] INSERT INTO post (usuario_id,titulo,contenido,slug,fecha_publicacion,hora_publicacion,resumen,estado,visibilidad,habilitar_comentarios,registrado_at,modificado_in) VALUES (1,'Primera publicación','<p>Esta es una publicaci&oacute;n de ejemplo</p>','primera-publicacion','2012-01-18 14:19:21','14:19:21','<p>Esta es una publicaci&oacute;n de ejemplo</p>',2,1,SI,'2012-01-18 14:19:21','1969-12-31 19:00:00')
+[Wed, 18 Jan 12 14:19:21 -0500][ERROR] [Error Desconocido en MySQL:  al ejecutar <em>"INSERT INTO post (usuario_id,titulo,contenido,slug,fecha_publicacion,hora_publicacion,resumen,estado,visibilidad,habilitar_comentarios,registrado_at,modificado_in) VALUES (1,'Primera publicación','<p>Esta es una publicaci&oacute;n de ejemplo</p>','primera-publicacion','2012-01-18 14:19:21','14:19:21','<p>Esta es una publicaci&oacute;n de ejemplo</p>',2,1,SI,'2012-01-18 14:19:21','1969-12-31 19:00:00')"</em>] al ejecutar <em>"INSERT INTO post (usuario_id,titulo,contenido,slug,fecha_publicacion,hora_publicacion,resumen,estado,visibilidad,habilitar_comentarios,registrado_at,modificado_in) VALUES (1,'Primera publicación','<p>Esta es una publicaci&oacute;n de ejemplo</p>','primera-publicacion','2012-01-18 14:19:21','14:19:21','<p>Esta es una publicaci&oacute;n de ejemplo</p>',2,1,SI,'2012-01-18 14:19:21','1969-12-31 19:00:00')"</em>
+[Wed, 18 Jan 12 14:20:24 -0500][DEBUG] DESCRIBE `taxonomia`
+[Wed, 18 Jan 12 14:20:24 -0500][DEBUG] SELECT taxonomia.*, COUNT(post_taxonomia.taxonomia_id) AS total_post FROM taxonomia LEFT JOIN post_taxonomia ON taxonomia.id = post_taxonomia.taxonomia_id LEFT JOIN post ON post.id = post_taxonomia.post_id WHERE taxonomia.tipo = '1' GROUP BY taxonomia.id ORDER BY taxonomia.registrado_at ASC
+[Wed, 18 Jan 12 14:20:24 -0500][DEBUG] DESCRIBE `usuario`
+[Wed, 18 Jan 12 14:20:24 -0500][DEBUG] SELECT usuario.id,usuario.login,usuario.mail,usuario.grupo_id,usuario.nombre,usuario.apellido,usuario.estado,grupo.grupo_descripcion FROM usuario INNER JOIN grupo ON grupo.id = usuario.grupo_id WHERE usuario.estado = '1'
+[Wed, 18 Jan 12 14:20:40 -0500][DEBUG] DESCRIBE `taxonomia`
+[Wed, 18 Jan 12 14:20:40 -0500][DEBUG] SELECT taxonomia.*, COUNT(post_taxonomia.taxonomia_id) AS total_post FROM taxonomia LEFT JOIN post_taxonomia ON taxonomia.id = post_taxonomia.taxonomia_id LEFT JOIN post ON post.id = post_taxonomia.post_id WHERE taxonomia.tipo = '1' GROUP BY taxonomia.id ORDER BY taxonomia.registrado_at ASC
+[Wed, 18 Jan 12 14:20:40 -0500][DEBUG] DESCRIBE `usuario`
+[Wed, 18 Jan 12 14:20:40 -0500][DEBUG] SELECT usuario.id,usuario.login,usuario.mail,usuario.grupo_id,usuario.nombre,usuario.apellido,usuario.estado,grupo.grupo_descripcion FROM usuario INNER JOIN grupo ON grupo.id = usuario.grupo_id WHERE usuario.estado = '1'
+[Wed, 18 Jan 12 14:20:40 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:20:40 -0500][DEBUG] SELECT id,login,password,nombre,apellido,mail,grupo_id,estado,registrado_at,modificado_in FROM usuario WHERE id=1 LIMIT 1
+[Wed, 18 Jan 12 14:20:40 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE slug = ''
+[Wed, 18 Jan 12 14:20:40 -0500][DEBUG] INSERT INTO post (usuario_id,titulo,contenido,slug,fecha_publicacion,hora_publicacion,resumen,estado,visibilidad,habilitar_comentarios,registrado_at,modificado_in) VALUES (1,'Primera publicación','<p>Esta es la primera publicaci&oacute;n</p>','primera-publicacion','2012-01-18 14:20:40','14:20:40','<p>Esta es la primera publicaci&oacute;n</p>',2,1,2,'2012-01-18 14:20:40','1969-12-31 19:00:00')
+[Wed, 18 Jan 12 14:20:40 -0500][DEBUG] SELECT id,usuario_id,titulo,contenido,slug,fecha_publicacion,hora_publicacion,resumen,es_pagina,post_id,estado,visibilidad,habilitar_comentarios,me_gusta,registrado_at,modificado_in FROM post WHERE id = '1' LIMIT 1
+[Wed, 18 Jan 12 14:20:40 -0500][DEBUG] DESCRIBE `post_taxonomia`
+[Wed, 18 Jan 12 14:20:40 -0500][DEBUG] SELECT id,post_id,taxonomia_id FROM post_taxonomia LIMIT 1
+[Wed, 18 Jan 12 14:20:40 -0500][DEBUG] SELECT id,post_id,taxonomia_id FROM post_taxonomia WHERE post_id = 1 AND taxonomia_id = 1 LIMIT 1
+[Wed, 18 Jan 12 14:20:40 -0500][DEBUG] INSERT INTO post_taxonomia (post_id,taxonomia_id) VALUES (1,1)
+[Wed, 18 Jan 12 14:20:40 -0500][DEBUG] SELECT id,post_id,taxonomia_id FROM post_taxonomia WHERE id = '1' LIMIT 1
+[Wed, 18 Jan 12 14:20:40 -0500][DEBUG] SELECT post_taxonomia.post_id,post_taxonomia.taxonomia_id,taxonomia.id,taxonomia.tipo,taxonomia.nombre,taxonomia.url FROM post INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  WHERE post.id = '1' AND taxonomia.tipo = '1'
+[Wed, 18 Jan 12 14:20:40 -0500][DEBUG] SELECT post_taxonomia.post_id,post_taxonomia.taxonomia_id,taxonomia.id,taxonomia.tipo,taxonomia.nombre,taxonomia.url FROM post INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  WHERE post.id = '1' AND taxonomia.tipo = '2'
+[Wed, 18 Jan 12 14:20:57 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:20:57 -0500][DEBUG] DESCRIBE `usuario`
+[Wed, 18 Jan 12 14:20:57 -0500][DEBUG] SELECT id,login,password,nombre,apellido,mail,grupo_id,estado,registrado_at,modificado_in FROM usuario WHERE id=1 LIMIT 1
+[Wed, 18 Jan 12 14:20:57 -0500][DEBUG] SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios FROM post INNER JOIN usuario ON usuario.id = post.usuario_id INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  LEFT JOIN comentario ON comentario.post_id = post.id WHERE post.estado != '4' AND usuario.estado = '1' AND usuario.id = 1 GROUP BY post.id ORDER BY post.fecha_publicacion DESC
+[Wed, 18 Jan 12 14:20:57 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado != 4
+[Wed, 18 Jan 12 14:20:57 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado = '1'
+[Wed, 18 Jan 12 14:20:57 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado = '2'
+[Wed, 18 Jan 12 14:20:57 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado = '3'
+[Wed, 18 Jan 12 14:20:57 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado != 4 AND visibilidad = '2'
+[Wed, 18 Jan 12 14:20:57 -0500][DEBUG] SELECT post_taxonomia.post_id,post_taxonomia.taxonomia_id,taxonomia.id,taxonomia.tipo,taxonomia.nombre,taxonomia.url FROM post INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  WHERE post.id = '1'
+[Wed, 18 Jan 12 14:21:02 -0500][DEBUG] DESCRIBE `taxonomia`
+[Wed, 18 Jan 12 14:21:02 -0500][DEBUG] SELECT taxonomia.*, COUNT(post_taxonomia.taxonomia_id) AS total_post FROM taxonomia LEFT JOIN post_taxonomia ON taxonomia.id = post_taxonomia.taxonomia_id LEFT JOIN post ON post.id = post_taxonomia.post_id WHERE taxonomia.tipo = '1' GROUP BY taxonomia.id ORDER BY taxonomia.registrado_at ASC
+[Wed, 18 Jan 12 14:21:02 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:21:02 -0500][DEBUG] SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios FROM post INNER JOIN usuario ON usuario.id = post.usuario_id LEFT JOIN comentario ON comentario.post_id = post.id WHERE post.estado != '4' AND post.id = '1'
+[Wed, 18 Jan 12 14:21:02 -0500][DEBUG] SELECT post_taxonomia.post_id,post_taxonomia.taxonomia_id,taxonomia.id,taxonomia.tipo,taxonomia.nombre,taxonomia.url FROM post INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  WHERE post.id = '1' AND taxonomia.tipo = '1'
+[Wed, 18 Jan 12 14:21:02 -0500][DEBUG] SELECT post_taxonomia.post_id,post_taxonomia.taxonomia_id,taxonomia.id,taxonomia.tipo,taxonomia.nombre,taxonomia.url FROM post INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  WHERE post.id = '1' AND taxonomia.tipo = '2'
+[Wed, 18 Jan 12 14:21:06 -0500][DEBUG] DESCRIBE `taxonomia`
+[Wed, 18 Jan 12 14:21:06 -0500][DEBUG] SELECT taxonomia.*, COUNT(post_taxonomia.taxonomia_id) AS total_post FROM taxonomia LEFT JOIN post_taxonomia ON taxonomia.id = post_taxonomia.taxonomia_id LEFT JOIN post ON post.id = post_taxonomia.post_id WHERE taxonomia.tipo = '1' GROUP BY taxonomia.id ORDER BY taxonomia.registrado_at ASC
+[Wed, 18 Jan 12 14:21:06 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:21:06 -0500][DEBUG] DESCRIBE `usuario`
+[Wed, 18 Jan 12 14:21:06 -0500][DEBUG] SELECT id,login,password,nombre,apellido,mail,grupo_id,estado,registrado_at,modificado_in FROM usuario WHERE id=1 LIMIT 1
+[Wed, 18 Jan 12 14:21:06 -0500][DEBUG] SELECT COUNT(*) FROM post WHERE  id = '1'
+[Wed, 18 Jan 12 14:21:06 -0500][DEBUG] SELECT COUNT(*) FROM post WHERE  id = '1'
+[Wed, 18 Jan 12 14:21:06 -0500][DEBUG] SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios FROM post INNER JOIN usuario ON usuario.id = post.usuario_id LEFT JOIN comentario ON comentario.post_id = post.id WHERE post.estado != '4' AND post.id = '1'
+[Wed, 18 Jan 12 14:21:06 -0500][DEBUG] SELECT post_taxonomia.post_id,post_taxonomia.taxonomia_id,taxonomia.id,taxonomia.tipo,taxonomia.nombre,taxonomia.url FROM post INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  WHERE post.id = '1' AND taxonomia.tipo = '1'
+[Wed, 18 Jan 12 14:21:06 -0500][DEBUG] SELECT post_taxonomia.post_id,post_taxonomia.taxonomia_id,taxonomia.id,taxonomia.tipo,taxonomia.nombre,taxonomia.url FROM post INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  WHERE post.id = '1' AND taxonomia.tipo = '2'
+[Wed, 18 Jan 12 14:21:06 -0500][DEBUG] DESCRIBE `taxonomia`
+[Wed, 18 Jan 12 14:21:06 -0500][DEBUG] SELECT taxonomia.*, COUNT(post_taxonomia.taxonomia_id) AS total_post FROM taxonomia LEFT JOIN post_taxonomia ON taxonomia.id = post_taxonomia.taxonomia_id LEFT JOIN post ON post.id = post_taxonomia.post_id WHERE taxonomia.tipo = '1' GROUP BY taxonomia.id ORDER BY taxonomia.registrado_at ASC
+[Wed, 18 Jan 12 14:21:06 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:21:06 -0500][DEBUG] SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios FROM post INNER JOIN usuario ON usuario.id = post.usuario_id LEFT JOIN comentario ON comentario.post_id = post.id WHERE post.estado != '4' AND post.id = '1'
+[Wed, 18 Jan 12 14:21:06 -0500][DEBUG] SELECT post_taxonomia.post_id,post_taxonomia.taxonomia_id,taxonomia.id,taxonomia.tipo,taxonomia.nombre,taxonomia.url FROM post INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  WHERE post.id = '1' AND taxonomia.tipo = '1'
+[Wed, 18 Jan 12 14:21:06 -0500][DEBUG] SELECT post_taxonomia.post_id,post_taxonomia.taxonomia_id,taxonomia.id,taxonomia.tipo,taxonomia.nombre,taxonomia.url FROM post INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  WHERE post.id = '1' AND taxonomia.tipo = '2'
+[Wed, 18 Jan 12 14:21:22 -0500][DEBUG] DESCRIBE `taxonomia`
+[Wed, 18 Jan 12 14:21:22 -0500][DEBUG] SELECT taxonomia.*, COUNT(post_taxonomia.taxonomia_id) AS total_post FROM taxonomia LEFT JOIN post_taxonomia ON taxonomia.id = post_taxonomia.taxonomia_id LEFT JOIN post ON post.id = post_taxonomia.post_id WHERE taxonomia.tipo = '1' GROUP BY taxonomia.id ORDER BY taxonomia.registrado_at ASC
+[Wed, 18 Jan 12 14:21:22 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:21:22 -0500][DEBUG] DESCRIBE `usuario`
+[Wed, 18 Jan 12 14:21:22 -0500][DEBUG] SELECT id,login,password,nombre,apellido,mail,grupo_id,estado,registrado_at,modificado_in FROM usuario WHERE id=1 LIMIT 1
+[Wed, 18 Jan 12 14:21:22 -0500][DEBUG] SELECT COUNT(*) FROM post WHERE  id = '1'
+[Wed, 18 Jan 12 14:21:22 -0500][DEBUG] SELECT COUNT(*) FROM post WHERE  id = '1'
+[Wed, 18 Jan 12 14:21:22 -0500][DEBUG] SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios FROM post INNER JOIN usuario ON usuario.id = post.usuario_id LEFT JOIN comentario ON comentario.post_id = post.id WHERE post.estado != '4' AND post.id = '1'
+[Wed, 18 Jan 12 14:21:22 -0500][DEBUG] SELECT post_taxonomia.post_id,post_taxonomia.taxonomia_id,taxonomia.id,taxonomia.tipo,taxonomia.nombre,taxonomia.url FROM post INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  WHERE post.id = '1' AND taxonomia.tipo = '1'
+[Wed, 18 Jan 12 14:21:22 -0500][DEBUG] SELECT post_taxonomia.post_id,post_taxonomia.taxonomia_id,taxonomia.id,taxonomia.tipo,taxonomia.nombre,taxonomia.url FROM post INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  WHERE post.id = '1' AND taxonomia.tipo = '2'
+[Wed, 18 Jan 12 14:21:22 -0500][DEBUG] DESCRIBE `taxonomia`
+[Wed, 18 Jan 12 14:21:22 -0500][DEBUG] SELECT taxonomia.*, COUNT(post_taxonomia.taxonomia_id) AS total_post FROM taxonomia LEFT JOIN post_taxonomia ON taxonomia.id = post_taxonomia.taxonomia_id LEFT JOIN post ON post.id = post_taxonomia.post_id WHERE taxonomia.tipo = '1' GROUP BY taxonomia.id ORDER BY taxonomia.registrado_at ASC
+[Wed, 18 Jan 12 14:21:22 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:21:22 -0500][DEBUG] SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios FROM post INNER JOIN usuario ON usuario.id = post.usuario_id LEFT JOIN comentario ON comentario.post_id = post.id WHERE post.estado != '4' AND post.id = '1'
+[Wed, 18 Jan 12 14:21:22 -0500][DEBUG] SELECT post_taxonomia.post_id,post_taxonomia.taxonomia_id,taxonomia.id,taxonomia.tipo,taxonomia.nombre,taxonomia.url FROM post INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  WHERE post.id = '1' AND taxonomia.tipo = '1'
+[Wed, 18 Jan 12 14:21:22 -0500][DEBUG] SELECT post_taxonomia.post_id,post_taxonomia.taxonomia_id,taxonomia.id,taxonomia.tipo,taxonomia.nombre,taxonomia.url FROM post INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  WHERE post.id = '1' AND taxonomia.tipo = '2'
+[Wed, 18 Jan 12 14:21:37 -0500][DEBUG] DESCRIBE `taxonomia`
+[Wed, 18 Jan 12 14:21:37 -0500][DEBUG] SELECT taxonomia.*, COUNT(post_taxonomia.taxonomia_id) AS total_post FROM taxonomia LEFT JOIN post_taxonomia ON taxonomia.id = post_taxonomia.taxonomia_id LEFT JOIN post ON post.id = post_taxonomia.post_id WHERE taxonomia.tipo = '1' GROUP BY taxonomia.id ORDER BY taxonomia.registrado_at ASC
+[Wed, 18 Jan 12 14:21:37 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:21:37 -0500][DEBUG] DESCRIBE `usuario`
+[Wed, 18 Jan 12 14:21:37 -0500][DEBUG] SELECT id,login,password,nombre,apellido,mail,grupo_id,estado,registrado_at,modificado_in FROM usuario WHERE id=1 LIMIT 1
+[Wed, 18 Jan 12 14:21:37 -0500][DEBUG] SELECT COUNT(*) FROM post WHERE  id = '1'
+[Wed, 18 Jan 12 14:21:37 -0500][DEBUG] SELECT COUNT(*) FROM post WHERE  id = '1'
+[Wed, 18 Jan 12 14:21:37 -0500][DEBUG] SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios FROM post INNER JOIN usuario ON usuario.id = post.usuario_id LEFT JOIN comentario ON comentario.post_id = post.id WHERE post.estado != '4' AND post.id = '1'
+[Wed, 18 Jan 12 14:21:37 -0500][DEBUG] SELECT post_taxonomia.post_id,post_taxonomia.taxonomia_id,taxonomia.id,taxonomia.tipo,taxonomia.nombre,taxonomia.url FROM post INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  WHERE post.id = '1' AND taxonomia.tipo = '1'
+[Wed, 18 Jan 12 14:21:37 -0500][DEBUG] SELECT post_taxonomia.post_id,post_taxonomia.taxonomia_id,taxonomia.id,taxonomia.tipo,taxonomia.nombre,taxonomia.url FROM post INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  WHERE post.id = '1' AND taxonomia.tipo = '2'
+[Wed, 18 Jan 12 14:21:37 -0500][DEBUG] DESCRIBE `taxonomia`
+[Wed, 18 Jan 12 14:21:37 -0500][DEBUG] SELECT taxonomia.*, COUNT(post_taxonomia.taxonomia_id) AS total_post FROM taxonomia LEFT JOIN post_taxonomia ON taxonomia.id = post_taxonomia.taxonomia_id LEFT JOIN post ON post.id = post_taxonomia.post_id WHERE taxonomia.tipo = '1' GROUP BY taxonomia.id ORDER BY taxonomia.registrado_at ASC
+[Wed, 18 Jan 12 14:21:37 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:21:37 -0500][DEBUG] SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios FROM post INNER JOIN usuario ON usuario.id = post.usuario_id LEFT JOIN comentario ON comentario.post_id = post.id WHERE post.estado != '4' AND post.id = '1'
+[Wed, 18 Jan 12 14:21:37 -0500][DEBUG] SELECT post_taxonomia.post_id,post_taxonomia.taxonomia_id,taxonomia.id,taxonomia.tipo,taxonomia.nombre,taxonomia.url FROM post INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  WHERE post.id = '1' AND taxonomia.tipo = '1'
+[Wed, 18 Jan 12 14:21:37 -0500][DEBUG] SELECT post_taxonomia.post_id,post_taxonomia.taxonomia_id,taxonomia.id,taxonomia.tipo,taxonomia.nombre,taxonomia.url FROM post INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  WHERE post.id = '1' AND taxonomia.tipo = '2'
+[Wed, 18 Jan 12 14:21:57 -0500][DEBUG] DESCRIBE `taxonomia`
+[Wed, 18 Jan 12 14:21:57 -0500][DEBUG] SELECT taxonomia.*, COUNT(post_taxonomia.taxonomia_id) AS total_post FROM taxonomia LEFT JOIN post_taxonomia ON taxonomia.id = post_taxonomia.taxonomia_id LEFT JOIN post ON post.id = post_taxonomia.post_id WHERE taxonomia.tipo = '1' GROUP BY taxonomia.id ORDER BY taxonomia.registrado_at ASC
+[Wed, 18 Jan 12 14:21:57 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:21:57 -0500][DEBUG] DESCRIBE `usuario`
+[Wed, 18 Jan 12 14:21:57 -0500][DEBUG] SELECT id,login,password,nombre,apellido,mail,grupo_id,estado,registrado_at,modificado_in FROM usuario WHERE id=1 LIMIT 1
+[Wed, 18 Jan 12 14:21:57 -0500][DEBUG] SELECT COUNT(*) FROM post WHERE  id = '1'
+[Wed, 18 Jan 12 14:21:57 -0500][DEBUG] SELECT COUNT(*) FROM post WHERE  id = '1'
+[Wed, 18 Jan 12 14:21:57 -0500][DEBUG] SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios FROM post INNER JOIN usuario ON usuario.id = post.usuario_id LEFT JOIN comentario ON comentario.post_id = post.id WHERE post.estado != '4' AND post.id = '1'
+[Wed, 18 Jan 12 14:21:57 -0500][DEBUG] SELECT post_taxonomia.post_id,post_taxonomia.taxonomia_id,taxonomia.id,taxonomia.tipo,taxonomia.nombre,taxonomia.url FROM post INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  WHERE post.id = '1' AND taxonomia.tipo = '1'
+[Wed, 18 Jan 12 14:21:57 -0500][DEBUG] SELECT post_taxonomia.post_id,post_taxonomia.taxonomia_id,taxonomia.id,taxonomia.tipo,taxonomia.nombre,taxonomia.url FROM post INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  WHERE post.id = '1' AND taxonomia.tipo = '2'
+[Wed, 18 Jan 12 14:21:57 -0500][DEBUG] DESCRIBE `taxonomia`
+[Wed, 18 Jan 12 14:21:57 -0500][DEBUG] SELECT taxonomia.*, COUNT(post_taxonomia.taxonomia_id) AS total_post FROM taxonomia LEFT JOIN post_taxonomia ON taxonomia.id = post_taxonomia.taxonomia_id LEFT JOIN post ON post.id = post_taxonomia.post_id WHERE taxonomia.tipo = '1' GROUP BY taxonomia.id ORDER BY taxonomia.registrado_at ASC
+[Wed, 18 Jan 12 14:21:57 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:21:57 -0500][DEBUG] SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios FROM post INNER JOIN usuario ON usuario.id = post.usuario_id LEFT JOIN comentario ON comentario.post_id = post.id WHERE post.estado != '4' AND post.id = '1'
+[Wed, 18 Jan 12 14:21:57 -0500][DEBUG] SELECT post_taxonomia.post_id,post_taxonomia.taxonomia_id,taxonomia.id,taxonomia.tipo,taxonomia.nombre,taxonomia.url FROM post INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  WHERE post.id = '1' AND taxonomia.tipo = '1'
+[Wed, 18 Jan 12 14:21:57 -0500][DEBUG] SELECT post_taxonomia.post_id,post_taxonomia.taxonomia_id,taxonomia.id,taxonomia.tipo,taxonomia.nombre,taxonomia.url FROM post INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  WHERE post.id = '1' AND taxonomia.tipo = '2'
+[Wed, 18 Jan 12 14:22:18 -0500][DEBUG] DESCRIBE `taxonomia`
+[Wed, 18 Jan 12 14:22:18 -0500][DEBUG] SELECT taxonomia.*, COUNT(post_taxonomia.taxonomia_id) AS total_post FROM taxonomia LEFT JOIN post_taxonomia ON taxonomia.id = post_taxonomia.taxonomia_id LEFT JOIN post ON post.id = post_taxonomia.post_id WHERE taxonomia.tipo = '1' GROUP BY taxonomia.id ORDER BY taxonomia.registrado_at ASC
+[Wed, 18 Jan 12 14:22:18 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:22:18 -0500][DEBUG] DESCRIBE `usuario`
+[Wed, 18 Jan 12 14:22:18 -0500][DEBUG] SELECT id,login,password,nombre,apellido,mail,grupo_id,estado,registrado_at,modificado_in FROM usuario WHERE id=1 LIMIT 1
+[Wed, 18 Jan 12 14:22:18 -0500][DEBUG] SELECT COUNT(*) FROM post WHERE  id = '1'
+[Wed, 18 Jan 12 14:22:18 -0500][DEBUG] SELECT COUNT(*) FROM post WHERE  id = '1'
+[Wed, 18 Jan 12 14:22:18 -0500][DEBUG] SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios FROM post INNER JOIN usuario ON usuario.id = post.usuario_id LEFT JOIN comentario ON comentario.post_id = post.id WHERE post.estado != '4' AND post.id = '1'
+[Wed, 18 Jan 12 14:22:18 -0500][DEBUG] SELECT post_taxonomia.post_id,post_taxonomia.taxonomia_id,taxonomia.id,taxonomia.tipo,taxonomia.nombre,taxonomia.url FROM post INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  WHERE post.id = '1' AND taxonomia.tipo = '1'
+[Wed, 18 Jan 12 14:22:18 -0500][DEBUG] SELECT post_taxonomia.post_id,post_taxonomia.taxonomia_id,taxonomia.id,taxonomia.tipo,taxonomia.nombre,taxonomia.url FROM post INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  WHERE post.id = '1' AND taxonomia.tipo = '2'
+[Wed, 18 Jan 12 14:22:18 -0500][DEBUG] DESCRIBE `taxonomia`
+[Wed, 18 Jan 12 14:22:18 -0500][DEBUG] SELECT taxonomia.*, COUNT(post_taxonomia.taxonomia_id) AS total_post FROM taxonomia LEFT JOIN post_taxonomia ON taxonomia.id = post_taxonomia.taxonomia_id LEFT JOIN post ON post.id = post_taxonomia.post_id WHERE taxonomia.tipo = '1' GROUP BY taxonomia.id ORDER BY taxonomia.registrado_at ASC
+[Wed, 18 Jan 12 14:22:18 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:22:18 -0500][DEBUG] SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios FROM post INNER JOIN usuario ON usuario.id = post.usuario_id LEFT JOIN comentario ON comentario.post_id = post.id WHERE post.estado != '4' AND post.id = '1'
+[Wed, 18 Jan 12 14:22:18 -0500][DEBUG] SELECT post_taxonomia.post_id,post_taxonomia.taxonomia_id,taxonomia.id,taxonomia.tipo,taxonomia.nombre,taxonomia.url FROM post INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  WHERE post.id = '1' AND taxonomia.tipo = '1'
+[Wed, 18 Jan 12 14:22:18 -0500][DEBUG] SELECT post_taxonomia.post_id,post_taxonomia.taxonomia_id,taxonomia.id,taxonomia.tipo,taxonomia.nombre,taxonomia.url FROM post INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  WHERE post.id = '1' AND taxonomia.tipo = '2'
+[Wed, 18 Jan 12 14:22:50 -0500][DEBUG] DESCRIBE `taxonomia`
+[Wed, 18 Jan 12 14:22:50 -0500][DEBUG] SELECT taxonomia.*, COUNT(post_taxonomia.taxonomia_id) AS total_post FROM taxonomia LEFT JOIN post_taxonomia ON taxonomia.id = post_taxonomia.taxonomia_id LEFT JOIN post ON post.id = post_taxonomia.post_id WHERE taxonomia.tipo = '1' GROUP BY taxonomia.id ORDER BY taxonomia.registrado_at ASC
+[Wed, 18 Jan 12 14:22:50 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:22:50 -0500][DEBUG] DESCRIBE `usuario`
+[Wed, 18 Jan 12 14:22:50 -0500][DEBUG] SELECT id,login,password,nombre,apellido,mail,grupo_id,estado,registrado_at,modificado_in FROM usuario WHERE id=1 LIMIT 1
+[Wed, 18 Jan 12 14:22:50 -0500][DEBUG] SELECT COUNT(*) FROM post WHERE  id = '1'
+[Wed, 18 Jan 12 14:22:50 -0500][DEBUG] SELECT COUNT(*) FROM post WHERE  id = '1'
+[Wed, 18 Jan 12 14:22:50 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE slug = '' AND id != '1'
+[Wed, 18 Jan 12 14:22:50 -0500][DEBUG] UPDATE post SET usuario_id = '1',titulo = 'Primera publicación',contenido = '<p>Esta es la primera publicaci&oacute;n</p>',slug = 'primera-publicacion',fecha_publicacion = '2012-01-18',resumen = '<p>Esta es la primera publicaci&oacute;n</p>',estado = '2',visibilidad = '1',habilitar_comentarios = 'NO',modificado_in = '2012-01-18 14:22:50' WHERE  id = '1'
+[Wed, 18 Jan 12 14:22:50 -0500][DEBUG] DESCRIBE `post_taxonomia`
+[Wed, 18 Jan 12 14:22:50 -0500][DEBUG] SELECT id,post_id,taxonomia_id FROM post_taxonomia LIMIT 1
+[Wed, 18 Jan 12 14:22:50 -0500][DEBUG] DELETE FROM post_taxonomia WHERE post_id = '1'
+[Wed, 18 Jan 12 14:22:50 -0500][DEBUG] SELECT id,post_id,taxonomia_id FROM post_taxonomia WHERE post_id = 1 AND taxonomia_id = 1 LIMIT 1
+[Wed, 18 Jan 12 14:22:50 -0500][DEBUG] INSERT INTO post_taxonomia (post_id,taxonomia_id) VALUES (1,1)
+[Wed, 18 Jan 12 14:22:50 -0500][DEBUG] SELECT id,post_id,taxonomia_id FROM post_taxonomia WHERE id = '2' LIMIT 1
+[Wed, 18 Jan 12 14:22:50 -0500][DEBUG] SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios FROM post INNER JOIN usuario ON usuario.id = post.usuario_id LEFT JOIN comentario ON comentario.post_id = post.id WHERE post.estado != '4' AND post.id = '1'
+[Wed, 18 Jan 12 14:22:50 -0500][DEBUG] SELECT post_taxonomia.post_id,post_taxonomia.taxonomia_id,taxonomia.id,taxonomia.tipo,taxonomia.nombre,taxonomia.url FROM post INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  WHERE post.id = '1' AND taxonomia.tipo = '1'
+[Wed, 18 Jan 12 14:22:50 -0500][DEBUG] SELECT post_taxonomia.post_id,post_taxonomia.taxonomia_id,taxonomia.id,taxonomia.tipo,taxonomia.nombre,taxonomia.url FROM post INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  WHERE post.id = '1' AND taxonomia.tipo = '2'
+[Wed, 18 Jan 12 14:22:50 -0500][DEBUG] DESCRIBE `taxonomia`
+[Wed, 18 Jan 12 14:22:50 -0500][DEBUG] SELECT taxonomia.*, COUNT(post_taxonomia.taxonomia_id) AS total_post FROM taxonomia LEFT JOIN post_taxonomia ON taxonomia.id = post_taxonomia.taxonomia_id LEFT JOIN post ON post.id = post_taxonomia.post_id WHERE taxonomia.tipo = '1' GROUP BY taxonomia.id ORDER BY taxonomia.registrado_at ASC
+[Wed, 18 Jan 12 14:22:50 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:22:50 -0500][DEBUG] SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios FROM post INNER JOIN usuario ON usuario.id = post.usuario_id LEFT JOIN comentario ON comentario.post_id = post.id WHERE post.estado != '4' AND post.id = '1'
+[Wed, 18 Jan 12 14:22:50 -0500][DEBUG] SELECT post_taxonomia.post_id,post_taxonomia.taxonomia_id,taxonomia.id,taxonomia.tipo,taxonomia.nombre,taxonomia.url FROM post INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  WHERE post.id = '1' AND taxonomia.tipo = '1'
+[Wed, 18 Jan 12 14:22:50 -0500][DEBUG] SELECT post_taxonomia.post_id,post_taxonomia.taxonomia_id,taxonomia.id,taxonomia.tipo,taxonomia.nombre,taxonomia.url FROM post INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  WHERE post.id = '1' AND taxonomia.tipo = '2'
+[Wed, 18 Jan 12 14:22:58 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:22:58 -0500][DEBUG] SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios FROM post INNER JOIN usuario ON usuario.id = post.usuario_id INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  LEFT JOIN comentario ON comentario.post_id = post.id WHERE post.estado = '3' AND post.visibilidad = '1' AND usuario.estado = '1' GROUP BY post.id ORDER BY post.fecha_publicacion DESC
+[Wed, 18 Jan 12 14:23:01 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:23:01 -0500][DEBUG] SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios FROM post INNER JOIN usuario ON usuario.id = post.usuario_id INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  LEFT JOIN comentario ON comentario.post_id = post.id WHERE post.estado = '3' AND post.visibilidad = '1' AND usuario.estado = '1' GROUP BY post.id ORDER BY post.fecha_publicacion DESC
+[Wed, 18 Jan 12 14:23:02 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:23:02 -0500][DEBUG] SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios FROM post INNER JOIN usuario ON usuario.id = post.usuario_id INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  LEFT JOIN comentario ON comentario.post_id = post.id WHERE post.estado = '3' AND post.visibilidad = '1' AND usuario.estado = '1' GROUP BY post.id ORDER BY post.fecha_publicacion DESC
+[Wed, 18 Jan 12 14:23:10 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:23:10 -0500][DEBUG] DESCRIBE `taxonomia`
+[Wed, 18 Jan 12 14:23:10 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado != 4
+[Wed, 18 Jan 12 14:23:10 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado = '1'
+[Wed, 18 Jan 12 14:23:10 -0500][DEBUG] SELECT COUNT(*) FROM taxonomia  WHERE tipo = 1
+[Wed, 18 Jan 12 14:23:10 -0500][DEBUG] SELECT COUNT(*) FROM taxonomia  WHERE tipo = 2
+[Wed, 18 Jan 12 14:23:10 -0500][DEBUG] DESCRIBE `usuario`
+[Wed, 18 Jan 12 14:23:10 -0500][DEBUG] SELECT id,login,password,nombre,apellido,mail,grupo_id,estado,registrado_at,modificado_in FROM usuario WHERE id=1 LIMIT 1
+[Wed, 18 Jan 12 14:23:21 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:23:21 -0500][DEBUG] DESCRIBE `usuario`
+[Wed, 18 Jan 12 14:23:21 -0500][DEBUG] SELECT id,login,password,nombre,apellido,mail,grupo_id,estado,registrado_at,modificado_in FROM usuario WHERE id=1 LIMIT 1
+[Wed, 18 Jan 12 14:23:21 -0500][DEBUG] SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios FROM post INNER JOIN usuario ON usuario.id = post.usuario_id INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  LEFT JOIN comentario ON comentario.post_id = post.id WHERE post.estado != '4' AND usuario.estado = '1' AND usuario.id = 1 GROUP BY post.id ORDER BY post.fecha_publicacion DESC
+[Wed, 18 Jan 12 14:23:21 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado != 4
+[Wed, 18 Jan 12 14:23:21 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado = '1'
+[Wed, 18 Jan 12 14:23:21 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado = '2'
+[Wed, 18 Jan 12 14:23:21 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado = '3'
+[Wed, 18 Jan 12 14:23:21 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado != 4 AND visibilidad = '2'
+[Wed, 18 Jan 12 14:23:21 -0500][DEBUG] SELECT post_taxonomia.post_id,post_taxonomia.taxonomia_id,taxonomia.id,taxonomia.tipo,taxonomia.nombre,taxonomia.url FROM post INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  WHERE post.id = '1'
+[Wed, 18 Jan 12 14:23:25 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:23:25 -0500][DEBUG] SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios FROM post INNER JOIN usuario ON usuario.id = post.usuario_id LEFT JOIN comentario ON comentario.post_id = post.id WHERE post.estado != '4' AND post.slug = 'primera-publicacion'
+[Wed, 18 Jan 12 14:23:25 -0500][DEBUG] DESCRIBE `usuario`
+[Wed, 18 Jan 12 14:23:25 -0500][DEBUG] SELECT id,login,password,nombre,apellido,mail,grupo_id,estado,registrado_at,modificado_in FROM usuario WHERE id = '1' LIMIT 1
+[Wed, 18 Jan 12 14:23:25 -0500][DEBUG] SELECT post_taxonomia.post_id,post_taxonomia.taxonomia_id,taxonomia.id,taxonomia.tipo,taxonomia.nombre,taxonomia.url FROM post INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  WHERE post.id = '1'
+[Wed, 18 Jan 12 14:23:25 -0500][DEBUG] DESCRIBE `taxonomia`
+[Wed, 18 Jan 12 14:23:25 -0500][DEBUG] SELECT taxonomia.*, COUNT(post_taxonomia.taxonomia_id) AS total_post FROM taxonomia INNER JOIN post_taxonomia ON taxonomia.id = post_taxonomia.taxonomia_id INNER JOIN post ON post.id = post_taxonomia.post_id WHERE taxonomia.tipo = '1'  AND post.estado = 3 AND post.visibilidad = 1 GROUP BY taxonomia.id ORDER BY taxonomia.registrado_at ASC
+[Wed, 18 Jan 12 14:23:25 -0500][DEBUG] SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios FROM post INNER JOIN usuario ON usuario.id = post.usuario_id INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  LEFT JOIN comentario ON comentario.post_id = post.id WHERE post.estado = '3' AND post.visibilidad = '1' AND usuario.estado = '1' GROUP BY post.id ORDER BY post.fecha_publicacion DESC LIMIT 7
+[Wed, 18 Jan 12 14:23:31 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:23:31 -0500][DEBUG] SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios FROM post INNER JOIN usuario ON usuario.id = post.usuario_id INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  LEFT JOIN comentario ON comentario.post_id = post.id WHERE post.estado = '3' AND post.visibilidad = '1' AND usuario.estado = '1' GROUP BY post.id ORDER BY post.fecha_publicacion DESC
+[Wed, 18 Jan 12 14:23:39 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:23:39 -0500][DEBUG] SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios FROM post INNER JOIN usuario ON usuario.id = post.usuario_id INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  LEFT JOIN comentario ON comentario.post_id = post.id WHERE post.estado = '3' AND post.visibilidad = '1' AND usuario.estado = '1' GROUP BY post.id ORDER BY post.fecha_publicacion DESC
+[Wed, 18 Jan 12 14:23:41 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:23:41 -0500][DEBUG] SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios FROM post INNER JOIN usuario ON usuario.id = post.usuario_id INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  LEFT JOIN comentario ON comentario.post_id = post.id WHERE post.estado = '3' AND post.visibilidad = '1' AND usuario.estado = '1' GROUP BY post.id ORDER BY post.fecha_publicacion DESC
+[Wed, 18 Jan 12 14:23:46 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:23:46 -0500][DEBUG] SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios FROM post INNER JOIN usuario ON usuario.id = post.usuario_id INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  LEFT JOIN comentario ON comentario.post_id = post.id WHERE post.estado = '3' AND post.visibilidad = '1' AND usuario.estado = '1' GROUP BY post.id ORDER BY post.fecha_publicacion DESC
+[Wed, 18 Jan 12 14:23:51 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:23:51 -0500][DEBUG] SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios FROM post INNER JOIN usuario ON usuario.id = post.usuario_id INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  LEFT JOIN comentario ON comentario.post_id = post.id WHERE post.estado = '3' AND post.visibilidad = '1' AND usuario.estado = '1' GROUP BY post.id ORDER BY post.fecha_publicacion DESC
+[Wed, 18 Jan 12 14:24:01 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:24:01 -0500][DEBUG] SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios FROM post INNER JOIN usuario ON usuario.id = post.usuario_id INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  LEFT JOIN comentario ON comentario.post_id = post.id WHERE post.estado = '3' AND post.visibilidad = '1' AND usuario.estado = '1' GROUP BY post.id ORDER BY post.fecha_publicacion DESC
+[Wed, 18 Jan 12 14:24:02 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:24:02 -0500][DEBUG] SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios FROM post INNER JOIN usuario ON usuario.id = post.usuario_id LEFT JOIN comentario ON comentario.post_id = post.id WHERE post.estado != '4' AND post.slug = 'primera-publicacion'
+[Wed, 18 Jan 12 14:24:02 -0500][DEBUG] DESCRIBE `usuario`
+[Wed, 18 Jan 12 14:24:02 -0500][DEBUG] SELECT id,login,password,nombre,apellido,mail,grupo_id,estado,registrado_at,modificado_in FROM usuario WHERE id = '1' LIMIT 1
+[Wed, 18 Jan 12 14:24:02 -0500][DEBUG] SELECT post_taxonomia.post_id,post_taxonomia.taxonomia_id,taxonomia.id,taxonomia.tipo,taxonomia.nombre,taxonomia.url FROM post INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  WHERE post.id = '1'
+[Wed, 18 Jan 12 14:24:02 -0500][DEBUG] DESCRIBE `taxonomia`
+[Wed, 18 Jan 12 14:24:02 -0500][DEBUG] SELECT taxonomia.*, COUNT(post_taxonomia.taxonomia_id) AS total_post FROM taxonomia INNER JOIN post_taxonomia ON taxonomia.id = post_taxonomia.taxonomia_id INNER JOIN post ON post.id = post_taxonomia.post_id WHERE taxonomia.tipo = '1'  AND post.estado = 3 AND post.visibilidad = 1 GROUP BY taxonomia.id ORDER BY taxonomia.registrado_at ASC
+[Wed, 18 Jan 12 14:24:02 -0500][DEBUG] SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios FROM post INNER JOIN usuario ON usuario.id = post.usuario_id INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  LEFT JOIN comentario ON comentario.post_id = post.id WHERE post.estado = '3' AND post.visibilidad = '1' AND usuario.estado = '1' GROUP BY post.id ORDER BY post.fecha_publicacion DESC LIMIT 7
+[Wed, 18 Jan 12 14:24:13 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:24:13 -0500][DEBUG] SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios FROM post INNER JOIN usuario ON usuario.id = post.usuario_id LEFT JOIN comentario ON comentario.post_id = post.id WHERE post.estado != '4' AND post.slug = 'primera-publicacion'
+[Wed, 18 Jan 12 14:24:13 -0500][DEBUG] DESCRIBE `usuario`
+[Wed, 18 Jan 12 14:24:13 -0500][DEBUG] SELECT id,login,password,nombre,apellido,mail,grupo_id,estado,registrado_at,modificado_in FROM usuario WHERE id = '1' LIMIT 1
+[Wed, 18 Jan 12 14:24:13 -0500][DEBUG] SELECT post_taxonomia.post_id,post_taxonomia.taxonomia_id,taxonomia.id,taxonomia.tipo,taxonomia.nombre,taxonomia.url FROM post INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  WHERE post.id = '1'
+[Wed, 18 Jan 12 14:24:13 -0500][DEBUG] DESCRIBE `taxonomia`
+[Wed, 18 Jan 12 14:24:13 -0500][DEBUG] SELECT taxonomia.*, COUNT(post_taxonomia.taxonomia_id) AS total_post FROM taxonomia INNER JOIN post_taxonomia ON taxonomia.id = post_taxonomia.taxonomia_id INNER JOIN post ON post.id = post_taxonomia.post_id WHERE taxonomia.tipo = '1'  AND post.estado = 3 AND post.visibilidad = 1 GROUP BY taxonomia.id ORDER BY taxonomia.registrado_at ASC
+[Wed, 18 Jan 12 14:24:13 -0500][DEBUG] SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios FROM post INNER JOIN usuario ON usuario.id = post.usuario_id INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  LEFT JOIN comentario ON comentario.post_id = post.id WHERE post.estado = '3' AND post.visibilidad = '1' AND usuario.estado = '1' GROUP BY post.id ORDER BY post.fecha_publicacion DESC LIMIT 7
+[Wed, 18 Jan 12 14:25:48 -0500][DEBUG] DESCRIBE `taxonomia`
+[Wed, 18 Jan 12 14:25:48 -0500][DEBUG] SELECT taxonomia.*, COUNT(post_taxonomia.taxonomia_id) AS total_post FROM taxonomia LEFT JOIN post_taxonomia ON taxonomia.id = post_taxonomia.taxonomia_id LEFT JOIN post ON post.id = post_taxonomia.post_id WHERE taxonomia.tipo = '1' GROUP BY taxonomia.id ORDER BY taxonomia.registrado_at ASC
+[Wed, 18 Jan 12 14:25:49 -0500][DEBUG] DESCRIBE `usuario`
+[Wed, 18 Jan 12 14:25:49 -0500][DEBUG] SELECT usuario.id,usuario.login,usuario.mail,usuario.grupo_id,usuario.nombre,usuario.apellido,usuario.estado,grupo.grupo_descripcion FROM usuario INNER JOIN grupo ON grupo.id = usuario.grupo_id WHERE usuario.estado = '1'
+[Wed, 18 Jan 12 14:26:02 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:26:02 -0500][DEBUG] DESCRIBE `usuario`
+[Wed, 18 Jan 12 14:26:02 -0500][DEBUG] SELECT id,login,password,nombre,apellido,mail,grupo_id,estado,registrado_at,modificado_in FROM usuario WHERE id=1 LIMIT 1
+[Wed, 18 Jan 12 14:26:02 -0500][DEBUG] SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios FROM post INNER JOIN usuario ON usuario.id = post.usuario_id INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  LEFT JOIN comentario ON comentario.post_id = post.id WHERE post.estado != '4' AND usuario.estado = '1' AND usuario.id = 1 GROUP BY post.id ORDER BY post.fecha_publicacion DESC
+[Wed, 18 Jan 12 14:26:02 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado != 4
+[Wed, 18 Jan 12 14:26:02 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado = '1'
+[Wed, 18 Jan 12 14:26:02 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado = '2'
+[Wed, 18 Jan 12 14:26:02 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado = '3'
+[Wed, 18 Jan 12 14:26:02 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado != 4 AND visibilidad = '2'
+[Wed, 18 Jan 12 14:26:02 -0500][DEBUG] SELECT post_taxonomia.post_id,post_taxonomia.taxonomia_id,taxonomia.id,taxonomia.tipo,taxonomia.nombre,taxonomia.url FROM post INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  WHERE post.id = '1'
+[Wed, 18 Jan 12 14:26:06 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 14:26:06 -0500][DEBUG] DESCRIBE `taxonomia`
+[Wed, 18 Jan 12 14:26:06 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado != 4
+[Wed, 18 Jan 12 14:26:06 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado = '1'
+[Wed, 18 Jan 12 14:26:06 -0500][DEBUG] SELECT COUNT(*) FROM taxonomia  WHERE tipo = 1
+[Wed, 18 Jan 12 14:26:06 -0500][DEBUG] SELECT COUNT(*) FROM taxonomia  WHERE tipo = 2
+[Wed, 18 Jan 12 14:26:06 -0500][DEBUG] DESCRIBE `usuario`
+[Wed, 18 Jan 12 14:26:06 -0500][DEBUG] SELECT id,login,password,nombre,apellido,mail,grupo_id,estado,registrado_at,modificado_in FROM usuario WHERE id=1 LIMIT 1
+[Wed, 18 Jan 12 14:27:27 -0500][DEBUG] DESCRIBE `usuario`
+[Wed, 18 Jan 12 18:30:32 -0500][DEBUG] DESCRIBE `usuario`
+[Wed, 18 Jan 12 18:30:37 -0500][DEBUG] DESCRIBE `usuario`
+[Wed, 18 Jan 12 18:30:37 -0500][DEBUG] SELECT COUNT(*) FROM usuario  WHERE login = 'admin' AND password = '61be2a14e813011cde599926dcc72c2c' AND estado = '1'
+[Wed, 18 Jan 12 18:30:37 -0500][DEBUG] SELECT id,login,password,nombre,apellido,mail,grupo_id,estado,registrado_at,modificado_in FROM usuario WHERE login = 'admin' AND password = '61be2a14e813011cde599926dcc72c2c' AND estado = '1' LIMIT 1
+[Wed, 18 Jan 12 18:30:37 -0500][DEBUG] DESCRIBE `post`
+[Wed, 18 Jan 12 18:30:37 -0500][DEBUG] DESCRIBE `taxonomia`
+[Wed, 18 Jan 12 18:30:37 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado != 4
+[Wed, 18 Jan 12 18:30:37 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado = '1'
+[Wed, 18 Jan 12 18:30:37 -0500][DEBUG] SELECT COUNT(*) FROM taxonomia  WHERE tipo = 1
+[Wed, 18 Jan 12 18:30:37 -0500][DEBUG] SELECT COUNT(*) FROM taxonomia  WHERE tipo = 2
+[Wed, 18 Jan 12 18:30:37 -0500][DEBUG] DESCRIBE `usuario`
+[Wed, 18 Jan 12 18:30:37 -0500][DEBUG] SELECT id,login,password,nombre,apellido,mail,grupo_id,estado,registrado_at,modificado_in FROM usuario WHERE id=1 LIMIT 1
+[Wed, 18 Jan 12 20:30:28 -0500][DEBUG] DESCRIBE `usuario`
+[Wed, 18 Jan 12 20:36:09 -0500][DEBUG] DESCRIBE `usuario`

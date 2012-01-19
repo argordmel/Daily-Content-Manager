@@ -1,0 +1,19 @@
+<?php
+Load::models('post');
+$post = new Post();
+$total_post = $post->getContadorPost('todos');
+$total_borradores = $post->getContadorPost('todos', Post::BORRADOR);
+$total_pendientes = $post->getContadorPost('todos', Post::PENDIENTE);
+$total_publicados = $post->getContadorPost('todos', Post::PUBLICADO);
+$total_privados = $post->getContadorPost(Post::PRIVADO);
+?>
+<div class="left medium">
+    <ul class="sub-nav font-medium">
+        <li><?php echo Html::link('dc-admin/post/listar/',"Todas <span class=\"counter\">($total_post)</span>");?></li>
+        <?php if($total_publicados > 0) { echo '<li><span class="separador"> | </span>'. Html::link('dc-admin/post/listar/publicados/',"Publicadas <span class=\"counter\">($total_publicados)</span>").'</li>'; }?>
+        <?php if($total_pendientes > 0) { echo '<li><span class="separador"> | </span>'. Html::link('dc-admin/post/listar/pendientes/',"Pendientes <span class=\"counter\">($total_pendientes)</span>").'</li>'; }?>
+        <?php if($total_borradores > 0) { echo '<li><span class="separador"> | </span>'. Html::link('dc-admin/post/listar/borradores/',"Borradores <span class=\"counter\">($total_borradores)</span>").'</li>'; }?>
+        <?php if($total_privados > 0) { echo '<li><span class="separador"> | </span>'. Html::link('dc-admin/post/listar/privados/',"Privadas <span class=\"counter\">($total_privados)</span>").'</li>'; }?>
+    </ul>
+</div>
+<div class="clr"></div>

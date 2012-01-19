@@ -1,0 +1,31 @@
+<div id="menu-principal"><?php echo Html::link('dc-admin/','Principal',array('title'=>'Página de administración','class'=>'text-shadow')); ?></div>
+<div id="menu-items" class="menu principal ui-widget-content ui-corner-all">
+    <div class="collapsed">
+        <span class="text-shadow">Publicaciones</span>
+        <?php echo Html::link('dc-admin/post/listar/','Listar'); ?>
+        <?php echo Html::link('dc-admin/post/agregar/','Añadir'); ?>
+        <?php echo Html::link('dc-admin/categoria/','Categorias'); ?>
+        <?php echo Html::link('dc-admin/etiqueta/','Etiquetas'); ?>
+    </div>
+    <div class="collapsed">
+        <span class="text-shadow">Comentarios</span>
+        <?php echo Html::link('dc-admin/comentario/','Comentarios'); ?>
+    </div>
+    <div class="collapsed">
+        <span class="text-shadow">Enlaces</span>
+        <?php echo Html::link('dc-admin/enlace/','Enlaces'); ?>
+        <?php echo Html::link('dc-admin/enlace/agregar/','Agregar nuevo'); ?>
+    </div>
+    <div class="collapsed">
+        <span class="text-shadow">Usuarios</span>
+        <?php echo Html::link('dc-admin/usuario/','Usuarios'); ?>
+        <?php echo Html::link('dc-admin/usuario/agregar/','Agregar'); ?>
+    </div>
+    <div class="collapsed">
+        <span class="text-shadow">Ajustes</span>
+        <?php echo Html::link('dc-admin/ajustes/blog/','Blog'); ?>
+        <?php echo Html::link('dc-admin/ajustes/publicaciones/','Publicaciones'); ?>
+        <?php echo Html::link('dc-admin/ajustes/comentarios/','Comentarios'); ?>
+    </div>
+</div>
+<div class="break"></div>

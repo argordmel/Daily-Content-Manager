@@ -1,0 +1,232 @@
+
+/**
+ 
+ * $Id: jFileBrowser, 2010.
+ * @author Juaniquillo
+ * @copyright Copyright © 2010, Victor Sanchez (Juaniquillo).
+ * @email juaniquillo@gmail.com
+ * @website http://juaniquillo.com
+
+ */
+
+
+
+* {padding:0px;margin:0px;}
+.container_tb{
+	height:395px;
+	background: #FFFFFF;
+	border: 1px solid #C0C0C0;
+}
+a span{
+	display:none;
+}
+.titulo1{
+	font: bold 14px Verdana, Arial, Helvetica, sans-serif;
+	color: #006699;
+	padding: 8px;
+	border-bottom: 1px solid #CCCCCC;
+	margin-bottom: 3px;
+}
+.titulo2{
+	font: bold 12px Verdana, Arial, Helvetica, sans-serif;
+	color: #999;
+	padding: 6px;
+}
+.col_1_td{
+	width:80px;
+	border-right:1px solid #C0C0C0;
+	text-align:center
+}
+.container_contenid_div{
+	padding:15px
+}
+
+/* ------- Busqueda ------- */
+#buscar_fm{
+	float:right;
+}
+
+/* ------- Menu ------- */
+.menu_tb{}
+.menu_tb td{padding:5px 5px 0}
+.menu_tb a{
+	display:block;
+	padding:5px;
+	border: 1px solid #98BECD;
+	background-color: #F8F8F8;
+}
+.menu_tb a:hover{background-color:#FFFFCC;}
+.menu_tb img{border:none}
+
+/* ------- Menus secundario ------- */
+.menu_cat{
+	float:right;
+	list-style: none;
+}
+.menu_cat li{border-left:solid 1px #CCCCCC;float:left;}
+.menu_cat li a{
+	display: block;
+	height: 16px;
+	padding:2px 5px 2px 25px;
+}
+.crear_cat_a{
+	background: url(../img/folder_add.png) no-repeat 5px center;
+}
+
+.subir_img_a{
+	background: url(../img/1244254050_document_small_upload.png) no-repeat 5px center;
+}
+
+.thumbnail_a{
+	background: url(../img/image2.png) no-repeat 5px center;
+}
+.thumbnail_a_activo{
+	background: #DEEBEF url(../img/image2.png) no-repeat 5px center;
+}
+.lista_a{
+	background: url(../img/1244256218_application_view_list.png) no-repeat 5px center;
+}
+.lista_a_activo{
+	background: #DEEBEF url(../img/1244256218_application_view_list.png) no-repeat 5px center;
+}
+/* ------- Categorias ------- */
+.contain_men_cat{
+	margin:10px 0;
+	background: #F8F8F8;
+	border: 1px solid #98BECD;
+}
+
+.menu_cat a:hover{
+	background-color:#FFFFCC;
+}
+.lista_cat{
+	
+}
+.lista_cat li{}
+.lista_cat {
+	list-style: none;
+}
+.lista_cat li{
+	padding: 5px 5px 5px 20px;
+}
+.lista_cat li .info_cat_sp{padding-right:10px;}
+.lista_cat li a{
+	font-size: 11px;
+	background: url(../img/folder.png) no-repeat left center;
+	padding: 5px 5px 5px 20px;
+}
+.lista_cat li a.cat_con_img{
+	background: url(../img/folder_image.png) no-repeat left center;
+}
+#borrar_cat_bt{
+	border:none;
+	padding:1px
+}
+#borrar_cat_bt:hover{
+	background: #CCCCCC;
+}
+.lista_cat li a.borrar_cat_lk:hover{background-color:#FFFFCC;}
+.princip{
+	background: #F4F4F4;
+	border: 1px solid #CCCCCC;
+	margin:10px auto
+}
+.princip td{padding:8px;}
+.enviar_td{text-align:right;}
+#borr_cat_fm{float:left;margin-right:10px;}
+
+/* ------- Lista de imagenes ------- */
+.imag_list_ul{
+	list-style: none;
+	padding-top:10px;
+}
+.imag_list_ul li{
+	float:left;
+	margin: 3px 3px 5px 3px;
+	border: 1px solid #CCCCCC;
+	padding:3px;
+	background: #F8F8F8;
+}
+
+.imag_list_ul li:hover{background-color:#FFFFCC;}
+.imag_list_ul li a{display:block}
+.imag_list_ul li a:hover{background-color:#FFFFCC;}
+.imag_list_ul li a img{border:none;}
+.imag_list_ul .archivos_list_dv a{}
+#borrar_arch:hover{
+	color: #FFFFFF;
+	background: #CC0000;	
+}
+.imag_list_ul_lista{
+	margin: 10px 20px;
+	list-style: none;
+}
+.imag_list_ul_lista li{margin-bottom:3px;overflow:hidden;}
+.imag_list_ul_lista a{
+	display:block;
+	padding:5px 0 5px 28px;
+	background-repeat:no-repeat;
+	background-color:#F3F3F3;
+	background-position: 4px center;
+	margin-left:20px;
+}
+.imag_list_ul_lista a:hover{background-color:#FFFFCC;}
+.archivos_mime_imagen{
+	background: url(../img/image.png);
+}
+.archivos_mime_pdf2{
+	background: url(../img/pdf.png);
+}
+.archivos_mime_doc2{
+	background: url(../img/page_word.png);
+}
+.archivos_mime_xls2{
+	background: url(../img/page_excel.png);
+}
+.archivos_mime_ppt2{
+	background: url(../img/page_white_powerpoint.png);
+}
+.archivos_mime_gen2{
+	background: url(../img/page.png);
+}
+#form_submit_lista{
+	float: left;
+}
+/* ------- Archivo Secundario ------- */
+.archiv_indiv_dv{
+	padding:30px 0 10px;
+	text-align:center;
+}
+.archiv_indiv_dv img{border:none;}
+#insertar{font-size:12px;}
+/* ------- General ------- */
+.clear{clear:both;}
+.centrar{text-align:center;}
+.centrar_2{text-align:center;margin-top:3px;}
+
+.mensaje_error2{
+	font-size: 11px;
+	text-align: center;
+	margin-bottom:10px;
+	color: #CC3333;
+	border: 1px solid #CC3333;
+	padding:5px;
+	background: #F3F3F3;
+}
+/* Paginacion */
+.paginacion{
+	clear:both;
+	background: #FFFFFF;
+	text-align: center;
+	padding: 3px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border: 1px solid #999999;
+	color: #666666;
+}
+.paginacion a{
+	text-decoration:underline;
+	
+}
+.paginacion a:hover{color:#008DDF;}
+.paginacion img{border:0;}

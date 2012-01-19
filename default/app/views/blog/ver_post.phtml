@@ -1,0 +1,75 @@
+<?php Tag::css('jquery-ui/jquery.ui.all');?>
+<?php Tag::css('blog'); ?>
+<?php echo Tag::js('jquery/jquery-ui.min');?>
+<?php
+//Armo la llave de la url
+$validKey= md5($post->id.$ipKey.$expKey.'post');
+//Selecciono el usuario por medio de las relaciones del framework
+$usuario = $post->getUsuario()->login;
+//Busco los comentarios
+$comentarios = "Deja un comentario";
+///Armo las taxonomias
+$tax_categorias = array();
+$tax_etiquetas = array();
+//Consulto las taxonomias del post
+$taxonomias = $post->getTaxonomiaPost();
+foreach($taxonomias as $taxonomia):
+    if($taxonomia->tipo == Taxonomia::CATEGORIA) {
+        $tax_categorias[] = Html::link('blog/categoria/'.$taxonomia->url.'/', $taxonomia->nombre);
+    } else {
+        $tax_etiquetas[] = Html::link('blog/etiqueta/'.$taxonomia->url.'/', $taxonomia->nombre);
+    }
+endforeach;
+?>
+
+<div class="contenido">
+        
+    <?php View::partial('mensaje'); ?>
+    
+    <div class="left" style="margin-top: 15px;">        
+        
+        <div id="post-<?php echo $post->id;?>" class="post">
+            
+            <!-- Titulo -->
+            <h2 class="post-titulo"><?php echo Html::link($post->getUrlPost('blog'), $post->titulo, array('title'=>"Enlace permanente a $post->titulo"));?></h2>
+
+            <!-- Meta superior -->
+            <div class="post-meta">
+                <span class="dc-icon-reloj" style="float: left; margin: 3px 5px 0px 0px;"></span><span>Publicado el <?php echo strtolower(ExtDate::getDateSpecial($post->fecha_publicacion)); ?> por <?php echo Html::link("blog/autor/$usuario/",$usuario, array('title'=>'Ver todas las entradas de '.$usuario)); ?></span>
+            </div>
+
+            <!-- Contenido del post -->
+            <div class="post-contenido">
+                <?php echo $post->contenido; ?>
+            </div>
+            
+            <!-- Meta inferior -->
+            <div class="post-meta">
+                
+                <!-- Taxonomias -->
+                <?php if(count($tax_etiquetas) > 0) { ?>
+                <span>Etiquetado en <?php echo join(', ', $tax_etiquetas); ?></span><br />
+                <?php } ?>
+                
+                <span>Publicado en <?php echo join(', ', $tax_categorias); ?></span>
+                <span class="meta-separador">|</span>
+
+                <span><?php echo Html::link($post->getUrlPost('blog')."#comentar", $comentarios, array('title'=>"Comentarios en $post->titulo")); ?></span>
+                
+                <?php if(Auth::is_valid()) { ?>
+                <span class="meta-separador">|</span>
+                <span><?php echo Html::link("dc-admin/post/editar/$post->id/key/$validKey/", 'Editar', array('class'=>'post-editar','title'=>'Editar entrada')); ?></span>
+                <?php } ?>                
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="right">
+        <?php View::partial('blog/sidebar', false); ?>
+    </div>
+    
+    <div class="clr"></div>
+    
+</div>
+  

@@ -1,0 +1,27 @@
+1- Descomprimir el archivo zip en la carpeta de tiny_mce/plugin
+
+
+2- Crear las tablas en tu base de datos MySQL. Usa el archivo jFileBrowser.sql provisto en el zip.
+
+
+3- Encuenta el archivo include/config.inc.php y cambia las siguientes lineas por tu información de tu base de datos
+
+$sql_db = "Base_de_datos";
+$sql_user = "Usuario";
+$sql_password = "Password";
+
+
+4- Agrega lo sigiente en tu tinyMCE.ini():
+
+añade jfilebrowse a la lista de plugins
+plugins : "jfilebrowser"
+
+Añade jfilebrowse a la lista de botones
+theme_advanced_buttons1 : "jfilebrowser"
+
+
+--------------------------------------------------------
+
+
+Para ejemplos puedes pasar por:
+http://juaniquillo.com/codigo/tinymce/jfilebrowser/
