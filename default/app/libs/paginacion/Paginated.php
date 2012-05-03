@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * The intention of the Paginated class is to manage the iteration of records
  * based on a specified page number usually addressed by a get parameter in the query string
