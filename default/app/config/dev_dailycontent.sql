@@ -19,6 +19,9 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `dev_dailycontent`
 --
+CREATE DATABASE `dev_dailycontent` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+USE `dev_dailycontent`;
+
 
 -- --------------------------------------------------------
 
