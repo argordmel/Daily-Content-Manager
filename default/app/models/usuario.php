@@ -90,7 +90,7 @@ class Usuario extends ActiveRecord {
     public function getUsuarioLogueado() {
         //Verifico que haya iniciado sesión para no generar una excepción
         if(Auth::is_valid()) {
-            return $this->find_first('id='.Auth::get('id'));
+            return $this->find_first('id = '. Auth::get('id') );
         } else {
             return false;
         }
@@ -125,7 +125,37 @@ class Usuario extends ActiveRecord {
         return $this->find('columns: '.$columnas, 'join: '.$join, 'conditions: '.$condicion);
         
     }
+
+    public function registrarUsuario(){
+        // Determino el usuario logueado
+        $usuario = Load::model('usuario')->getUsuarioLogueado();
+
+        if ($usuario->grupo_id == Grupo::COLABORADOR) {
+            Flash::error('Este usuario no puede crear ning&uacute;n tipo de usuario. ');
+        } elseif ( $usuario->grupo_id >= $this->grupo_id ) {
+            $this->password = md5($this->password);
+            $result = $this->save();
+            if ( $result ) {
+                Flash::valid('Usuario creado con &eacute;xito. ');
+            } else {
+                Flash::error('Error al crear usuario. ');
+            }
+        } else {
+            Flash::error('No puede crear un usuario con mayor privilegios que el suyo. ');
+        }
+    }
+
+    public function buscarEmail($email) {
+        $email = Filter::get($email, 'string');
+        $condicion = "mail LIKE '" . $email . "'";
+        return $this->exists($condicion);
+    }
     
+    public function buscarLogin($login) {
+        $login = Filter::get($login, 'string');
+        $condicion = "login LIKE '" . $login . "'";
+        return $this->exists($condicion);
+    }
 }
 
 ?>

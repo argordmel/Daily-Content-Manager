@@ -13,10 +13,12 @@
 
 class Grupo extends ActiveRecord {
 
-    const COLABORADOR = 1;
-    const AUTOR = 2;
-    const EDITOR= 3;
-    const ADMINISTRADOR = 4;
+
+    const ADMINISTRADOR = 1;
+    const EDITOR= 2;
+    const AUTOR = 3;
+    const COLABORADOR = 4;    
+    
 
     /**
      * Metodo para definir las relaciones
@@ -46,6 +48,10 @@ class Grupo extends ActiveRecord {
      */
     public function getListado() {        
         return $this->find('conditions: '.$condicion,'order: descripcion ASC');
+    }
+
+    public function getGruposPermitidos(){
+        return $this->find('conditions: id >= ' . Session::get('nivel'),'order: grupo_descripcion ASC');
     }
     
 }

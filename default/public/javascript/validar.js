@@ -187,6 +187,27 @@ function pass(valor, idEtiqueta) {
 
 }
 
+/*function repass(valor,  idEtiqueta) {
+    var limite = 8;
+    if (valor == ) {
+        if ( alfanumerico(valor,idEtiqueta) ){
+            if ((valor.length >= limite) ) {
+                document.getElementById(idEtiqueta).innerHTML = '&nbsp;';
+        return true;
+            }
+            else {
+                document.getElementById(idEtiqueta).innerHTML = 'La contraseña debe tener entre mínimo 8 caracteres';
+        return false;
+            }
+    }
+    else {
+            document.getElementById(idEtiqueta).innerHTML = 'Haz introducido un caracter no válido';
+            return false;
+    }
+    } else { return true; }
+
+}*/
+
 function fotografia(file, idEtiqueta) {
     var ext;
     if (!(file == null || file.length == 0 || /^\s+$/.test(file))) {

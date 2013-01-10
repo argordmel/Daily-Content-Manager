@@ -224,10 +224,10 @@ class ExtForm extends Form {
         
     }
 
-    public static function dbSelect($field, $data, $show, $blank = null, $attrs = null, $value = null, $label = '', $req = false, $err = false) {
+    public static function dbSelect($field, $show = NULL, $data = NULL, $blank = 'Seleccione', $attrs = NULL, $value = NULL, $label = '', $req = false, $err = false) {
 
         $attrs = self::_getAttrsClass($attrs, 'select', $req);
-        $input  = "\n".parent::dbSelect($field, $data, $show, $blank, $attrs, $value)."\n";
+        $input  = "\n".parent::dbSelect($field, $show, $data, $blank, $attrs, $value)."\n";
         $input .= self::label($field, $label, null, $req, $err);
 
         return $input."\n";

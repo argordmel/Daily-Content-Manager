@@ -468,42 +468,74 @@ class Form
     }
     
     /**
-     * Campo Select que toma los valores de un array de objetos
-     *
-     * @param string $field nombre de campo
-     * @param string $data array de valores para la lista desplegable
-     * @param string $show campo que se mostrara
-     * @param string $blank campo en blanco
-     * @param string|array $attrs atributos de campo
-     * @param string $value
-     * @return string
-     */
-    public static function dbSelect($field, $data, $show, $blank = NULL, $attrs = NULL, $value = NULL)
-    {
-        if(is_array($attrs)) {
+* Crea un campo select que toma los valores de un array de objetos
+*
+* @param string $field Nombre de campo
+* @param string $show Campo que se mostrara (opcional)
+* @param array $data Array('modelo','metodo','param') (opcional)
+* @param string $blank Campo en blanco (opcional)
+* @param string|array $attrs Atributos de campo (opcional)
+* @param string|array $value (opcional) Array en select multiple
+* @return string
+*/
+    public static function dbSelect($field, $show = NULL, $data = NULL, $blank = 'Seleccione', $attrs = NULL, $value = NULL) {
+        if (is_array($attrs)) {
             $attrs = Tag::getAttrs($attrs);
         }
-        
+
         // Obtiene name, id y value (solo para autoload) para el campo y los carga en el scope
         extract(self::_getFieldData($field, $value === NULL), EXTR_OVERWRITE);
-        
-        if($blank === NULL) {
-            $options = '';
-        } else {
+
+        // Si no se envía un campo por defecto, no se crea el tag option
+        if ($blank != NULL) {
             $options = '<option value="">' . htmlspecialchars($blank, ENT_COMPAT, APP_CHARSET) . '</option>';
+        } else {
+            $options = '';
         }
-        
-        foreach($data as $p) {
-            $options .= "<option value=\"$p->id\"";
-            if($p->id == $value) {
-                $options .= ' selected="selected"';
+
+        //por defecto el modelo de modelo(_id)
+        if ($data === NULL) {
+            $model_asoc = explode('.', $field, 2);
+            $model_asoc = substr(end($model_asoc), 0, -3); //se elimina el _id
+            $model_asoc = Load::model($model_asoc);
+            $pk = $model_asoc->primary_key[0];
+
+            if (!$show) {
+                //por defecto el primer campo no pk
+                $show = $model_asoc->non_primary[0];
+            }
+
+            $data = $model_asoc->find("columns: $pk,$show", "order: $show asc"); //mejor usar array
+        } else {
+            $model_asoc = Load::model($data[0]);
+            $pk = $model_asoc->primary_key[0];
+
+            // Verifica si existe el parámetro
+            if (isset($data[2])) {
+                $data = $model_asoc->$data[1]($data[2]);
+            } else {
+                $data = $model_asoc->$data[1]();
+            }
+        }
+
+        foreach ($data as $p) {
+            $options .= "<option value=\"{$p->$pk}\"";
+            // Si es array $value para select multiple se seleccionan todos
+            if (is_array($value)) {
+                if (in_array($p->$pk, $value)) {
+                    $options .= ' selected="selected"';
+                }
+            } else {
+                if ($p->$pk == $value) {
+                    $options .= ' selected="selected"';
+                }
             }
             $options .= '>' . htmlspecialchars($p->$show, ENT_COMPAT, APP_CHARSET) . '</option>';
         }
-        
-        return "<select id=\"$id\" name=\"$name\" $attrs>$options</select>";
+
+        return "<select id=\"$id\" name=\"$name\" $attrs>$options</select>" . PHP_EOL;
     }
-    
+
     /**
      * Campo File
      *
