@@ -17,7 +17,7 @@ Load::lib('ext_date');
 //Incluyo la libreria de paginación
 Load::lib('paginacion/Paginated');
 
-class BlogController extends ApplicationController {
+class BlogController extends AppController {
 
     public function before_filter() {
         if(Input::isAjax()) {
@@ -41,9 +41,9 @@ class BlogController extends ApplicationController {
      * @param int|string $param4 Puede recibir 'pag' o la Url del post
      * @param int|string $param5 Puede recibir valores de la página u opciones extas, como preview para ver la vista previa
      */
-    public function ver($param1=null,$param2=null,$param3=null,$param4=null, $param5=null) {                
+    public function ver($param1=null,$param2=null,$param3=null,$param4=null, $param5=null) {
         //Titulo de la página
-        $this->title = 'Noticias';        
+        $this->title = 'Noticias';
         //Determino si se muesta un solo post o un listado
         $this->unique_post = false;
         //Analizo las variables
@@ -61,12 +61,12 @@ class BlogController extends ApplicationController {
             $num = $param4;
         } else if($param4 == 'pag') {
             $num = $param5;
-        }        
+        }
         //Si contiene el slug del post, indico que es único para ser utilizado en la vista
-        if($slug) {            
+        if($slug) {
             $this->unique_post = true;
             View::select('ver_post');
-        } else {            
+        } else {
             //Numero de la pagina
             $this->numero   = ( Filter::get($num,'numeric') > 0 ) ? Filter::get($num,'numeric') : 1;
             //Contador del datagrid que depende del numero de la página
@@ -74,7 +74,7 @@ class BlogController extends ApplicationController {
             //Selecciono la vista para el listado
             View::select('ver_listado');
         }
-                
+
         $post = new Post();
 
         //Determino si se encuentran algunos parámetros
@@ -87,7 +87,7 @@ class BlogController extends ApplicationController {
             if($this->unique_post) {
                 //Si es único asigno el título a la página
                 $this->title = $result->titulo;
-            } else {                
+            } else {
                 //Creo el título dependiendo de los filtros posibles
                 $this->title = $year;
                 $this->title.= ($month) ? ' '.ExtDate::getMonthName($month) : '';
@@ -99,13 +99,13 @@ class BlogController extends ApplicationController {
         if(!$result) {
             $this->title = 'No se encontró la página';
             $this->detalle_error = 'Publicación no encontrada';
-            View::notFound();            
+            View::notFound();
         }
         if(!$this->unique_post) {
             //Creo un paginador con el resultado, que muestre 15 filas y empieze por el numero de la página
             $result = new Paginated($result,POST_POR_PAGINA,$this->numero);
         }
-        $this->post = $result;                
+        $this->post = $result;
     }
 
     /**
@@ -125,7 +125,7 @@ class BlogController extends ApplicationController {
 
             $taxonomia = new Taxonomia();
             $taxonomia = $taxonomia->getInformacionTaxonomia($clasificacion, null, null, $slug);
-            
+
             //Verifico que exista la taxonomia
             if($taxonomia) {
                 //Agrego el título a la página
@@ -146,7 +146,7 @@ class BlogController extends ApplicationController {
             $this->detalle_error = 'Clasificación no encontrada';
             View::notFound();
         }
-        
+
     }
 
     /**
@@ -161,7 +161,7 @@ class BlogController extends ApplicationController {
         $login = Filter::get($login,'stripslashes', 'striptags','string');
         //Busco el usuario
         $usuario = new Usuario();
-        $usuario = $usuario->buscarUsuario(null, $login);        
+        $usuario = $usuario->buscarUsuario(null, $login);
         if($usuario) {
             //Agrego el título a la página
             $this->title = $usuario->login;
@@ -171,7 +171,7 @@ class BlogController extends ApplicationController {
             $this->contador = ( ($pag === 'pag') && ($this->numero > 1) ) ? ( ($this->numero * POST_POR_PAGINA) - (POST_POR_PAGINA-1) ) : 1;
             $post = new Post();
             $post = $post->filtrarPost(Post::PUBLICADO, Post::PUBLICO, 'autor', $login, 'desc');
-        }                
+        }
         if($post) {
             $this->post = new Paginated($post,POST_POR_PAGINA,$this->numero);
             View::select('ver_listado');
@@ -179,7 +179,7 @@ class BlogController extends ApplicationController {
             $this->title = 'No se encontró la página';
             $this->detalle_error = 'Usuario no encontrado';
             View::notFound();
-        }        
+        }
     }
 
     public function buscar($param='', $pag='pag', $num=1) {
@@ -200,7 +200,7 @@ class BlogController extends ApplicationController {
                 //Numero de la pagina
                 $this->numero   = ( Filter::get($num,'numeric') > 0 ) ? Filter::get($num,'numeric') : 1;
                 //Contador del datagrid que depende del numero de la página
-                $this->contador = ( ($pag === 'pag') && ($this->numero > 1) ) ? ( ($this->numero * POST_POR_PAGINA) - (POST_POR_PAGINA-1)) : 1;                
+                $this->contador = ( ($pag === 'pag') && ($this->numero > 1) ) ? ( ($this->numero * POST_POR_PAGINA) - (POST_POR_PAGINA-1)) : 1;
             }
             if($post) {
                 //Creo un paginador con el resultado, que muestre 15 filas y empieze por el numero de la página
@@ -210,8 +210,8 @@ class BlogController extends ApplicationController {
                 $this->detalle_error = isset($this->parametro) ? 'Resultado para "'.$this->parametro.'"' : 'Búsqueda de publicaciones';
                 View::select('buscar');
             }
-        }                
+        }
     }
-    
+
 }
 ?>

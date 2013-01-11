@@ -14,12 +14,12 @@
 Load::models('post');
 Load::lib('paginacion/Paginated');
 
-class PostController extends ApplicationController {
+class PostController extends AppController {
 
     /**
      * Callback que se ejecuta antes de cualquier método
      */
-    public function before_filter() {        
+    public function before_filter() {
         if(Input::isAjax()) {
             View::template(null);
         }
@@ -76,7 +76,7 @@ class PostController extends ApplicationController {
             Flash::warning('Ingresa algún parámetro para inicializar la búsqueda.');
             Router::toAction('listar/');
         }
-        
+
     }
 
     /**
@@ -132,14 +132,14 @@ class PostController extends ApplicationController {
      * post/listar/publicados/pag/2/<br>
      * post/listar/publicados/categoria/mi-categoria/<br>
      * post/listar/publicados/categoria/mi-categoria/pag/2/<br>
-     * 
+     *
      * @param string $estado Estado de los post a listar
      * @param string $parametro Parámetro a buscar. Ejem: etiqueta, categoria
      * @param string $valor Valor del parametro a buscar. Ejem: mi-categoria
      * @param string $pag Palabra 'pag' en la url
      * @param int $num Número de la pagina actual
      */
-    public function listar($estado=null, $parametro=null, $valor=null, $pag='pag',$num='') {        
+    public function listar($estado=null, $parametro=null, $valor=null, $pag='pag',$num='') {
         //Titulo de la página
         $this->title = 'Publicaciones';
         //Determino si el estado corresponde al paginador. Ejemplo: post/listar/pag/2/
@@ -157,15 +157,15 @@ class PostController extends ApplicationController {
 
         //Determino la visibilidad y el estado de los post a listar
         $visibilidad = ($estado == 'privados') ? Post::PRIVADO : 'todos';
-        $estado = ( ($estado == 'pag') or ($estado == null) or ($estado == 'privados') ) ? 'todos' : $estado;        
+        $estado = ( ($estado == 'pag') or ($estado == null) or ($estado == 'privados') ) ? 'todos' : $estado;
         //Determino el parametro a filtrar
         $parametro = ($parametro == 'pag')  ? null : $parametro;
 
         //Filtro los post
         $post = $post->filtrarPost($estado, $visibilidad, $parametro, $valor, 'desc');
-        
+
         //Variable por si se desea filtrar en la vista según el estado
-        $this->actual = strtolower($estado);        
+        $this->actual = strtolower($estado);
         //Numero de la pagina
         $this->numero   = ( Filter::get($num,'numeric') > 0 ) ? Filter::get($num,'numeric') : 1;
         //Contador del datagrid que depende del numero de la página
@@ -202,13 +202,13 @@ class PostController extends ApplicationController {
      * @param string $key Palabra 'key' que viene en la url
      * @param string $valueKey  Llave de seguridad para prevenir que se edite directamente desde la url
      */
-    public function editar($id=null,$key='key',$valueKey='') {        
+    public function editar($id=null,$key='key',$valueKey='') {
         //Titulo de la página
         $this->title = 'Editar publicación';
 
         $this->categorias = Load::model('taxonomia')->listarTaxonomia('categoria');
         $this->visibilidad = array(Post::PUBLICO=>'Público', Post::PRIVADO=>'Privado');
-        
+
         //Verifico si se ha enviado el formulario
         if(Input::hasPost('post')) {
             //Verifico que el formulario coincida con la llave almacenada en sesion
@@ -220,15 +220,15 @@ class PostController extends ApplicationController {
                 Router::redirect('dc-admin/post/editar/'.$result->id.'/key/'.md5($result->id.$this->ipKey.$this->expKey.'post').'/');
             } else {
                 Flash::info('La llave de acceso ha caducado. Por favor intente nuevamente');
-            }            
+            }
         } else {
             //Armo la llave con el código de la url
-            if($valueKey === md5($id.$this->ipKey.$this->expKey.'post')) {                
+            if($valueKey === md5($id.$this->ipKey.$this->expKey.'post')) {
                 $post = new Post();
                 $result = $post->verPost($id);
             } else {
                 Flash::error('Acceso incorrecto al sistema.');
-                Router::redirect('dc-admin/post/listar/');               
+                Router::redirect('dc-admin/post/listar/');
             }
         }
 

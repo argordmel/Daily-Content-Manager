@@ -17,95 +17,100 @@
  * 
  * @category   Kumbia
  * @package    Flash 
- * @copyright  Copyright (c) 2005-2009 Kumbia Team (http://www.kumbiaphp.com)
+ * @copyright  Copyright (c) 2005-2012 Kumbia Team (http://www.kumbiaphp.com)
  * @license    http://wiki.kumbiaphp.com/Licencia     New BSD License
  */
-class Flash {
 
-	/**
-	 * Visualiza un mensaje flash
-	 *
-	 * @param string $name	Para tipo de mensaje y para CSS class='$name'.
-	 * @param string $msg 	Mensaje a mostrar
-	 */
-	public static function show($name,$msg)
-	{
-		if(isset($_SERVER['SERVER_SOFTWARE'])){
-    			echo '<div class="' , $name , ' flash">' , $msg , '</div>', PHP_EOL;
-		} else {
-			echo $name , ': ' , strip_tags($msg) , PHP_EOL;
-		}
-	}
-	
-	/**
-	 * Visualiza un mensaje de error
-	 *
-	 * @param string $err
-	 */
-	public static function error($err)
-	{     
-		return self::show('error',$err);
-	}
+/**
+ * Clase para enviar mensajes a la vista
+ *
+ * Envio de mensajes de advertencia, éxito, información
+ * y errores a la vista.
+ * Tambien envia mensajes en la consola, si se usa desde consola.
+ *
+ * @category   Kumbia
+ * @package    Flash
+ */
+class Flash
+{
 
-	/**
-	 * Visualiza un mensaje de advertencia en pantalla
-	 *
-	 * @param string $msg
-	 */
-	public static function warning($msg)
-	{
-		return self::show('warning',$msg);
-	}
-	
-	/**
-	 * Visualiza informacion en pantalla
-	 *
-	 * @param string $msg
-	 */
-	public static function info($msg)
-	{
-		return self::show('info',$msg);
-	}
-	/**
-	 * Visualiza informacion de suceso correcto en pantalla
-	 *
-	 * @param string $msg
-	 */
-	public static function valid($msg)
-	{
-		return self::show('valid',$msg);
-	}
-        /**
-	 * Visualiza un mensaje de informacion tipo light
-	 *
-	 * @param string $msg
-	 */
-	public static function highlight($msg)
-	{
-		return self::show('highlight',$msg);
-	}
-	
-	/**
-	 * Visualiza informacion en pantalla
-	 *
-	 * @param string $msg
-	 *
-	 * @deprecated  ahora Flah::info()
-	 */
-	public static function notice($msg)
-	{
-		return self::show('info',$msg);
-	}
+    /**
+     * Visualiza un mensaje flash
+     *
+     * @param string $name	Para tipo de mensaje y para CSS class='$name'.
+     * @param string $text 	Mensaje a mostrar
+     */
+    public static function show($name, $text)
+    {
+        if (isset($_SERVER['SERVER_SOFTWARE'])) {
+            echo '<div class="', $name, ' flash">', $text, '</div>', PHP_EOL;
+        } else {
+            echo $name, ': ', strip_tags($text), PHP_EOL;
+        }
+    }
 
-	/**
-	 * Visualiza informacion de Suceso en pantalla
-	 *
-	 * @param string $msg
-	 *
-	 * @deprecated  ahora Flash::valid()
-	 */
-	public static function success($msg)
-	{
-		return self::show('valid',$msg);
-	}
+    /**
+     * Visualiza un mensaje de error
+     *
+     * @param string $text
+     */
+    public static function error($text)
+    {
+        return self::show('error', $text);
+    }
+
+    /**
+     * Visualiza un mensaje de advertencia en pantalla
+     *
+     * @param string $text
+     */
+    public static function warning($text)
+    {
+        return self::show('warning', $text);
+    }
+
+    /**
+     * Visualiza informacion en pantalla
+     *
+     * @param string $text
+     */
+    public static function info($text)
+    {
+        return self::show('info', $text);
+    }
+
+    /**
+     * Visualiza informacion de suceso correcto en pantalla
+     *
+     * @param string $text
+     */
+    public static function valid($text)
+    {
+        return self::show('valid', $text);
+    }
+
+    /**
+     * Visualiza informacion en pantalla
+     *
+     * @param string $text
+     *
+     * @deprecated  ahora Flah::info()
+     */
+    public static function notice($text)
+    {
+        return self::show('info', $text);
+    }
+
+    /**
+     * Visualiza informacion de Suceso en pantalla
+     *
+     * @param string $text
+     *
+     * @deprecated  ahora Flash::valid()
+     */
+    public static function success($text)
+    {
+        return self::show('valid', $text);
+    }
+
 }

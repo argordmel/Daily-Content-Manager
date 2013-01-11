@@ -331,4 +331,5 @@ form li.complex p.error{padding:0 0 9px 0 !important;}
 /* Utils */
 
 span.err { font-family:"Lucida Grande", Tahoma, Arial, sans-serif;letter-spacing:.01em;color: #f60303;display: block;font-size: 11px;margin-bottom: 5px; }
+span.succ { font-family:"Lucida Grande", Tahoma, Arial, sans-serif;letter-spacing:.01em;color: #4F8A10;display: block;font-size: 11px;margin-bottom: 5px; }
 .confirm-dialog {font-size: 1.1em;text-align: left;}

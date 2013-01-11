@@ -13,14 +13,14 @@
 
 Load::models('configuracion','grupo');
 
-class AjustesController extends ApplicationController {
+class AjustesController extends AppController {
 
     public $title = 'Ajustes';
-    
+
     /**
      * Callback que se ejecuta antes de cualquier método
      */
-    public function before_filter() {        
+    public function before_filter() {
         if(Input::isAjax()) {
             View::template(null);
         }

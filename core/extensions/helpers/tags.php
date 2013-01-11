@@ -14,9 +14,11 @@
  *
  * Helpers HTML
  * 
+ * @deprecated
  * @category   Kumbia
- * @package    Helpers 
- * @copyright  Copyright (c) 2005-2009 Kumbia Team (http://www.kumbiaphp.com)
+ * @package    Helpers
+ * @deprecated Antiguo helper html (legacy). Se mantiene para facilitar portar apps antiguas. Se eliminará despues de la beta2
+ * @copyright  Copyright (c) 2005-2012 Kumbia Team (http://www.kumbiaphp.com)
  * @license    http://wiki.kumbiaphp.com/Licencia     New BSD License
  */
 
@@ -662,13 +664,7 @@ function get_value_from_action($name){
 			return null;
 		}
 	} else {
-		$controller = Dispatcher::get_controller();
-		
-		if(isset($controller->$name)){
-			return $controller->$name;
-		} else {
-			return null;
-		}
+		return View::getVar($name);
 	}
 }
 

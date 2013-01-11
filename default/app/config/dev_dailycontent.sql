@@ -208,7 +208,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `login`, `password`, `nombre`, `apellido`, `mail`, `grupo_id`, `estado`, `registrado_at`, `modificado_in`) VALUES
-(1, 'admin', '61be2a14e813011cde599926dcc72c2c', 'Iván D.', 'Meléndez', 'argordmel@yahoo.es', 1, 1, '2012-01-01 00:00:01', NULL);
+(1, 'admin', '9a9746d53945a4962910b17a572e68fd', 'Administrador', 'De Sistema', 'postmaster@admin.com', 1, 1, '2012-01-01 00:00:01', NULL);
 
 --
 -- Restricciones para tablas volcadas

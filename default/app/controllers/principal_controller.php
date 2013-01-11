@@ -11,7 +11,7 @@
  * @version     1.0
  */
 
-class PrincipalController extends ApplicationController {
+class PrincipalController extends AppController {
 
     public function before_filter() {
         View::template('principal');

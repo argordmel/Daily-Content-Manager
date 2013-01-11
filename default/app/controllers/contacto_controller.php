@@ -13,10 +13,10 @@
 
 Load::model('empresa');
 
-class ContactoController extends ApplicationController {
+class ContactoController extends AppController {
 
     public function before_filter() {
-        
+
     }
 
     public function index() {
@@ -27,6 +27,7 @@ class ContactoController extends ApplicationController {
         if(Input::hasPost('contacto')) {
             Flash::valid('Los datos se han registrado correctamente. <br />El número del radicado es: '.date("Y-m-d")."-4596");
         }
+
     }
 }
 ?>

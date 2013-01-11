@@ -13,8 +13,8 @@
 
 Load::models('post');
 
-class IndexController extends ApplicationController {
-    
+class IndexController extends AppController {
+
     public function before_filter() {
 
     }
@@ -25,12 +25,12 @@ class IndexController extends ApplicationController {
 
         $post = new Post();
         $taxonomia = new Taxonomia();
-        
+
         //Totalizadores de publicaciones y taxonomias
         $this->total_post = $post->getContadorPost('todos');
         $this->total_borradores = $post->getContadorPost('todos',Post::BORRADOR);
         $this->total_categorias = $taxonomia->getContadorTaxonomia(Taxonomia::CATEGORIA);
-        $this->total_etiquetas = $taxonomia->getContadorTaxonomia(Taxonomia::ETIQUETA);        
+        $this->total_etiquetas = $taxonomia->getContadorTaxonomia(Taxonomia::ETIQUETA);
         //Totalizadores de comentarios
         $this->total_comentarios = 0;
         $this->total_pendientes = 0;
@@ -45,6 +45,6 @@ class IndexController extends ApplicationController {
         $this->detalle_pendiente = ($this->total_pendientes > 1) ? 'Pendientes' : 'Pendiente';
         $this->detalle_spam = 'Spam';
     }
-   
+
 }
 ?>

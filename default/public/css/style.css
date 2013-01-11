@@ -1,86 +1,61 @@
 /* Formatea los mensajes Flash::xxx() de KumbiaPHP */
-div.mensaje div.flash {
-    border: 1px solid;
-    margin: 1px 0;
-    padding:3px 10px 3px 13px;
-    font-size:13px;
-    min-height: 17px;
-    border-style: solid;
-    border-radius: 4px;
-    -moz-border-radius: 4px;
-    -khtml-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    -moz-box-shadow: rgba(200,200,200,1) 0 3px 8px;
-    -webkit-box-shadow: rgba(200,200,200,1) 0 3px 8px;
-    -khtml-box-shadow: rgba(200,200,200,1) 0 3px 8px;
-    box-shadow: rgba(200,200,200,1) 0 3px 8px;
+.flash {
+	border: 1px solid;
+	margin: 1px 0;
+	min-height: 32px;
+	padding:3px 10px 3px 50px;
+	background-repeat: no-repeat;
+	background-position: 10px center;
+	line-height: 32px;
 }
 
 .error {
-    color: #D8000C;
-    background: #FFBABA url('../img/default/ds_error.png') no-repeat;
-}
-.error a {
-    color: #D8000C;
+	color: #D8000C;
+	background-color: #FFBABA;
+	background-image: url('../img/default/error.png');
 }
 
 .info {
-    color: #00529B;    
-    background: #BDE5F8 url('../img/default/ds_info.png') no-repeat;
-}
-.info a {
-    color: #00529B;
-    text-decoration: underline;
+	color: #00529B;
+	background-color: #BDE5F8;
+	background-image: url('../img/default/info.png');
 }
 
 .valid {
-    color: #4F8A10;
-    background: #DFF2BF url('../img/default/ds_valid.png') no-repeat;
+	color: #4F8A10;
+	background-color: #DFF2BF;
+	background-image:url('../img/default/valid.png');
 }
-.valid a{
-    color: #4F8A10;
-    text-decoration: underline;
-}
-
 .warning {
-    color: #9F6000;
-    background: #FEEFB3 url('../img/default/ds_warning.png') no-repeat;
-}
-.warning a{
-    color: #9F6000;
-    text-decoration: underline;
+	color: #9F6000;
+	background-color: #FEEFB3;
+	background-image: url('../img/default/warning.png');
 }
 
 .highlight {
-    color: #333;
-    background: #FFFFDF;
-
-}
-.highlight a {
-    color: #333;
-    text-decoration: underline;
+	background: #FFFFDF;
 }
 
 div.autocomplete {
-    position: relative;
-    background-color: white;
-    border: 1px solid #888;
-    margin: 0;
-    padding: 0;
+	position: relative;
+	background-color: white;
+	border: 1px solid #888;
+	margin: 0;
+	padding: 0;
 }
 div.autocomplete ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
 }
 div.autocomplete ul li.selected {
-    background-color: #ffb;
+	background-color: #ffb;
 }
 div.autocomplete ul li {
-    list-style-type: none;
-    display: block;
-    margin: 1px 0;
-    padding: 1px;
-    cursor: pointer;
-    font-size: 10px;
+      list-style-type: none;
+      display: block;
+	  margin: 1px 0;
+      padding: 1px;
+      cursor: pointer;
+      font-size: 10px;
 }

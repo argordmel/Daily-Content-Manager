@@ -13,18 +13,18 @@
 
 Load::models('taxonomia');
 
-class TaxonomiaController extends ApplicationController {
+class TaxonomiaController extends AppController {
 
     /**
      * Callback que se ejecuta antes de cualquier método
      */
-    public function before_filter() {        
+    public function before_filter() {
         if(Input::isAjax()) {
             View::template(null);
         }
     }
 
-    /**     
+    /**
      * Método principal para listar las taxonomías dependiendo de su tipo
      *
      * @param string $tipo Tipo de taxonomia a listar 'etiqueta' o 'categoria'
@@ -56,7 +56,7 @@ class TaxonomiaController extends ApplicationController {
      *
      * @param string $tipo Tipo de taxonomia a registrar 'etiqueta' o 'categoria'
      */
-    public function registrar($tipo) {        
+    public function registrar($tipo) {
         if( ($tipo === 'categoria') or ($tipo === 'etiqueta') ) {
             //Asigno el título a la página
             $this->title = ($tipo == 'categoria') ? 'Editar categoría' : 'Editar etiqueta';
@@ -115,7 +115,7 @@ class TaxonomiaController extends ApplicationController {
                     Flash::error('Acceso denegado al sistema.');
                     Router::redirect('dc-admin/'.$tipo.'/');
                 }
-            }                       
+            }
         } else {
             Flash::info('Acceso incorrecto al sistema.');
             Router::redirect('dc-admin/');
@@ -145,8 +145,8 @@ class TaxonomiaController extends ApplicationController {
         } else {
             Flash::info('Acceso incorrecto al sistema.');
             Router::redirect('dc-admin/');
-        }        
+        }
     }
-    
+
 }
 ?>

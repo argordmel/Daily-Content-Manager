@@ -13,10 +13,10 @@
 
 Load::models('empresa');
 
-class EmpresaController extends ApplicationController {
+class EmpresaController extends AppController {
 
     public function before_filter() {
-        
+
     }
 
     public function index() {

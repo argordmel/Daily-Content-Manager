@@ -12,21 +12,23 @@
  * obtain it through the world-wide-web, please send an email
  * to license@kumbiaphp.com so we can send you a copy immediately.
  *
- * @copyright  Copyright (c) 2005-2010 Kumbia Team (http://www.kumbiaphp.com)
+ * @copyright  Copyright (c) 2005-2012 Kumbia Team (http://www.kumbiaphp.com)
  * @license    http://wiki.kumbiaphp.com/Licencia     New BSD License
  */
-
-/**
- * Establece polí­tica de informe de errores
- */
-//error_reporting(0); // Usar este en producción, no envia errores
-error_reporting(E_ALL ^ E_STRICT);
 
 /**
  * Indicar si la aplicacion se encuentra en produccion
  * directamente desde el index.php
  */
 //define('PRODUCTION', TRUE);
+
+/**
+ * Establece polí­tica de informe de errores
+ */
+//error_reporting(0); // Usar este en producción, no envia errores
+error_reporting(E_ALL ^ E_STRICT); // Comentar en producción
+//comentar la siguiente linea en producción
+ini_set('display_errors', 'On');
 
 /**
  * Define marca de tiempo en que inicio el Request
@@ -71,7 +73,9 @@ $url = isset($_GET['_url']) ? $_GET['_url'] : '/';
 
 /**
  * Carga el gestor de arranque
+ * Por defecto el bootstrap del core
  *
  * @see Bootstrap
  */
-require CORE_PATH . 'kumbia/bootstrap.php';
+require( APP_PATH . 'libs/bootstrap.php' ); //bootstrap de app
+//require CORE_PATH . 'kumbia/bootstrap.php'; //bootstrap del core
