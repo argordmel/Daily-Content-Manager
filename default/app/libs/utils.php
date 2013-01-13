@@ -173,7 +173,31 @@ class Utils {
         $newtext = str_replace("<    !--", "< !--", $newtext);
         return $newtext;
     }
-    
+
+    /**
+     * Obtener el lugar de donde vienes
+     * 
+     * @return String
+     */    
+    public static function getBack() {
+        $here = $_SERVER['HTTP_REFERER'];
+
+        $protocol = 'http';
+        if (isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on') {
+          $protocol = 'https';
+        } elseif (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] == '443')) {
+          $protocol = 'https';
+        }
+
+        $base = str_replace("default/public/index.php", '', $_SERVER['SCRIPT_NAME']);
+        $url = sprintf('%s://%s%s',
+          $protocol,
+          $_SERVER['SERVER_NAME'],
+          $base
+        );
+
+        return str_replace($url, '', $here);
+    }
 }
 
 ?>

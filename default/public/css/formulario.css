@@ -5,6 +5,9 @@
 
 .daily { font-family:Verdana,Arial,Helvetica,sans-serif; letter-spacing:.01em; text-rendering: optimizeLegibility; }
 .daily li{ width:95%; margin: 0 auto;}
+.redondosuperior { border-radius: 5px 5px 0 0; }
+.redondoinferior { border-radius: 0 0 5px 5px; }
+.redondotodos { border-radius: 5px; }
 
 /* ----- INFO ----- */
 

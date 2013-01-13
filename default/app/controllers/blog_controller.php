@@ -99,7 +99,8 @@ class BlogController extends AppController {
         if(!$result) {
             $this->title = 'No se encontró la página';
             $this->detalle_error = 'Publicación no encontrada';
-            View::notFound();
+            //View::notFound();
+            //View::excepcion('No se encontró la página');
         }
         if(!$this->unique_post) {
             //Creo un paginador con el resultado, que muestre 15 filas y empieze por el numero de la página
@@ -144,7 +145,7 @@ class BlogController extends AppController {
         } else {
             $this->title = 'No se encontró la página';
             $this->detalle_error = 'Clasificación no encontrada';
-            View::notFound();
+            //View::notFound();
         }
 
     }
@@ -178,7 +179,7 @@ class BlogController extends AppController {
         } else {
             $this->title = 'No se encontró la página';
             $this->detalle_error = 'Usuario no encontrado';
-            View::notFound();
+            //View::notFound();
         }
     }
 

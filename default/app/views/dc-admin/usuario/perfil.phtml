@@ -11,25 +11,25 @@
                     <li>
                         <label for="usuario_nombre" class="desc">Nombre<span class="req">*</span></label>
                         <div>
-                            <?php echo ExtForm::text('usuario.nombre', array('class'=>'large'), null, '', true, true); ?>
+                            <?php echo ExtForm::text('usuario.nombre', array('class'=>'large'), $nombre, '', true, true); ?>
                         </div>
                     </li>
                     <li>
                         <label for="usuario_apellido" class="desc">Apellido<span class="req">*</span></label>
                         <div>
-                            <?php echo ExtForm::text('usuario.apellido', array('class'=>'large'), null, '', true, true); ?>
+                            <?php echo ExtForm::text('usuario.apellido', array('class'=>'large'), $apellido, '', true, true); ?>
                         </div>
                     </li>
                     <li>
                         <label for="usuario_email" class="desc">email<span class="req">*</span></label>
                         <div>
-                            <?php echo ExtForm::text('usuario.mail', array('class'=>'medium email'), null, '', true, true); ?>
+                            <?php echo ExtForm::text('usuario.mail', array('class'=>'medium email'), $email, '', true, true); ?>
                         </div>
                     </li>
                     <li>
                         <label for="usuario_login" class="desc">Login<span class="req">*</span></label>
                         <div>
-                            <?php echo ExtForm::text('usuario.login', array('class'=>'medium usuario'), null, '', true, true); ?>
+                            <?php echo ExtForm::text('usuario.login', array('class'=>'medium usuario', 'readonly' => 'readonly'), $login, '', true, true); ?>
                         </div>
                     </li>
                     <li>
@@ -64,17 +64,6 @@
                             echo ExtForm::dbSelect('usuario.grupo_id', 'grupo_descripcion', $data, '-- Seleccione -- ', array('class'=>'font-normal lista full'), null, '', false, true); ?>
                         </div>
                     </li>
-                    <li class="twoColumns">
-                        <label for="usuario_estado" class="desc">Habilitar usuario</label>
-                        <div>                            
-                            <span>
-                                <?php echo ExtForm::radio('usuario.estado', '1', array('class'=>''), $check_si, 'Si'); ?>
-                            </span>
-                            <span>
-                                <?php echo ExtForm::radio('usuario.estado', '0', array('class'=>''), $check_no, 'No'); ?>
-                            </span>
-                        </div>
-                    </li>
                     <li>
                         <div>
                             <label for="usuario_registrado_at" class="desc">Fecha de creación</label>
@@ -91,10 +80,20 @@
                         <?php echo SecurityKey::generateKey(); ?>
                     </div>
                     <div class="right small">
-                        <span><?php echo ExtForm::submit('Crear Usuario',array('id'=>'enviarForm','name'=>'btn_crear')); ?></span>
+                        <span><?php echo ExtForm::submit('Actualizar Perfil',array('id'=>'enviarForm','name'=>'btn_crear')); ?></span>
                     </div>
                     <div class="clr"></div>
                 </div>
+            </div>
+        </div>
+
+        <div class="break"></div>
+
+        <!-- Redes Sociales -->
+        <div class="box ui-corner-all ui-widget-content">
+            <div class="box-titulo ui-state-default ui-corner-tl ui-corner-tr"><h3 class="text-shadow">Redes Sociales</h3></div>
+            <div class="box-contenido box-form">
+                <?php View::partial('twitter/cuenta'); ?>
             </div>
         </div>
 
@@ -145,29 +144,6 @@
             mensaje('err_usuario_mail', '');
         }
     });//    ^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$
-
-    $('#usuario_login').keyup(function(){
-        nick = $(this).val();
-
-        if ( nick.length >= 4 ) {
-            $.post(
-                '../checkLogin',
-                {
-                    login: nick
-                },
-                function(data){
-                    if (data.status == 'OK') {
-                        mensaje('err_usuario_login', 'Disponible', 'info');
-                    } else {
-                        mensaje('err_usuario_login', 'Este nick ya esta asignado a un usuario');
-                    }
-                },
-                'json'
-            );
-        } else {
-            mensaje('err_usuario_login', '');
-        }
-    });
 
     $('#repasswd').keyup(function(){
         pass = $('#usuario_password').val();

@@ -1,9 +1,0 @@
-[Sat, 16 Apr 11 17:59:05 -0500][DEBUG] DESCRIBE `post`
-[Sat, 16 Apr 11 17:59:05 -0500][DEBUG] DESCRIBE `taxonomia`
-[Sat, 16 Apr 11 17:59:05 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado != 4
-[Sat, 16 Apr 11 17:59:05 -0500][DEBUG] SELECT COUNT(*) FROM post  WHERE estado = '1'
-[Sat, 16 Apr 11 17:59:05 -0500][DEBUG] SELECT COUNT(*) FROM taxonomia  WHERE tipo = 1
-[Sat, 16 Apr 11 17:59:05 -0500][DEBUG] SELECT COUNT(*) FROM taxonomia  WHERE tipo = 2
-[Sat, 16 Apr 11 17:59:06 -0500][DEBUG] DESCRIBE `usuario`
-[Sat, 16 Apr 11 17:59:06 -0500][DEBUG] SELECT id,login,mail,password,grupo_id,nombre,apellido,estado,registrado_at,modificado_in FROM usuario WHERE id=2 LIMIT 1
-[Sat, 16 Apr 11 19:10:31 -0500][DEBUG] DESCRIBE `usuario`

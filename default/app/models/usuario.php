@@ -49,10 +49,13 @@ class Usuario extends ActiveRecord {
                         Auth::destroy_identity();
                     } else {
                         //Almaceno en sesion algunos parámetros
-                        Session::set('nivel',$grupo->id);
-                        Session::set('grupo',$grupo->descripcion);
+                        Session::set('id', $this->codigo);
                         Session::set("usuario", $this->usr);
                         Session::set("ip", $this->ip);
+
+                        Session::set('nivel',$grupo->id);
+                        Session::set('grupo',$grupo->descripcion);
+
                         Flash::info("¡ Bienvenido <strong>$this->usr</strong> !.");
                         Router::redirect('dc-admin/');
                     }
@@ -73,6 +76,7 @@ class Usuario extends ActiveRecord {
             Flash::info("Identifícate nuevamente.");
         } else {
             Auth::destroy_identity();
+            Session::delete('id');
             Session::delete('ip');
             Session::delete("usuario");
             Session::delete('grupo');
@@ -130,9 +134,9 @@ class Usuario extends ActiveRecord {
         // Determino el usuario logueado
         $usuario = Load::model('usuario')->getUsuarioLogueado();
 
-        if ($usuario->grupo_id == Grupo::COLABORADOR) {
+        if ($usuario->grupo_id == Grupo::COLABORADOR || $usuario->grupo_id == Grupo::LECTOR) {
             Flash::error('Este usuario no puede crear ning&uacute;n tipo de usuario. ');
-        } elseif ( $usuario->grupo_id >= $this->grupo_id ) {
+        } elseif ( $usuario->grupo_id <= $this->grupo_id ) {
             $this->password = md5($this->password);
             $result = $this->save();
             if ( $result ) {
@@ -161,6 +165,40 @@ class Usuario extends ActiveRecord {
         $grupo = Load::model('grupo');
         return $grupo->find_first('id = ' . Auth::get('grupo_id'));
     }
+
+
+    // Redes Sociales
+
+    ///// Twitter //////
+    function getTwitter($id) {
+        $r = $this->find($id);
+ 
+        $o = array(
+            'id' => $r->id,
+            'token' => $r->user_token,
+            'secret' => $r->user_secret,
+        );
+        
+        if ($r->user_token == '') {
+            return FALSE;
+        } else {
+            return $o;
+        }
+ 
+    }
+
+    public function setTwitter($id, $token = '', $secret = '') {
+        $r = $this->find($id);
+        $r->user_token = $token;
+        $r->user_secret = $secret;
+ 
+        if ( $r->save() ) {
+            return True;
+        } else {
+            return False;
+        }
+    }
+    ///// Twitter //////
 }
 
 ?>

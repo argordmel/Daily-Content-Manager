@@ -35,6 +35,34 @@ class AppController extends Controller
 
     final protected function initialize()
     {
+
+
+        //
+        // @FIXME: Los parametros de arranque deberían estar en bootstrap 
+        // pero momentaneamente no funciona lo repare luego
+        //
+
+        // Configuración Inicial de CMS 
+        $config = Config::read('config', true);
+
+        // Establezco el nombre de la aplicacion
+        define('APP_NAME', $config['application']['name']);
+        /*Cargo las opciones generales de la aplicacion*/
+
+        //Defino el nombre del blog
+        define('NOMBRE_DEL_BLOG', $config['application']['nombre_blog']);
+        //Defino el numero de post a mostrar por página
+        define('POST_POR_PAGINA', $config['application']['post_por_pagina']);
+        //Defino el numero de post a mostrar en el widget
+        define('POST_POR_WIDGET', $config['application']['post_por_widget']);
+
+
+        //Defino la categoría por defecto
+        define('CATEGORIA_POR_DEFECTO', $config['application']['categoria_por_defecto']);
+        //Defino si se habilitan o no comentarios por defecto
+        define('HABILITAR_COMENTARIOS', $config['application']['habilitar_comentarios']);
+
+
         // Verifico si esta en el módulo de administración
         if (Router::get('module') == 'dc-admin') {
             // Verifico si esta logueado el usuario

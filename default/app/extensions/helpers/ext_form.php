@@ -31,7 +31,7 @@ class ExtForm extends Form {
         return array('id' => $id, 'name' => $name);
     }
 
-    protected  static function _getAttrsClass($attrs, $input, $req = false, $ext = false) {
+    protected static function _getAttrsClass($attrs, $input, $req = false, $ext = false) {
 
         if($input == 'form') {
             if(isset($attrs['class'])) {

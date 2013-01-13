@@ -77,6 +77,63 @@ class UsuarioController extends AppController {
         }
     }
 
+    /**
+     * Método para agregar un nuevo usuario
+     */
+    public function perfil() {
+        $usuario = new Usuario();
+
+        $dataUsuario = $usuario->buscarUsuario(Session::get('id'), '');
+
+        //Titulo de la página
+        $this->title = "Modificar tu Perfil";
+
+        $this->nombre = $dataUsuario->nombre;
+        $this->apellido = $dataUsuario->apellido;
+        $this->email = $dataUsuario->mail;
+        $this->login = $dataUsuario->login;
+
+        //Array para determinar la visibilidad de los post
+        $this->tipo = array(
+            Grupo::ADMINISTRADOR => 'Administrador',
+            Grupo::AUTOR => 'Autor',
+            Grupo::COLABORADOR => 'Colaborador',
+            Grupo::EDITOR => 'Editor'
+            );
+
+        //Verifico si ha enviado los datos a través del formulario
+        if(Input::hasPost('usuario')) {
+            //Verifico que el formulario coincida con la llave almacenada en sesion
+            if(SecurityKey::isValid()) {
+                Load::models('usuario');
+                $usuario = new Usuario(Input::post('usuario'));
+                $resultado = $usuario->registrarUsuario();
+                if($resultado) {
+                    View::select('usuario');
+                }
+            } else {
+                Flash::info('La llave de acceso ha caducado. Por favor intente nuevamente.');
+            }
+        }
+    }
+
+    public function eliminarTwitter($id) {
+        $usuario = new Usuario();
+
+        if (Session::get('id') != $id)  {
+            Flash::error('No puedes eliminar una cuenta de Twitter que no es suya');
+            $location = '/dc-admin/';
+        } else {
+            if ( $usuario->setTwitter($id) ){
+                Flash::valid('Cuenta de Twitter borrada exitosamente');
+            } else {
+                Flash::error('Error al eliminar la cuenta de Twitter');
+            }
+            $location = Utils::getBack();
+        }
+        Router::redirect($location);
+    }
+
     public function checkEmail(){
         $salida['status'] = "ERROR";
 
