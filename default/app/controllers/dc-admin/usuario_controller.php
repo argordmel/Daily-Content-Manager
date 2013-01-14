@@ -40,6 +40,7 @@ class UsuarioController extends AppController {
      * Método para agregar un nuevo usuario
      */
     public function agregar() {
+        Flash::info(Router::get('module'));
         //Titulo de la página
         $this->title = 'Nueva usuario';
         //Ckeck de los radios para habilitar comentarios
@@ -81,6 +82,7 @@ class UsuarioController extends AppController {
      * Método para agregar un nuevo usuario
      */
     public function perfil() {
+        Flash::info(Router::get('module'));
         $usuario = new Usuario();
 
         $dataUsuario = $usuario->buscarUsuario(Session::get('id'), '');

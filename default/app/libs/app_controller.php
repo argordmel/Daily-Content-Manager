@@ -38,11 +38,11 @@ class AppController extends Controller
 
 
         //
-        // @FIXME: Los parametros de arranque deberían estar en bootstrap 
+        // @FIXME: Los parametros de arranque deberían estar en bootstrap
         // pero momentaneamente no funciona lo repare luego
         //
 
-        // Configuración Inicial de CMS 
+        // Configuración Inicial de CMS
         $config = Config::read('config', true);
 
         // Establezco el nombre de la aplicacion
@@ -75,7 +75,7 @@ class AppController extends Controller
             } else {
                 View::template('login');
                 //Verifico que no este en el controlador usuario y en los métodos entrar o salir para no generar una redirección infinita
-                if(Router::get('controller') != 'usuario' && ( Router::get('action') != 'entrar' && Router::get('action') != 'salir') ) {
+                if(( Router::get('controller') != 'usuario' && Router::get('action') != 'entrar' ) && ( Router::get('controller') != 'usuario' && Router::get('action') != 'salir') ) {
                     Flash::warning('No haz iniciado sesión.');
                     Router::redirect('dc-admin/usuario/entrar/');
                     return false;
