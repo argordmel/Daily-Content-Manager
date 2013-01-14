@@ -59,7 +59,7 @@
                     <li>
                         <div>
                             <label for="usuario_grupo_id" class="desc">Tipo de usuario</label>
-                            <?php 
+                            <?php
                             $data = array('grupo', 'getGruposPermitidos');
                             echo ExtForm::dbSelect('usuario.grupo_id', 'grupo_descripcion', $data, '-- Seleccione -- ', array('class'=>'font-normal lista full'), null, '', false, true); ?>
                         </div>
@@ -99,7 +99,7 @@
 
         <div class="break"></div>
     </div>
-    
+
 <?php echo Tag::js('sha1')."\n"; ?>
 <!-- Alertas -->
 <script type="text/javascript">
@@ -161,4 +161,4 @@
         $("input[type='password']").val(hex_sha1(pass));
     });
 
- </script> 
+ </script>

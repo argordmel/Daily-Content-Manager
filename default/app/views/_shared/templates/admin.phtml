@@ -3,7 +3,7 @@
     <head>
     <meta http-equiv='Content-type' content='text/html; charset=<?php echo APP_CHARSET ?>' />
     <meta name="copyright" content="Dailyscript &copy; <?php echo date("Y");?>"/>
-    <meta name="robots" content="noindex,nofollow" />    
+    <meta name="robots" content="noindex,nofollow" />
     <title><?php echo $title ?></title>
     <?php Tag::css('admin') ?>
     <?php Tag::css('style') ?>
@@ -15,12 +15,12 @@
     <?php echo Tag::js('jquery/jquery.min'); ?>
     <?php echo Tag::js('jquery/jquery-ui.min');?>
     <?php echo Tag::js('jquery/jquery.kumbiaphp');?>
-    <script type="text/javascript">        
-        $(function() {$('input:submit, input:button, input:reset').button();$('a','#menu-principal').button();$('a','.box-botones').button();});        
+    <script type="text/javascript">
+        $(function() {$('input:submit, input:button, input:reset').button();$('a','#menu-principal').button();$('a','.box-botones').button();});
         // <![CDATA[
             var myMenu;window.onload = function() { myMenu = new Menu("menu-items"); myMenu.init(); };
 	// ]]>
-    </script>   
+    </script>
     </head>
     <body>
 
@@ -30,14 +30,14 @@
                 <p class="font-normal"><?php echo Html::link('blog/','Ver sitio', array('target'=>'_blank','class'=>'font-normal')); ?></p>
             </div>
             <div class="right medium">
-                <p class="font-normal">Hola, <?php echo Html::link('dc-admin/perfil/', Session::get('usuario'), array('class'=>'font-normal') ); ?> | <?php echo Html::link('dc-admin/usuario/salir/', 'Cerrar sesión', array('class'=>'font-normal')); ?></p>                
+                <p class="font-normal">Hola, <?php echo Html::link('dc-admin/perfil/', Session::get('usuario'), array('class'=>'font-normal') ); ?> | <?php echo Html::link('dc-admin/usuario/salir/', 'Cerrar sesión', array('class'=>'font-normal')); ?></p>
             </div>
             <div class="clr"></div>
         </div>
-        
+
         <!-- Pagina -->
         <div id="cuerpo">
-            
+
             <!-- Menu -->
             <div id="menu">
                 <?php View::partial('admin/menu'); ?>
@@ -51,11 +51,11 @@
             </div>
 
             <div class="clr"></div>
-            
-        </div>        
+
+        </div>
 
         <!-- Pie -->
-        <div id="pie">            
+        <div id="pie">
             <div class="left medium"><p>© Copyright <a href="http://dailyscript.com.co">Dailyscript</a>. Todos los derechos reservados. <a href="http://dailyscript.com.co/contacto/">Contacto</a></p></div>
             <div class="right medium"><p>Versión 0.1a - Tiempo de respuesta: <?php echo round((microtime(1)-START_TIME),4),' seg.'?> </p></div>
             <div class="clr"></div>
@@ -69,6 +69,6 @@
             <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Se han encontrado errores al procesar el formulario. </p>
             <p>Por favor verifica los datos e intenta nuevamente</p>
         </div>
-               
+
     </body>
 </html>
