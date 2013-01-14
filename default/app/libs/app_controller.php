@@ -75,7 +75,7 @@ class AppController extends Controller
             } else {
                 View::template('login');
                 //Verifico que no este en el controlador usuario y en los métodos entrar o salir para no generar una redirección infinita
-                if(( Router::get('controller') != 'usuario' && Router::get('action') != 'entrar' ) && ( Router::get('controller') != 'usuario' && Router::get('action') != 'salir') ) {
+                if(!( Router::get('controller') == 'usuario' && Router::get('action') == 'entrar' ) && !( Router::get('controller') == 'usuario' && Router::get('action') == 'salir') ) {
                     Flash::warning('No haz iniciado sesión.');
                     Router::redirect('dc-admin/usuario/entrar/');
                     return false;
