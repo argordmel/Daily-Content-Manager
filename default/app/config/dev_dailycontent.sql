@@ -199,6 +199,8 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `estado` int(1) NOT NULL DEFAULT '1' COMMENT 'Estado del usuario',
   `registrado_at` datetime DEFAULT NULL COMMENT 'Fecha de registro',
   `modificado_in` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Fecha de modificación',
+  `user_token` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Llave de la cuenta de Twitter',
+  `user_secret` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Llave secreta de la cuenta de Twitter',
   PRIMARY KEY (`id`),
   KEY `fk_usuario_grupo` (`grupo_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Tabla que contiene los usuarios del sistema' AUTO_INCREMENT=2 ;
