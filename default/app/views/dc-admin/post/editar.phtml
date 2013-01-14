@@ -30,7 +30,7 @@
                             <?php echo ExtForm::text('etiquetas', array('class'=>'full'), join(', ', $arreglo) , 'Separa las etiquetas por comas', false, true); ?>
                         </div>
                         <div>
-                            <?php echo ExtForm::hidden('post.estado','', '');?>
+                            <?php echo ExtForm::hidden('post.estado', '', '');?>
                         </div>
                         <div>
                             <?php echo SecurityKey::generateKey(); ?>
@@ -80,23 +80,27 @@
                 </ul>
                 <!-- Botones -->
                 <div class="box-botones">
-                    <script type="text/javascript">
-                        $(function() {$('#btn_borrador').click(function(){$("input[name=post[estado]]").attr('value','<?php echo Post::BORRADOR; ?>');});});
-                    </script>
                     <div class="left small">
                         <span style="padding-right: 10px;"><?php echo ExtForm::submit('&nbsp;&nbsp;Borrador&nbsp;&nbsp;',array('id'=>'btn_borrador','name'=>'btn_borrador')); ?></span>
                     </div>
-                    <script type="text/javascript">
-                        <?php if(Session::get('grupo_id') == Grupo::COLABORADOR) { ?>
-                        $(function() {$('#btn_publicar').click(function(){$("input[name=post[estado]]").attr('value','<?php echo Post::PENDIENTE; ?>');});});
-                        <?php } else { ?>
-                        $(function() {$('#btn_publicar').click(function(){$("input[name=post[estado]]").attr('value','<?php echo Post::PUBLICADO; ?>');});});
-                        <?php } ?>
-                     </script>
                     <div class="right small">
                         <span><?php echo ExtForm::submit('Actualizar',array('id'=>'btn_publicar','name'=>'btn_publicar')); ?></span>
                     </div>
                     <div class="clr"></div>
+                    <script type="text/javascript">
+                        $('#btn_borrador').on('click',function(event){
+                            $("input[name='post[estado]']").attr('value','<?php echo Post::BORRADOR; ?>');
+                        });
+                        <?php if(Session::get('grupo_id') == Grupo::COLABORADOR) { ?>
+                        $('#btn_publicar').on('click', function(event){
+                            $("input[name='post[estado]']").attr('value','<?php echo Post::PENDIENTE; ?>');
+                        });
+                        <?php } else { ?>
+                        $('#btn_publicar').on('click', function(event){
+                            $("input[name='post[estado]']").attr('value','<?php echo Post::PUBLICADO; ?>');
+                        });
+                        <?php } ?>
+                     </script>
                 </div>
             </div>
         </div>

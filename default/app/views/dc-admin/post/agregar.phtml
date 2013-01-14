@@ -29,8 +29,8 @@
                     <li>
                         <label for="post_usuario_id" class="desc">Autor<span class="req">*</span></label>
                         <div>
-                            <?php echo ExtForm::dbSelect('post.usuario_id', $usuarios, 'login', null, array('class'=>'font-normal lista medium'), Auth::get('id'), '', false, true); ?>
-                            <div class="input-info">Es posible asignar esta publicación a otro autor.</div>
+                            <?php echo ExtForm::dbSelect('post.usuario_id', 'login', $usuarios, null, array('class'=>'font-normal lista medium', $amend => ''), Auth::get('id'), '', false, true); ?>
+                            <?php if ($amend == ''): ?><div class="input-info">Es posible asignar esta publicación a otro autor.</div> <?php endif; ?>
                         </div>
                         <div>
                             <?php echo ExtForm::hidden('post.estado','', '');?>

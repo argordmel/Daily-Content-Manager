@@ -11,6 +11,8 @@
             <div class="box-titulo ui-state-default ui-corner-tl ui-corner-tr box-expandido" id="actualmente-titulo">
                 <h3 class="text-shadow">Actualmente</h3><span class="box-icono ui-icon ui-icon-circle-triangle-s" style="margin: -21px 10px 0px 95%"></span>
             </div>
+
+            <?php if ( Session::get('nivel') < Grupo::COLABORADOR ): ?>
             <div class="box-contenido">
                 <div class="left medium">
                     <div class="box-subtitulo"><h3 class="text-shadow">Contenido</h3></div>
@@ -21,6 +23,31 @@
                         <tr><td class="box-contador" id="total_etiquetas"><?php echo Html::link('dc-admin/etiqueta/',$total_etiquetas); ?></td><td class="box-info"><?php echo Html::link('dc-admin/etiqueta/',$detalle_etiqueta); ?></td></tr>
                     </table>
                 </div>
+            <?php elseif ( Session::get('nivel') == Grupo::COLABORADOR ): ?>
+            <div class="box-contenido">
+                <div class="left medium">
+                    <div class="box-subtitulo"><h3 class="text-shadow">Contenido</h3></div>
+                    <table class="box-table" cellspacing="3" cellpadding="3">
+                        <tr>
+                            <td class="box-contador" id="total_post"><?php echo $total_post; ?></td>
+                            <td class="box-info"><?php echo $detalle_post; ?></td>
+                        </tr>
+                        <tr>
+                            <td class="box-contador" id="total_borradores"><?php echo $total_borradores; ?></td>
+                            <td class="box-info"><?php echo $detalle_borrador; ?></td>
+                        </tr>
+                        <tr>
+                            <td class="box-contador" id="total_categorias"><?php echo $total_categorias; ?></td>
+                            <td class="box-info"><?php echo $detalle_categoria; ?></td>
+                        </tr>
+                        <tr>
+                            <td class="box-contador" id="total_etiquetas"><?php echo $total_etiquetas; ?></td>
+                            <td class="box-info"><?php echo $detalle_etiqueta; ?></td>
+                        </tr>
+                    </table>
+                </div>
+            <?php endif; ?>
+
                 <div class="right medium">
                     <div class="box-subtitulo"><h3 class="text-shadow">Comentarios</h3></div>
                     <table class="box-table" cellspacing="3" cellpadding="3">
@@ -36,17 +63,22 @@
                 </div>
             </div>
         </div>
+
         <div class="break"></div>
 
+        <?php if ( Session::get('nivel') < Grupo::COLABORADOR ): ?>
         <?php View::partial('admin/boxes/comentarios', false, array('ipKey'=>$ipKey,'expKey'=>$expKey)); ?>
-        
         <?php View::partial('admin/boxes/borradores', false, array('ipKey'=>$ipKey,'expKey'=>$expKey)); ?>
-
+        <?php endif; ?>
     </div>
-    <div class="right medium">
 
+    
+    <div class="right medium">
+        <?php if ( Session::get('nivel') == Grupo::COLABORADOR ): ?>
+        <?php View::partial('admin/boxes/comentarios', false, array('ipKey'=>$ipKey,'expKey'=>$expKey)); ?>
+        <?php elseif ( Session::get('nivel') < Grupo::COLABORADOR ): ?>
         <?php View::partial('admin/boxes/quickpress', false, array('ipKey'=>$ipKey,'expKey'=>$expKey)); ?>
-        
+        <?php endif; ?>
     </div>
     <div class="clr"></div>   
 </div>

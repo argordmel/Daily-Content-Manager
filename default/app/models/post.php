@@ -390,7 +390,8 @@ class Post extends ActiveRecord {
             if($this->estado != self::BORRADOR) {
                 $this->estado = self::PENDIENTE;
             }
-        }        
+        }
+        
         $rs = $this->update();
         if($rs && $mensaje) {
             Flash::valid('La publicación se ha actualizado correctamente.');

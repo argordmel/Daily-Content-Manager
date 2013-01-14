@@ -95,7 +95,9 @@ class PostController extends AppController {
         //Listo los usuarios
         Load::models('usuario');
         $usuario = new Usuario();
-        $this->usuarios = $usuario->listarUsuarios(Usuario::ACTIVO);
+        //$this->usuarios = $usuario->listarUsuarios(Usuario::ACTIVO);
+        $this->usuarios = array('usuario' , 'listarUsuarios' , Usuario::ACTIVO);
+        $this->amend = (Session::get('nivel') >= Grupo::AUTOR) ? 'disabled' : '';
 
         //Verifico si ha enviado los datos a través del formulario
         if(Input::hasPost('post')) {
