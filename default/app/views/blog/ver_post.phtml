@@ -60,7 +60,9 @@ endforeach;
                 <span class="meta-separador">|</span>
                 <span><?php echo Html::link("dc-admin/post/editar/$post->id/key/$validKey/", 'Editar', array('class'=>'post-editar','title'=>'Editar entrada')); ?></span>
                 <?php } ?>                
-                
+                <div id="comentar">
+
+                </div>
             </div>
         </div>
     </div>
@@ -70,6 +72,15 @@ endforeach;
     </div>
     
     <div class="clr"></div>
-    
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var direccion = $(location).attr('href').split("/");
+            if ( direccion[direccion.length -1] == '#comentar' ) {
+                $.get('http://localhost/dcm/comentario', function(data) {
+                    $('#comentar').html(data);
+                });
+            }
+        });
+    </script>
 </div>
   

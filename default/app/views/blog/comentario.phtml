@@ -1,0 +1,54 @@
+<?php Tag::css('jquery-ui/jquery.ui.all');?>
+<?php Tag::css('formulario');?>
+<?php echo Tag::js('jquery/jquery-ui.min');?>
+<?php echo Tag::js('formulario');?>
+<div class="contenido">
+    <!-- Mensaje -->
+    <div class="contenedor-mensaje">
+        <div class="mensaje">                        
+            <?php View::content(); echo "\r\n"; ?>
+        </div>
+    </div>
+    <div class="left">
+        <h3 class="contenido-subtitulo">Formulario de contacto</h3>
+        <div class="form">
+            <?php echo ExtForm::open('contacto/', 'post', array('id'=>'formulario', 'name'=>'formulario'), true); ?>
+            <ul>
+                <li>
+                    <div>                        
+                        <?php echo ExtForm::text('contacto.nombre', array('class'=>'alfabetico full'), null, 'Nombre', true, true); ?>
+                    </div>
+                </li>                
+                <li>
+                    <div>                        
+                        <?php echo ExtForm::text('contacto.email', array('class'=>'email full'), null, 'Email', true, true); ?>
+                    </div>
+                </li>                
+                <li>
+                    <div>                        
+                        <?php echo ExtForm::textarea('contacto.mensaje', array('class'=>'texto large', 'maxlength'=>'1500'), null, 'Mensaje', 1500, true, true); ?>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <?php View::partial('blog/comentarios/recaptcha'); ?>
+                    </div>
+                </li>
+            </ul>
+            <div class="botones">
+                <?php echo ExtForm::submitImage('pagina/enviar.png'); ?>
+            </div>
+            <?php echo Form::close(); ?>           
+            <div class="clr"></div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function() { $("#error-form").dialog({ autoOpen: false, width: 400, height:165, modal: true, buttons: { 'Aceptar': function() { $(this).dialog('close'); } } }); });
+    </script>
+    <div id="error-form" title="Dailyscript - Web | App | Media" class="confirm-dialog">
+        <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Se han encontrado errores al procesar el formulario. </p>
+        <p>Por favor verifica los datos e intenta nuevamente</p>
+    </div>
+    <div class="clr"></div>
+</div>
+  
