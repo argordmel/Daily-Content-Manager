@@ -82,7 +82,6 @@ class UsuarioController extends AppController {
      * Método para agregar un nuevo usuario
      */
     public function perfil() {
-        Flash::info(Router::get('module'));
         $usuario = new Usuario();
 
         $dataUsuario = $usuario->buscarUsuario(Session::get('id'), '');

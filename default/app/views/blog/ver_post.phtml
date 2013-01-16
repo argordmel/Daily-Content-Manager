@@ -23,13 +23,13 @@ endforeach;
 ?>
 
 <div class="contenido">
-        
+
     <?php View::partial('mensaje'); ?>
-    
-    <div class="left" style="margin-top: 15px;">        
-        
+
+    <div class="left" style="margin-top: 15px;">
+
         <div id="post-<?php echo $post->id;?>" class="post">
-            
+
             <!-- Titulo -->
             <h2 class="post-titulo"><?php echo Html::link($post->getUrlPost('blog'), $post->titulo, array('title'=>"Enlace permanente a $post->titulo"));?></h2>
 
@@ -42,45 +42,80 @@ endforeach;
             <div class="post-contenido">
                 <?php echo $post->contenido; ?>
             </div>
-            
+
             <!-- Meta inferior -->
             <div class="post-meta">
-                
+
                 <!-- Taxonomias -->
                 <?php if(count($tax_etiquetas) > 0) { ?>
                 <span>Etiquetado en <?php echo join(', ', $tax_etiquetas); ?></span><br />
                 <?php } ?>
-                
+
                 <span>Publicado en <?php echo join(', ', $tax_categorias); ?></span>
                 <span class="meta-separador">|</span>
 
-                <span><?php echo Html::link($post->getUrlPost('blog')."#comentar", $comentarios, array('title'=>"Comentarios en $post->titulo")); ?></span>
-                
+                <span><?php echo Html::link($post->getUrlPost('blog')."#comentar", $comentarios, array('title'=>"Comentarios en $post->titulo" , 'id' => 'comentar')); ?></span>
+
                 <?php if(Auth::is_valid()) { ?>
                 <span class="meta-separador">|</span>
                 <span><?php echo Html::link("dc-admin/post/editar/$post->id/key/$validKey/", 'Editar', array('class'=>'post-editar','title'=>'Editar entrada')); ?></span>
-                <?php } ?>                
-                <div id="comentar">
-
+                <?php } ?>
+                <div id="comentario" style="display: none;">
+                    <?php View::partial('blog/comentarios/comentarios'); ?>
                 </div>
             </div>
         </div>
     </div>
-    
+
     <div class="right">
         <?php View::partial('blog/sidebar', false); ?>
     </div>
-    
+
     <div class="clr"></div>
     <script type="text/javascript">
-        $(document).ready(function() {
+        var rebote = true;
+
+        function comentar() {
             var direccion = $(location).attr('href').split("/");
             if ( direccion[direccion.length -1] == '#comentar' ) {
-                $.get('http://localhost/dcm/comentario', function(data) {
-                    $('#comentar').html(data);
-                });
+                rebote = false;
+                $('#comentario').fadeIn('slow');
             }
+        }
+
+        $(document).ready(function() {
+            comentar();
+
+            $('#comentar').on('click', function(event) {
+                event.preventDefault();
+                if (rebote) {
+                    $(location).attr('href', location + '#comentar');
+                    rebote = false;
+                }
+                //comentar();
+                $('#comentario').fadeIn('slow');
+            });
+
+            $('#send').on('click', function() {
+                $.post(
+                    '/dcm/comentario/comentar/',
+                    {
+                        'challenge': $('#recaptcha_challenge_field').val(),
+                        'response': $('#recaptcha_response_field').val()
+                    },
+                    function(data) {
+                        if(data.status == 'ok'){
+                            rebote = true;
+                            $('#comentario').fadeOut();
+                            alert(data.msg);
+                        } else {
+                            alert(data.msg);
+                        }
+                        Recaptcha.reload();
+                    },
+                    'json'
+                );
+            })
         });
     </script>
 </div>
-  

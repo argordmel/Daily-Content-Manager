@@ -35,18 +35,12 @@
                 </li>
             </ul>
             <div class="botones">
-                <?php echo ExtForm::submitImage('pagina/enviar.png'); ?>
+                <?php echo ExtForm::submitImage('pagina/enviar.png', array('id' => 'send')); ?>
             </div>
             <?php echo Form::close(); ?>
             <div class="clr"></div>
         </div>
     </div>
-    <script type="text/javascript">
-        $(function() { $("#error-form").dialog({ autoOpen: false, width: 400, height:165, modal: true, buttons: { 'Aceptar': function() { $(this).dialog('close'); } } }); });
-    </script>
-    <div id="error-form" title="Dailyscript - Web | App | Media" class="confirm-dialog">
-        <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Se han encontrado errores al procesar el formulario. </p>
-        <p>Por favor verifica los datos e intenta nuevamente</p>
-    </div>
+
     <div class="clr"></div>
 </div>

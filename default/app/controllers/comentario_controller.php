@@ -28,4 +28,29 @@ class ComentarioController extends AppController {
     public function index() {
     	View::template(null);
     }
+
+    public function comentar() {
+    	View::template(null);
+
+        $return = array(
+            'status' => 'error',
+            'msg' => 'Error no han recibido parametros'
+            );
+
+        if( Input::hasPost('challenge') ) {
+        	Load::model('recaptcha');
+            $challenge = Input::post('challenge');
+            $response = Input::post('response');
+        	$recaptcha = new Recaptcha();
+            if ( $recaptcha->test($challenge, $response) ) {
+                $return['status'] = 'ok';
+                $return['msg'] = 'Captcha Correcto';
+            } else {
+                $return['msg'] = $recaptcha->getError();
+            }
+        }
+
+    	View::response('json');
+        print json_encode($return);
+    }
 }

@@ -5,7 +5,7 @@
  * del usuario de Twitter
  * Fecha 05/02/2012
  *
- * @category    Administracion
+ * @category    API
  * @package     Models
  * @author      Jaro Marval
  * @copyright   Copyright (c) 2010 Dailyscript Team (http://www.dailyscript.com.co)

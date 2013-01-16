@@ -1,8 +1,9 @@
 <!-- Captcha -->
+<?php $app = Api::recaptcha(); ?>
 <script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
 <div id="recaptcha" style="width: 450px; margin: auto;"></div>
 <script type="text/javascript">
-Recaptcha.create("6LeuZsgSAAAAAHtcjz5sM7YCWnjs9A0PfVP3Zgep", 'recaptcha', {
+Recaptcha.create('<?php echo $app['public_key'] ?>', 'recaptcha', {
  theme: "clean",
  lang: "es",
  callback: Recaptcha.focus_response_field
