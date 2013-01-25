@@ -25,6 +25,11 @@
                 </li>
                 <li>
                     <div>
+                        <?php echo ExtForm::text('contacto.web', array('class'=>'email full'), null, 'Web', false, true); ?>
+                    </div>
+                </li>
+                <li>
+                    <div>
                         <?php echo ExtForm::textarea('contacto.mensaje', array('class'=>'texto medium', 'maxlength'=>'1500'), null, 'Mensaje', 1500, true, true); ?>
                     </div>
                 </li>

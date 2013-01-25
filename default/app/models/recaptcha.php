@@ -40,7 +40,10 @@ class Recaptcha {
 
 	public function getError() {
 		$string = array(
-			'incorrect-captcha-sol' => 'Solución incorrecta'
+			'invalid-request-cookie' => 'Cookie Inválida',
+			'invalid-site-private-key' => 'Llave Privada Inválida',
+			'incorrect-captcha-sol' => 'Solución Incorrecta',
+			'recaptcha-not-reachable' => 'Captcha no Disponible',
 			);
 		return $string[$this->_error];
 	}

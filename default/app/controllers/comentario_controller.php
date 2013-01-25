@@ -34,11 +34,14 @@ class ComentarioController extends AppController {
 
         $return = array(
             'status' => 'error',
-            'msg' => 'Error no han recibido parametros'
+            'msg' => 'Error no se han recibido parametros'
             );
 
         if( Input::hasPost('challenge') ) {
         	Load::model('recaptcha');
+            $nombre = Input::post('nombre');
+            $email = Input::post('email');
+            $web = Input::post('web');
             $challenge = Input::post('challenge');
             $response = Input::post('response');
         	$recaptcha = new Recaptcha();

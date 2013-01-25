@@ -45,12 +45,12 @@ class Post extends ActiveRecord {
             if($this->estado != self::BORRADOR) {
                 $this->estado = self::PENDIENTE;
             }
-        }        
+        }
         //Determino el creador del post
         if(!isset($this->usuario_id)) {
             $this->usuario_id = $usuario->id;
         }
-       
+
         //Verifico si se ha enviado a traves de un quickpress
         $quickpress = ( isset($this->quickpress) && ($this->quickpress=='quickpress') ) ? true : false;
         //Si es quickpress cargo algunas configuraciones por defecto
@@ -66,7 +66,7 @@ class Post extends ActiveRecord {
 
 	$this->hora_publicacion = date("H:i:s");
 
-        $rs = $this->save();        
+        $rs = $this->save();
 
         if($rs) {
             //Si es quickpress imprimo el script para limpiar el formulario
@@ -85,7 +85,7 @@ class Post extends ActiveRecord {
         }
 
         return $rs;
-        
+
     }
 
     /**
@@ -110,7 +110,7 @@ class Post extends ActiveRecord {
      * @param int $limite Limite del listado
      * @return array
      */
-    public function filtrarPost($estado, $visibilidad, $parametro='', $valor='', $orden = 'asc', $limite = '', $mensaje = false) {                
+    public function filtrarPost($estado, $visibilidad, $parametro='', $valor='', $orden = 'asc', $limite = '', $mensaje = false) {
 
         $estado = $this->_getEstadoPost($estado);
 
@@ -118,10 +118,10 @@ class Post extends ActiveRecord {
         $parametro = Filter::get($parametro,'stripslashes', 'striptags', 'string');
         $valor = Filter::get($valor,'stripslashes', 'striptags', 'string');
         //Si no se recibe el valor retorna false
-        if($parametro && !$valor) {            
+        if($parametro && !$valor) {
             return false;
-        }        
-        
+        }
+
         //Armo la consulta
         $sql = 'SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios ';
         $sql.= 'FROM post ';
@@ -137,7 +137,7 @@ class Post extends ActiveRecord {
         $sql.= ($parametro == 'autor')      ?   " AND usuario.login = '$valor'"                             : " AND usuario.estado = '1'";
         $sql.= ($parametro == 'categoria')  ?   " AND taxonomia.tipo = '1' AND taxonomia.url = '$valor'"    : '';
         $sql.= ($parametro == 'etiqueta')   ?   " AND taxonomia.tipo = '2' AND taxonomia.url = '$valor'"    : '';
-        
+
         //Si está en el módulo de administración
         if(Router::get('module') == 'dc-admin')  {
             //Obtengo el usuario logueado
@@ -151,19 +151,19 @@ class Post extends ActiveRecord {
                 return false;
             }
         }
-        
+
         //Determino el orden
         $orden = strtoupper($orden);
         if($orden != 'ASC' && $orden != 'DESC') {
             if($mensaje) {
                 Flash::error('Error: PST-FTR001. Se ha producido un error en la verificación de la información. <br />Al parecer no se logró establecer el orden del listado.');
-            }            
+            }
             return false;
         }
 
         $sql.= ' GROUP BY post.id';
         $sql.= ' ORDER BY post.fecha_publicacion '.$orden;
-        
+
         $sql.= ($limite) ? ' LIMIT '.Filter::get($limite,'numeric') : '';
 
         return $this->find_all_by_sql($sql);
@@ -231,7 +231,7 @@ class Post extends ActiveRecord {
         $sql.= 'INNER JOIN usuario ON usuario.id = post.usuario_id ';
         $sql.= 'LEFT JOIN comentario ON comentario.post_id = post.id ';
         $sql.= "WHERE post.estado != '".self::ELIMINADO."'";
-                
+
         if($codigo) { //Si tiene el código del post
             $sql.=" AND post.id = '$codigo'";
             $rs = $this->find_by_sql($sql);
@@ -249,7 +249,7 @@ class Post extends ActiveRecord {
             } else {
                 return false;
             }
-            
+
             $sql.= ' GROUP BY post.id';
             $sql.= ' ORDER BY post.fecha_publicacion DESC';
             $rs = $this->find_all_by_sql($sql);
@@ -281,7 +281,7 @@ class Post extends ActiveRecord {
             $sql.= 'INNER JOIN usuario ON usuario.id = post.usuario_id ';
             $sql.= 'LEFT JOIN comentario ON comentario.post_id = post.id ';
             $sql.= 'WHERE ';
-            $sql.= ($estado) ? "post.estado = '$estado'" : "post.estado != '".self::ELIMINADO."'";            
+            $sql.= ($estado) ? "post.estado = '$estado'" : "post.estado != '".self::ELIMINADO."'";
             $sql.= " AND post.titulo like '%".$param."%' OR post.contenido like '%".$param."%'";
             $sql.= ' GROUP BY post.id';
             $sql.= ' ORDER BY post.fecha_publicacion DESC';
@@ -312,7 +312,7 @@ class Post extends ActiveRecord {
         }
         //Determino el codigo del post
         $post = ($post) ? Filter::get($post,'int') : $this->id;
-        
+
         $columnas = 'post_taxonomia.post_id, post_taxonomia.taxonomia_id, taxonomia.id, taxonomia.tipo, taxonomia.nombre, taxonomia.url';
         $join = 'INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id ';
         $condicion = "post.id = '$post'";
@@ -391,7 +391,7 @@ class Post extends ActiveRecord {
                 $this->estado = self::PENDIENTE;
             }
         }
-        
+
         $rs = $this->update();
         if($rs && $mensaje) {
             Flash::valid('La publicación se ha actualizado correctamente.');
@@ -403,7 +403,7 @@ class Post extends ActiveRecord {
      * Callback que se ejecuta antes de insertar un nuevo registro
      */
     public function before_create() {
-        
+
     }
 
     /**
@@ -415,7 +415,7 @@ class Post extends ActiveRecord {
         if($this->fecha_publicacion > date("Y-m-d")) {
             $this->fecha_publicacion = date("Y-m-d H:i:s");
         }
-        //Verifico que no exista otro titulo registrado        
+        //Verifico que no exista otro titulo registrado
         if($this->getSlugRegistrado()) {
             Flash::error('El título de la publicación ya se encuentra almacenado.');
             return 'cancel';
@@ -437,7 +437,7 @@ class Post extends ActiveRecord {
         Load::models('post_taxonomia');
         $taxonomia = new PostTaxonomia();
         //Determino si se han enviado categorias
-        $categorias = (Input::post('categorias')) ? (Input::post('categorias')) : CATEGORIA_POR_DEFECTO;        
+        $categorias = (Input::post('categorias')) ? (Input::post('categorias')) : CATEGORIA_POR_DEFECTO;
         //Elimino las taxonomias registradas para no crear conflicto
         $taxonomia->eliminarPostTaxonomia($this->id);
         //Registro las categorias
