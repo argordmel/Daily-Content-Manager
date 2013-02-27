@@ -11,8 +11,9 @@
  * @version     1.0
  */
 
-Load::models('usuario');
-Load::models('post');
+Load::model('usuario');
+Load::model('post');
+Load::lib('paginacion/Paginated');
 
 class UsuarioController extends AppController {
 
@@ -23,7 +24,45 @@ class UsuarioController extends AppController {
     }
 
     public function index() {
+        Router::toAction('listar/');
+    }
 
+    public function listar($estado=null, $parametro=null, $valor=null, $pag='pag',$num='') {
+        //Titulo de la página
+        $this->title = 'Usuario';
+        //Determino si el estado corresponde al paginador. Ejemplo: post/listar/pag/2/
+        if($estado && $estado == 'pag') {
+            $pag = $estado;
+            $num = $parametro;
+        } else if($parametro && $parametro == 'pag') {//Determino si el parametro es el paginador. Ejemplo: post/listar/borradores/pag/2/
+            $pag = $parametro;
+            $num = $valor;
+        } else if($valor && $valor == 'pag') {//Determino si el valor es el paginador. Ejemplo: post/listar/categoria/pag/2/
+            Flash::error('Acceso denegado al sistema');
+            Router::redirect('dc-admin/');
+        }
+        $post = new Post();
+
+        //Determino la visibilidad y el estado de los post a listar
+        $visibilidad = ($estado == 'privados') ? Post::PRIVADO : 'todos';
+        $estado = ( ($estado == 'pag') or ($estado == null) or ($estado == 'privados') ) ? 'todos' : $estado;
+        //Determino el parametro a filtrar
+        $parametro = ($parametro == 'pag')  ? null : $parametro;
+
+        //Filtro los post
+        $post = $post->filtrarPost($estado, $visibilidad, $parametro, $valor, 'desc');
+
+        //Variable por si se desea filtrar en la vista según el estado
+        $this->actual = strtolower($estado);
+        //Numero de la pagina
+        $this->numero   = ( Filter::get($num,'numeric') > 0 ) ? Filter::get($num,'numeric') : 1;
+        //Contador del datagrid que depende del numero de la página
+        $this->contador = ( ($pag === 'pag') && ($this->numero > 1) ) ? ( ($this->numero * 15) - 14 ) : 1;
+        //Creo un paginador con el resultado, que muestre 15 filas y empieze por el numero de la página
+        $this->post = new Paginated($post,15,$this->numero);
+        //Variable para prevenir que se manipule el contador através de la url
+        $this->registros = count($post);
+        $this->contador = ( $this->registros >= $this->contador ) ? $this->contador : 1;
     }
 
     public function entrar() {
