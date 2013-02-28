@@ -1,0 +1,25 @@
+<?php
+Load::model('usuario');
+Load::model('grupo');
+$usuario = new Usuario();
+
+$total_usuario = $usuario->getContadorUsuarios('todos');
+$total_administradores = $usuario->getContadorUsuarios(Grupo::ADMINISTRADOR);
+$total_editores = $usuario->getContadorUsuarios(Grupo::EDITOR);
+$total_autores = $usuario->getContadorUsuarios(Grupo::AUTOR);
+$total_colaboradores = $usuario->getContadorUsuarios(Grupo::COLABORADOR);
+$base = "dc-admin/usuario/listar/";
+?>
+<div class="left medium">
+    <ul class="sub-nav font-medium">
+        <li>
+        	<?php echo Html::link($base.'todos/',"Todas <span class=\"counter\">($total_usuario)</span>");?>
+        </li>
+        <?php 
+        if($total_administradores > 0) echo '<li><span class="separador"> | </span>'. Html::link($base.'administradores/',"Administradores <span class=\"counter\">($total_administradores)</span>").'</li>'; ?>
+        <?php if($total_editores > 0) echo '<li><span class="separador"> | </span>'. Html::link($base.'editores/',"Editores <span class=\"counter\">($total_editores)</span>").'</li>'; ?>
+        <?php if($total_autores > 0) echo '<li><span class="separador"> | </span>'. Html::link($base.'autores/',"Autores <span class=\"counter\">($total_autores)</span>").'</li>'; ?>
+        <?php if($total_colaboradores > 0) echo '<li><span class="separador"> | </span>'. Html::link($base.'colaboradores/',"Colaboradores <span class=\"counter\">($total_colaboradores)</span>").'</li>'; ?>
+    </ul>
+</div>
+<div class="clr"></div>

@@ -12,6 +12,7 @@
  */
 
 Load::model('usuario');
+Load::model('grupo');
 Load::model('post');
 Load::lib('paginacion/Paginated');
 
@@ -27,12 +28,12 @@ class UsuarioController extends AppController {
         Router::toAction('listar/');
     }
 
-    public function listar($estado=null, $parametro=null, $valor=null, $pag='pag',$num='') {
+    public function listar($usuarios=null, $parametro=null, $valor=null, $pag='pag',$num='') {
         //Titulo de la página
         $this->title = 'Usuario';
         //Determino si el estado corresponde al paginador. Ejemplo: post/listar/pag/2/
-        if($estado && $estado == 'pag') {
-            $pag = $estado;
+        if($usuarios && $usuarios == 'pag') {
+            $pag = $usuarios;
             $num = $parametro;
         } else if($parametro && $parametro == 'pag') {//Determino si el parametro es el paginador. Ejemplo: post/listar/borradores/pag/2/
             $pag = $parametro;
@@ -41,27 +42,47 @@ class UsuarioController extends AppController {
             Flash::error('Acceso denegado al sistema');
             Router::redirect('dc-admin/');
         }
-        $post = new Post();
+
+        $usuario = new Usuario();
 
         //Determino la visibilidad y el estado de los post a listar
-        $visibilidad = ($estado == 'privados') ? Post::PRIVADO : 'todos';
-        $estado = ( ($estado == 'pag') or ($estado == null) or ($estado == 'privados') ) ? 'todos' : $estado;
+        $usuarios = ( ($usuarios == 'pag') or ($usuarios == null) ) ? 'todos' : $usuarios;
+
+        switch($usuarios) {
+            case 'administradores':
+                $usuarios = Grupo::ADMINISTRADOR;
+                break;
+            case 'editores':
+                $usuarios = Grupo::EDITOR;
+                break;
+            case 'autores':
+                $usuarios = Grupo::AUTOR;
+                break;
+            case 'colaboradores':
+                $usuarios = Grupo::COLABORADOR;
+                break;
+
+            default:
+                $usuarios = 'todos';
+        }
         //Determino el parametro a filtrar
         $parametro = ($parametro == 'pag')  ? null : $parametro;
 
-        //Filtro los post
-        $post = $post->filtrarPost($estado, $visibilidad, $parametro, $valor, 'desc');
+        // //Variable por si se desea filtrar en la vista según el estado
+        // $this->actual = strtolower($estado);
 
-        //Variable por si se desea filtrar en la vista según el estado
-        $this->actual = strtolower($estado);
         //Numero de la pagina
         $this->numero   = ( Filter::get($num,'numeric') > 0 ) ? Filter::get($num,'numeric') : 1;
+
         //Contador del datagrid que depende del numero de la página
         $this->contador = ( ($pag === 'pag') && ($this->numero > 1) ) ? ( ($this->numero * 15) - 14 ) : 1;
+        $usuario = $usuario->listarUsuarios($usuarios);
+
         //Creo un paginador con el resultado, que muestre 15 filas y empieze por el numero de la página
-        $this->post = new Paginated($post,15,$this->numero);
-        //Variable para prevenir que se manipule el contador através de la url
-        $this->registros = count($post);
+        $this->usuario = new Paginated($usuario,15,$this->numero);
+
+        // Variable para prevenir que se manipule el contador através de la url
+        $this->registros = count($usuario);
         $this->contador = ( $this->registros >= $this->contador ) ? $this->contador : 1;
     }
 

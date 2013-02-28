@@ -23,7 +23,7 @@ class Usuario extends ActiveRecord {
     }
 
     /**
-     * Metodo para inciar sesion.
+     *  para inciar sesion.
      *
      * @return boolean
      */
@@ -119,20 +119,40 @@ class Usuario extends ActiveRecord {
         return $this->find_first('conditions: '.$condicion);
     }
 
+    /*
+    public function listarUsuarios($estado) {
+        $estado = Filter::get($estado, 'int');
+        $columnas = 'usuario.id, usuario.login, usuario.mail, usuario.grupo_id, usuario.nombre, usuario.apellido, usuario.estado, grupo.grupo_descripcion, COUNT(DISTINCT `post`.`id`)';
+        $join = 'INNER JOIN grupo ON grupo.id = usuario.grupo_id LEFT JOIN `post` ON `usuario`.`id` = `post`.`usuario_id` AND `post`.`estado` = ' . Post::PUBLICADO ;
+        $condicion = ($estado) ? "usuario.estado = '$estado'" : '';//, COUNT(DISTINCT `post`.`id`) as cantidad
+        $group_by = 'usuario.id';
+        return $this->find('columns: '.$columnas, 'join: '.$join, 'conditions: '.$condicion, 'group : '.$group_by);
+
+    }*/
 
     public function listarUsuarios($estado) {
-
-        $estado = Filter::get($estado, 'int');
-        $columnas = 'usuario.id, usuario.login, usuario.mail, usuario.grupo_id, usuario.nombre, usuario.apellido, usuario.estado, grupo.grupo_descripcion';
-        $join = 'INNER JOIN grupo ON grupo.id = usuario.grupo_id';
-        $condicion = ($estado) ? "usuario.estado = '$estado'" : '';
-        return $this->find('columns: '.$columnas, 'join: '.$join, 'conditions: '.$condicion);
-
+        $usuario = $this->getUsuarioLogueado();
+        $condicion = ($estado != 'todos') ? "grupo_id = $estado": "grupo_id >= $usuario->grupo_id";
+        $sql = "SELECT 
+            `usuario`.`id`,
+            CONCAT(`usuario`.`nombre` , ' ', `usuario`.`apellido`) as nombre,
+            `usuario`.`login`,
+            `usuario`.`mail`,
+            `grupo`.`grupo_descripcion` AS perfil,
+            `usuario`.`estado`,
+            COUNT(DISTINCT `post`.`id`) as cantidad
+        FROM `usuario`
+        INNER JOIN `grupo` ON `usuario`.`grupo_id` = `grupo`.`id`
+        LEFT JOIN `post` ON `usuario`.`id` = `post`.`usuario_id` AND `post`.`estado` = " . Post::PUBLICADO . "
+        WHERE $condicion
+        GROUP BY `usuario`.`id`";
+        return $this->find_all_by_sql($sql);
     }
+
 
     public function registrarUsuario(){
         // Determino el usuario logueado
-        $usuario = Load::model('usuario')->getUsuarioLogueado();
+        $usuario = $this->getUsuarioLogueado();
 
         if ($usuario->grupo_id == Grupo::COLABORADOR || $usuario->grupo_id == Grupo::LECTOR) {
             Flash::error('Este usuario no puede crear ning&uacute;n tipo de usuario. ');
@@ -140,12 +160,12 @@ class Usuario extends ActiveRecord {
             $this->password = md5($this->password);
             $result = $this->save();
             if ( $result ) {
-                Flash::valid('Usuario creado con &eacute;xito. ');
+                Flash::valid('Usuario creado con &eacute;xito.');
             } else {
-                Flash::error('Error al crear usuario. ');
+                Flash::error('Error al crear usuario.');
             }
         } else {
-            Flash::error('No puede crear un usuario con mayor privilegios que el suyo. ');
+            Flash::error('No puede crear un usuario con mayor privilegios que el suyo.');
         }
     }
 
@@ -166,32 +186,43 @@ class Usuario extends ActiveRecord {
         return $grupo->find_first('id = ' . Auth::get('grupo_id'));
     }
 
+    public function getContadorUsuarios($nivel) {
+        $usuario = $this->getUsuarioLogueado();
+        $salida = 0;
+        if ($usuario->grupo_id <= (int)$nivel || $nivel == 'todos') {
+            $condicion = ($nivel != 'todos') ? "grupo_id = ".Filter::get($nivel,'int') : "grupo_id >= ".$usuario->grupo_id;
+            $salida = $this->count("conditions: $condicion");
+        }
+
+        return $salida;
+    }
+
 
     // Redes Sociales
 
     ///// Twitter //////
     function getTwitter($id) {
         $r = $this->find($id);
- 
+
         $o = array(
             'id' => $r->id,
             'token' => $r->user_token,
             'secret' => $r->user_secret,
         );
-        
+
         if ($r->user_token == '') {
             return FALSE;
         } else {
             return $o;
         }
- 
+
     }
 
     public function setTwitter($id, $token = '', $secret = '') {
         $r = $this->find($id);
         $r->user_token = $token;
         $r->user_secret = $secret;
- 
+
         if ( $r->save() ) {
             return True;
         } else {
