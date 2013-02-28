@@ -14,7 +14,7 @@ $twitterdata = $modelo->getData();
 			<img src="<?php echo $twitterdata['image']; ?>" style="float:left; margin-right: 5px;"><br/>
 			<a href="<?php echo $twitterdata['profile']; ?>" target="_blank">Ver Perfil</a><br/>
 			<a href="<?php echo PUBLIC_PATH; ?>dc-admin/usuario/eliminarTwitter/<?php echo $twitterdata['id']; ?>">Desasociar Cuenta</a><br/>
-			<a href="<?php echo PUBLIC_PATH; ?>redes/tweet/">Envia un Tweet</a>
+			<!-- <a href="<?php echo PUBLIC_PATH; ?>redes/tweet/">Envia un Tweet</a> -->
         </div>
     </li>
 <?php else: ?>
