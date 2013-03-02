@@ -107,7 +107,7 @@ class Usuario extends ActiveRecord {
      * @param string $login Alias del usuario
      * @return array
      */
-    public function buscarUsuario($codigo, $login) {
+    public function buscarUsuario($codigo, $login = null) {
         //Filtro los datos
         $codigo = Filter::get($codigo, 'numeric');
         $login = Filter::get($login, 'string');
@@ -132,7 +132,9 @@ class Usuario extends ActiveRecord {
 
     public function listarUsuarios($estado) {
         $usuario = $this->getUsuarioLogueado();
-        $condicion = ($estado != 'todos') ? "grupo_id = $estado": "grupo_id >= $usuario->grupo_id";
+        $condicion = "grupo_id >= $usuario->grupo_id";
+        $condicion .= ($estado != 'todos') ? " AND grupo_id = $estado": '';
+        // $condicion = ($estado != 'todos') ? "grupo_id = $estado": "grupo_id >= $usuario->grupo_id"; // Testing
         $sql = "SELECT 
             `usuario`.`id`,
             CONCAT(`usuario`.`nombre` , ' ', `usuario`.`apellido`) as nombre,
@@ -179,6 +181,20 @@ class Usuario extends ActiveRecord {
         $login = Filter::get($login, 'string');
         $condicion = "login LIKE '" . $login . "'";
         return $this->exists($condicion);
+    }
+
+    public function eliminarUsuario($id) {
+        $rs = False;
+        $usuario = $this->buscarUsuario($id);
+        $usuarioLogueado = $this->getUsuarioLogueado();
+        if( $usuarioLogueado->grupo_id > $usuario->grupo_id ) {
+            Flash::error('Error no puede eliminar a un usuario de mayor nivel');
+        } elseif( $usuarioLogueado->id == $id ) {
+            Flash::error('Error no puede eliminarse a si mismo del sistema');
+        } else {
+            $rs = $this->delete($id);
+        }
+        return $rs;
     }
 
     public function getGrupo() {

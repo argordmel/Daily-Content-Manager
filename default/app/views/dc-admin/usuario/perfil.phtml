@@ -1,7 +1,7 @@
 <?php View::partial('mensaje');?>
 
 <div class="contenido">
-    <div class="full"><h1 class="text-shadow">Agregar nueva usuario</h1></div>
+    <div class="full"><h1 class="text-shadow"><?php echo $subtitle; ?></h1></div>
     <?php echo ExtForm::open('dc-admin/usuario/agregar/', 'post', array('class'=>'post'), true); ?>
     <div class="left medium">
         <div class="box ui-corner-all ui-widget-content" id="contenido-post">
@@ -61,7 +61,7 @@
                             <label for="usuario_grupo_id" class="desc">Tipo de usuario</label>
                             <?php
                             $data = array('grupo', 'getGruposPermitidos');
-                            echo ExtForm::dbSelect('usuario.grupo_id', 'grupo_descripcion', $data, '-- Seleccione -- ', array('class'=>'font-normal lista full'), null, '', false, true); ?>
+                            echo ExtForm::dbSelect('usuario.grupo_id', 'grupo_descripcion', $data, '-- Seleccione -- ', array('class'=>'font-normal lista full'), $tipo, '', false, true); ?>
                         </div>
                     </li>
                     <li>
@@ -89,15 +89,7 @@
 
         <div class="break"></div>
 
-        <!-- Redes Sociales -->
-        <div class="box ui-corner-all ui-widget-content">
-            <div class="box-titulo ui-state-default ui-corner-tl ui-corner-tr"><h3 class="text-shadow">Redes Sociales</h3></div>
-            <div class="box-contenido box-form">
-                <?php View::partial('twitter/cuenta'); ?>
-            </div>
-        </div>
-
-        <div class="break"></div>
+        <?php if ( Router::get('action') != 'editar' ) View::partial('twitter/cuenta'); ?>
     </div>
 
 <?php echo Tag::js('sha1')."\n"; ?>

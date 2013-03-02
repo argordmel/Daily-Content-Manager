@@ -9,14 +9,14 @@
     <meta name="geo.placename" content="Colombia" />
     <title><?php echo $title ?></title>
     <?php Tag::css('default') ?>
-    <?php Tag::css('style') ?>    
+    <?php Tag::css('style') ?>
     <?php echo Html::includeCss() ?>
-    <?php echo Tag::js('jquery/jquery.min'); ?>    
+    <?php echo Tag::js('jquery/jquery.min'); ?>
     <script type="text/javascript">
-        $(document).ready(function(){            
+        $(document).ready(function(){
             $("#logo,#navegador").hide().fadeIn(1500);
         });
-    </script>   
+    </script>
     </head>
     <body>
 
@@ -27,7 +27,7 @@
         <?php View::partial('dailyscript/navegador', false, array($controller_name=>$controller_name) );?>
 
         <!-- Cuerpo -->
-        <div id="pagina">        
+        <div id="pagina">
         <?php View::content(); ?>
         </div>
 

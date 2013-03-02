@@ -102,7 +102,7 @@ class UsuarioController extends AppController {
     public function agregar() {
         Flash::info(Router::get('module'));
         //Titulo de la página
-        $this->title = 'Nueva usuario';
+        $this->title = $this->subtitle = 'Nueva Usuario';
         //Ckeck de los radios para habilitar comentarios
         // $this->check_si = (HABILITAR_USUARIO) ? false : true;
         // $this->check_no = (disabled) ? true : false;
@@ -142,25 +142,18 @@ class UsuarioController extends AppController {
      * Método para agregar un nuevo usuario
      */
     public function perfil() {
-        $usuario = new Usuario();
-
-        $dataUsuario = $usuario->buscarUsuario(Session::get('id'), '');
-
         //Titulo de la página
-        $this->title = "Modificar tu Perfil";
+        $this->title = $this->subtitle = "Modificar Usuario";
 
-        $this->nombre = $dataUsuario->nombre;
-        $this->apellido = $dataUsuario->apellido;
-        $this->email = $dataUsuario->mail;
-        $this->login = $dataUsuario->login;
+        $datos = new Usuario();
 
-        //Array para determinar la visibilidad de los post
-        $this->tipo = array(
-            Grupo::ADMINISTRADOR => 'Administrador',
-            Grupo::AUTOR => 'Autor',
-            Grupo::COLABORADOR => 'Colaborador',
-            Grupo::EDITOR => 'Editor'
-            );
+        $usuario = $datos->buscarUsuario(Session::get('id'), '');
+
+        $this->nombre = $usuario->nombre;
+        $this->apellido = $usuario->apellido;
+        $this->email = $usuario->mail;
+        $this->login = $usuario->login;
+        $this->tipo = $usuario->grupo_id;
 
         //Verifico si ha enviado los datos a través del formulario
         if(Input::hasPost('usuario')) {
@@ -175,6 +168,64 @@ class UsuarioController extends AppController {
             } else {
                 Flash::info('La llave de acceso ha caducado. Por favor intente nuevamente.');
             }
+        }
+    }
+
+    /**
+     * Método para editar usuarios
+     */
+    public function editar($id=null,$key='key',$valueKey='') {
+        //Titulo de la páginas
+        $this->title = $this->subtitle = "Modificar Usuario";
+
+        $datos = new Usuario();
+
+        $usuario = $datos->buscarUsuario($id, '');
+
+        $this->nombre = $usuario->nombre;
+        $this->apellido = $usuario->apellido;
+        $this->email = $usuario->mail;
+        $this->login = $usuario->login;
+
+        //Array para determinar la visibilidad de los post
+        $this->tipo = $usuario->grupo_id;
+        View::select('perfil');
+
+        //Verifico si ha enviado los datos a través del formulario
+        if(Input::hasPost('usuario')) {
+            //Verifico que el formulario coincida con la llave almacenada en sesion
+            if(SecurityKey::isValid()) {
+                Load::models('usuario');
+                $usuario = new Usuario(Input::post('usuario'));
+                $resultado = $usuario->registrarUsuario();
+                if($resultado) {
+                    View::select('listar');
+                }
+            } else {
+                Flash::info('La llave de acceso ha caducado. Por favor intente nuevamente.');
+            }
+        } else {
+            //Armo la llave con el código de la url
+            if($valueKey !== md5($id.$this->ipKey.$this->expKey.'usuario')) {
+                // $post = new Post();
+                // $result = $post->verPost($id);
+            // } else {
+                Flash::error('Acceso incorrecto al sistema.');
+                Router::redirect('dc-admin/usuario/listar/');
+            }
+        }
+    }
+
+    public function eliminar($id=null,$key='key',$valueKey='') {
+        if($valueKey === md5($id.$this->ipKey.$this->expKey.'usuario')) {
+            $datos = new Usuario();
+            if ( $datos->eliminarUsuario($id) ){
+                Flash::valid('Usuario eliminado con éxito');
+            }
+            Router::redirect('dc-admin/usuario/listar/');
+        } else {
+            Flash::error('Acceso incorrecto al sistema.');
+            Router::redirect('dc-admin/usuario/listar/');
         }
     }
 
