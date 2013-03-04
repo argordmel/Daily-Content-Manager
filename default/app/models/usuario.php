@@ -135,7 +135,7 @@ class Usuario extends ActiveRecord {
         $condicion = "grupo_id >= $usuario->grupo_id";
         $condicion .= ($estado != 'todos') ? " AND grupo_id = $estado": '';
         // $condicion = ($estado != 'todos') ? "grupo_id = $estado": "grupo_id >= $usuario->grupo_id"; // Testing
-        $sql = "SELECT 
+        $sql = "SELECT
             `usuario`.`id`,
             CONCAT(`usuario`.`nombre` , ' ', `usuario`.`apellido`) as nombre,
             `usuario`.`login`,
@@ -218,6 +218,7 @@ class Usuario extends ActiveRecord {
 
     ///// Twitter //////
     function getTwitter($id) {
+        $salida = False;
         $r = $this->find($id);
 
         $o = array(
@@ -226,12 +227,10 @@ class Usuario extends ActiveRecord {
             'secret' => $r->user_secret,
         );
 
-        if ($r->user_token == '') {
-            return FALSE;
-        } else {
-            return $o;
+        if ( !empty($r->user_token) ) {
+            $salida = $o;
         }
-
+        return $salida;
     }
 
     public function setTwitter($id, $token = '', $secret = '') {
@@ -239,11 +238,33 @@ class Usuario extends ActiveRecord {
         $r->user_token = $token;
         $r->user_secret = $secret;
 
-        if ( $r->save() ) {
-            return True;
-        } else {
-            return False;
+        return $r->save();
+    }
+    ///// Twitter //////
+
+    ///// Twitter //////
+    function getFacebook($id) {
+        $salida = False;
+        $r = $this->find($id);
+
+        $o = array(
+            'id' => $r->id,
+            'user_id' => $r->user_id,
+            'access_token' => $r->user_token,
+        );
+
+        if ( !empty($r->user_id) ) {
+            $salida = $o;
         }
+        return $salida;
+    }
+
+    public function setFacebook($id, $user_id = '', $token = '') {
+        $r = $this->find($id);
+        $r->user_id = $user_id;
+        $r->access_token = $token;
+
+        return $r->save();
     }
     ///// Twitter //////
 }

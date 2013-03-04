@@ -1,0 +1,28 @@
+<?php
+// Si poseemos una identidad guardada el mostramos los datos sino vamos al
+// link para dar permisos para que nuestra aplicacion puede publicar en el muro
+Load::model('apifacebook');
+$modelo = new Apifacebook();
+$modelo->cuenta();
+$data = $modelo->getData();
+?>
+
+                <?php if ($data['profile']): ?>
+                    <li>
+                        <div>
+                			<label class="desc">Tu cuenta en Facebook</label>
+                			<img src="<?php echo $data['image']; ?>" style="float:left; margin-right: 5px;"><br/>
+                			<a href="<?php echo $data['profile']; ?>" target="_blank">Ver Perfil</a><br/>
+                			<a href="<?php echo PUBLIC_PATH; ?>dc-admin/usuario/eliminarTwitter/<?php echo $twitterdata['id']; ?>">Desasociar Cuenta</a><br/>
+                			<!-- <a href="<?php echo PUBLIC_PATH; ?>redes/tweet/">Envia un Tweet</a> -->
+                        </div>
+                    </li>
+                <?php else: ?>
+                    <li>
+                        <div>
+                            <label for="link_twitter" class="desc">Asociar cuenta de Twitter</label>
+                            <a href="<?php echo $modelo->getLink(); ?>" id="link_twitter">Login</a>
+                        </div>
+                    </li>
+                <?php endif; ?>
+
