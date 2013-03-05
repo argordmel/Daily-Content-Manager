@@ -65,9 +65,9 @@ class Apifacebook {
 					Flash::error($e);
 					$user = null;
 				}
-			} else {
+			}// else {
 				$this->facebookLink = $facebook->getLoginUrl();
-			}
+			//}
 		} else {
 	        // Parametrizamos con la identidad que tenemos guardada
 			$this->facebookData['image'] = 'https://graph.facebook.com/'.$this->facebookData['user_id'].'/picture';
