@@ -46,9 +46,7 @@ class Apifacebook {
 			// Solicitamos una identidad al api de facebook
 			$user = $facebook->getUser();
 
-			if (!$user) { // De no ser asi solicitamos un url de logeo en Facebook
-				$this->facebook = $facebook->getLoginUrl();
-			} else {
+			if ($user) { // De no ser asi solicitamos un url de logeo en Facebook
 				try {
 					// Solicitamos los datos de Usuario
 					$user_profile = $facebook->api('/me');
@@ -67,6 +65,8 @@ class Apifacebook {
 					Flash::error($e);
 					$user = null;
 				}
+			} else {
+				$this->facebookLink = $facebook->getLoginUrl();
 			}
 		} else {
 	        // Parametrizamos con la identidad que tenemos guardada
@@ -91,6 +91,6 @@ class Apifacebook {
     }
 
     public function getLink() {
-        return $this->facebook;
+        return $this->facebookLink;
     }
 }
