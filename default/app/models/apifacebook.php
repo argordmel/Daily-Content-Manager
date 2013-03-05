@@ -61,13 +61,16 @@ class Apifacebook {
 					unset($_SESSION['fb_'.$this->app_id.'_code']);
 					unset($_SESSION['fb_'.$this->app_id.'_user_id']);
 					unset($_SESSION['fb_'.$this->app_id.'_access_token']);
+
+					// Redireccionamos aqui despues agregarla la cuenta
+					Route::to();
 				} catch ( FaceApiException $e ) {
 					Flash::error($e);
 					$user = null;
 				}
-			}// else {
+			} else {
 				$this->facebookLink = $facebook->getLoginUrl();
-			//}
+			}
 		} else {
 	        // Parametrizamos con la identidad que tenemos guardada
 			$this->facebookData['image'] = 'https://graph.facebook.com/'.$this->facebookData['user_id'].'/picture';
