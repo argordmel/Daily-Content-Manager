@@ -13,7 +13,7 @@
 
 Load::models('post','usuario');
 
-class Post extends ActiveRecord {
+class Comentario extends ActiveRecord {
 
     public $logger = true;
 
@@ -22,15 +22,20 @@ class Post extends ActiveRecord {
     const SPAM = 3;
     const ELIMINADO = 4;
 
-    function registarComentario() {
+    public function registarComentario() {
 
     }
 
-    function filtrarComentarios() {
+    public function filtrarComentarios($estado) {
+        $conditions = 'conditions: comentario.';
+        $conditions .= ( $estado == 'todos' )? 'estado LIKE \'%\'' :  'estado = '.$estado;
+        $columns = "columns: comentario.id, autor, email, mensaje, ip, comentario.registrado_at, titulo";
+        $join = "join: INNER JOIN post ON comentario.post_id = post.id";
 
+        return $this->find($conditions, $columns, $join);
     }
 
-    function procesarComentario(){
+    public function procesarComentario(){
 
     }
 

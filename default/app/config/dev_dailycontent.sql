@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.5deb1
+-- version 3.3.7deb7
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 19-01-2012 a las 11:27:50
--- Versión del servidor: 5.1.58
--- Versión de PHP: 5.3.6-13ubuntu3.3
+-- Tiempo de generación: 05-03-2013 a las 18:07:26
+-- Versión del servidor: 5.1.49
+-- Versión de PHP: 5.3.3-7+squeeze14
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -21,7 +20,6 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE `dev_dailycontent` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci;
 USE `dev_dailycontent`;
-
 
 -- --------------------------------------------------------
 
@@ -45,7 +43,14 @@ CREATE TABLE IF NOT EXISTS `comentario` (
   `modificado_in` datetime DEFAULT NULL COMMENT 'Fecha de modificación',
   PRIMARY KEY (`id`),
   KEY `fk_comentario_post` (`post_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Tabla que almacena los diferentes comentarios' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Tabla que almacena los diferentes comentarios' AUTO_INCREMENT=2 ;
+
+--
+-- Volcar la base de datos para la tabla `comentario`
+--
+
+INSERT INTO `comentario` (`id`, `post_id`, `autor`, `email`, `url`, `mensaje`, `ip`, `estado`, `me_gusta`, `no_me_gusta`, `comentario_id`, `registrado_at`, `modificado_in`) VALUES
+(1, 1, 'Jaro Marval', 'jampgold@gmail.com', NULL, 'Pepito', '127.0.0.1', 1, NULL, NULL, NULL, '2013-03-05 15:50:38', NULL);
 
 -- --------------------------------------------------------
 
@@ -59,6 +64,11 @@ CREATE TABLE IF NOT EXISTS `configuracion` (
   `valor` text COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Tabla que contiene algunas configuraciónes del sistema' AUTO_INCREMENT=1 ;
+
+--
+-- Volcar la base de datos para la tabla `configuracion`
+--
+
 
 -- --------------------------------------------------------
 
@@ -80,6 +90,11 @@ CREATE TABLE IF NOT EXISTS `contacto` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
 
+--
+-- Volcar la base de datos para la tabla `contacto`
+--
+
+
 -- --------------------------------------------------------
 
 --
@@ -93,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `grupo` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Tabla que contiene los grupos de los usuarios' AUTO_INCREMENT=6 ;
 
 --
--- Volcado de datos para la tabla `grupo`
+-- Volcar la base de datos para la tabla `grupo`
 --
 
 INSERT INTO `grupo` (`id`, `grupo_descripcion`) VALUES
@@ -128,14 +143,15 @@ CREATE TABLE IF NOT EXISTS `post` (
   `modificado_in` datetime DEFAULT NULL COMMENT 'Fecha de modificación',
   PRIMARY KEY (`id`),
   KEY `fk_post_usuario` (`usuario_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Tabla que almacena los diferentes post y/o páginas del CMS' AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Tabla que almacena los diferentes post y/o páginas del CMS' AUTO_INCREMENT=3 ;
 
 --
--- Volcado de datos para la tabla `post`
+-- Volcar la base de datos para la tabla `post`
 --
 
 INSERT INTO `post` (`id`, `usuario_id`, `titulo`, `contenido`, `slug`, `fecha_publicacion`, `hora_publicacion`, `resumen`, `es_pagina`, `post_id`, `estado`, `visibilidad`, `habilitar_comentarios`, `me_gusta`, `registrado_at`, `modificado_in`) VALUES
-(1, 1, 'Primera publicaciÃ³n', '<p>Esta es la primera publicaci&oacute;n</p>', 'primera-publicacion', '2012-01-18', '14:20:40', '<p>Esta es la primera publicaci&oacute;n</p>', NULL, NULL, 2, 1, 0, 0, '2012-01-18 14:20:40', '2012-01-18 14:22:50');
+(1, 1, 'Primera publicaciÃ³n', '<p>Esta es la primera publicaci&oacute;n</p>', 'primera-publicacion', '2012-01-18', '14:20:40', '<p>Esta es la primera publicaci&oacute;n</p>', NULL, NULL, 3, 1, 0, 0, '2012-01-18 14:20:40', '2013-01-13 21:39:58'),
+(2, 3, 'Segunda PublicaciÃ³n', '<p>Segunda publicaci&oacute;n</p>', 'segunda-publicacion', '2013-01-13', '16:46:22', '<p>Segunda publicaci&oacute;n</p>', NULL, NULL, 3, 1, 0, NULL, '2013-01-13 16:46:22', '2013-01-13 23:08:36');
 
 -- --------------------------------------------------------
 
@@ -150,14 +166,16 @@ CREATE TABLE IF NOT EXISTS `post_taxonomia` (
   PRIMARY KEY (`id`),
   KEY `fk_post_taxonomia_post` (`post_id`),
   KEY `fk_post_taxonomia_taxonomia` (`taxonomia_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Tabla que relaciona las taxonomías y los post' AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Tabla que relaciona las taxonomías y los post' AUTO_INCREMENT=12 ;
 
 --
--- Volcado de datos para la tabla `post_taxonomia`
+-- Volcar la base de datos para la tabla `post_taxonomia`
 --
 
 INSERT INTO `post_taxonomia` (`id`, `post_id`, `taxonomia_id`) VALUES
-(2, 1, 1);
+(7, 1, 1),
+(10, 2, 1),
+(11, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -173,14 +191,15 @@ CREATE TABLE IF NOT EXISTS `taxonomia` (
   `registrado_at` datetime DEFAULT NULL COMMENT 'Fecha de registro',
   `modificado_in` datetime DEFAULT NULL COMMENT 'Fecha de modificación',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Tabla que contiene las diferentes taxonomías (categorías y e' AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Tabla que contiene las diferentes taxonomías (categorías y e' AUTO_INCREMENT=3 ;
 
 --
--- Volcado de datos para la tabla `taxonomia`
+-- Volcar la base de datos para la tabla `taxonomia`
 --
 
 INSERT INTO `taxonomia` (`id`, `nombre`, `url`, `tipo`, `registrado_at`, `modificado_in`) VALUES
-(1, 'Categoria', 'categoria', 1, '2012-01-18 14:13:57', '1969-12-31 19:00:00');
+(1, 'Categoria', 'categoria', 1, '2012-01-18 14:13:57', '1969-12-31 19:00:00'),
+(2, 'Categoria', 'categoria', 2, '2013-01-13 16:46:22', NULL);
 
 -- --------------------------------------------------------
 
@@ -199,21 +218,25 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `estado` int(1) NOT NULL DEFAULT '1' COMMENT 'Estado del usuario',
   `registrado_at` datetime DEFAULT NULL COMMENT 'Fecha de registro',
   `modificado_in` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Fecha de modificación',
-  `user_token` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Llave de la cuenta de Twitter',
-  `user_secret` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Llave secreta de la cuenta de Twitter',
+  `user_token` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'User Token de Twitter',
+  `user_secret` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'User Secret de Twitter',
+  `user_id` int(50) DEFAULT NULL COMMENT 'ID de usuario de facebook',
+  `access_token` int(200) DEFAULT NULL COMMENT 'Token de Acceso de facebook',
   PRIMARY KEY (`id`),
   KEY `fk_usuario_grupo` (`grupo_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Tabla que contiene los usuarios del sistema' AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Tabla que contiene los usuarios del sistema' AUTO_INCREMENT=5 ;
 
 --
--- Volcado de datos para la tabla `usuario`
+-- Volcar la base de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `login`, `password`, `nombre`, `apellido`, `mail`, `grupo_id`, `estado`, `registrado_at`, `modificado_in`) VALUES
-(1, 'admin', '9a9746d53945a4962910b17a572e68fd', 'Administrador', 'De Sistema', 'postmaster@admin.com', 1, 1, '2012-01-01 00:00:01', NULL);
+INSERT INTO `usuario` (`id`, `login`, `password`, `nombre`, `apellido`, `mail`, `grupo_id`, `estado`, `registrado_at`, `modificado_in`, `user_token`, `user_secret`, `user_id`, `access_token`) VALUES
+(1, 'admin', '9a9746d53945a4962910b17a572e68fd', 'Admin', '', 'argordmel@yahoo.es', 1, 1, '2012-01-01 00:00:01', '2013-01-13 12:01:26', NULL, NULL, 0, 0),
+(3, 'Jamp', '9a9746d53945a4962910b17a572e68fd', 'Jaro', 'Marval', 'jampgold@gmail.com', 2, 1, '2013-01-13 12:35:47', '2013-03-04 19:37:55', '166425171-p1fVjRik3t17ya0wq0E7YmvOLAAvGdDC99Ei4duH', '0LdAcR60mPfPoCLGJM4kCp9xIb6ceJUn4HzeWpoZs', 0, 0),
+(4, 'pepito', 'd93a5def7511da3d0f2d171d9c344e91', 'Pepito', 'Pablito', 'abadc@hg.com', 4, 1, '2013-01-13 12:38:34', NULL, NULL, NULL, 0, 0);
 
 --
--- Restricciones para tablas volcadas
+-- Filtros para las tablas descargadas (dump)
 --
 
 --
@@ -240,7 +263,3 @@ ALTER TABLE `post_taxonomia`
 --
 ALTER TABLE `usuario`
   ADD CONSTRAINT `fk_usuario_grupo` FOREIGN KEY (`grupo_id`) REFERENCES `grupo` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -1,0 +1,74 @@
+<?php View::partial('mensaje'); ?>
+
+<div class="contenido">
+    <div class="left large"><h1 class="text-shadow">Usuarios <span><?php if(isset($parametro)) { echo "Resultado de la búsqueda para \"$parametro\""; }; ?></span></h1></div>
+    <div class="right small"><?php View::partial('admin/form_busqueda', false, array('action'=>'post')); ?></div>
+    <div class="clr"></div>
+
+    <?php View::partial('admin/usuario/sub-nav'); ?>
+
+    <div class="full">
+
+        <div class="box ui-corner-all ui-widget-content" id="data-grid">
+            <table class="data-grid" cellspacing="0">
+                <thead class="ui-state-default ui-corner-tl ui-corner-tr">
+                    <tr class="text-shadow">
+                        <th class="columna-check">&nbsp</th>
+                        <th class="columna-autor">Autor</th>
+                        <th class="columna-titulo">Comentario</th>
+                        <th class="columna-autor">En respuesta a</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php // ExtDate::loadDate(); ?>
+                    <?php while($fila = $comentario->fetchPagedRow())  { ?>
+
+                    <?php $validKey = md5($fila->id.$ipKey.$expKey.'usuario'); ?>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <td class="">
+                            <?php echo Html::gravatar( $fila->email, $fila->autor, 60); ?>
+                            <div style="display:inline-block; width:60%; vertical-align:top">
+                                <span class="strong post-titulo font-large"><?php echo $fila->autor ?></span>
+                                <span class="post-titulo font-small"><?php echo '<br/>'.$fila->email.'<br/>'.$fila->ip; ?></span>
+                            </div>
+                        </td>
+                        <td class="font-small">
+                            <?php echo $fila->mensaje; ?>
+                            <div class="row-actions font-small">
+                    <span class="row-action-approve"><?php echo Html::link("dc-admin/usuario/editar/$fila->id/key/$validKey/",'Aprobar');?> | </span>
+                    <span class="row-action-reject"><?php echo Html::link("dc-admin/usuario/editar/$fila->id/key/$validKey/",'Rechazar');?> | </span>
+                    <span class="row-action-show"><?php echo Html::link("dc-admin/usuario/editar/$fila->id/key/$validKey/",'Responder');?> | </span>
+                    <span class="row-action-show"><?php echo Html::link("dc-admin/usuario/editar/$fila->id/key/$validKey/",'Edición Rápida');?> | </span>
+                    <span class="row-action-show"><?php echo Html::link("dc-admin/usuario/eliminar/$fila->id/key/$validKey/",'Editar');?> |</span>
+                    <span class="row-action-delete"><?php echo Html::link("dc-admin/usuario/eliminar/$fila->id/key/$validKey/",'Spam');?> | </span>
+                    <span class="row-action-delete"><?php echo Html::link("dc-admin/usuario/eliminar/$fila->id/key/$validKey/",'Eliminar');?></span>
+                            </div>
+                        </td>
+                        <td class="font-small"><?php echo $fila->titulo; ?></td>
+                    </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+            <?php View::partial('paginacion',false,array('objeto'=>$comentario, 'tipo'=>'dc-admin')); ?>
+        </div>
+        <div class="break"></div>
+
+    </div>
+
+</div>
+
+<!-- Alertas -->
+<script type="text/javascript">
+    var link_action;
+    $('a','.row-action-delete').click(function(event){ event.preventDefault(); link_action = $(this).attr('href'); $('#eliminar-post').dialog('open'); });
+    $(function() { $("#eliminar-post").dialog({ autoOpen: false, width: 400, height:155, modal: true, buttons: { 'Cancelar': function() { $(this).dialog('close'); } ,'Aceptar': function() { location.href = link_action; } } }); });
+</script>
+<div id="eliminar-post" title="Dailyscript - Web | App | Media" class="confirm-dialog">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Deseas borrar permantentemente esta publicación?. </p>
+</div>
+<script type="text/javascript">
+    $(function() {
+        $('tr','tbody').hover(function(){$(this).addClass('tr-hover'); },function(){$(this).removeClass('tr-hover'); },function() {});
+    });
+ </script>

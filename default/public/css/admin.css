@@ -161,7 +161,9 @@ table.data-grid tbody tr { border-bottom: 1px solid lightgray;}
 table.data-grid tbody tr.tr-hover { color: #000; background-color: #f5f5f5;}
 table.data-grid tbody tr.tr-hover a { color: #d45000; }
 
-table.data-grid tbody td span.row-action-show a { color: #d45500;}
+table.data-grid tbody td span.row-action-approve a { color: #006505;}
+table.data-grid tbody td span.row-action-reject a { color: #d45500;}
+table.data-grid tbody td span.row-action-show a { color: #21759B;}
 table.data-grid tbody td span.row-action-edit a { color: #d45500;}
 table.data-grid tbody td span.row-action-delete a { color: red; }
 table.data-grid tbody td span.post-titulo a { color: #333;}
