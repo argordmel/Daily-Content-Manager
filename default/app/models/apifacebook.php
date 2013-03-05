@@ -50,6 +50,7 @@ class Apifacebook {
 				$this->facebook = $facebook->getLoginUrl();
 			} else {
 				try {
+					print_r($_SESSION);
 					// Solicitamos los datos de Usuario
 					$user_profile = $facebook->api('/me');
 					// Recogemos los datos de la sesión
