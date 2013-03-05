@@ -63,7 +63,7 @@ class Apifacebook {
 					unset($_SESSION['fb_'.$this->app_id.'_access_token']);
 
 					// Redireccionamos aqui despues agregarla la cuenta
-					Router::to();
+					// Router::to(); // FIXME: Refrescar pagina
 				} catch ( FaceApiException $e ) {
 					Flash::error($e);
 					$user = null;
