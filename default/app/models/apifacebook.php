@@ -50,12 +50,11 @@ class Apifacebook {
 				$this->facebook = $facebook->getLoginUrl();
 			} else {
 				try {
-					print_r($_SESSION);
 					// Solicitamos los datos de Usuario
 					$user_profile = $facebook->api('/me');
 					// Recogemos los datos de la sesión
-					$user_id = $_SESSION['fb_'.$user_profile.'_user_id'];
-					$access_token = $_SESSION['fb_'.$user_profile.'_access_token'];
+					$user_id = $_SESSION['fb_'.$user_profile['id'].'_user_id'];
+					$access_token = $_SESSION['fb_'.$user_profile['id'].'_access_token'];
 
 					// Los guardamos en la base de datos
 					$this->usuario->setFacebook(Session::get('id'), $user_id, $access_token);
