@@ -13,7 +13,7 @@ $data = $modelo->getData();
                 			<label class="desc">Tu cuenta en Facebook</label>
                 			<img src="<?php echo $data['image']; ?>" style="float:left; margin-right: 5px;"><br/>
                 			<a href="<?php echo $data['profile']; ?>" target="_blank">Ver Perfil</a><br/>
-                			<a href="<?php echo PUBLIC_PATH; ?>dc-admin/usuario/eliminarTwitter/<?php echo $twitterdata['id']; ?>">Desasociar Cuenta</a><br/>
+                			<a href="<?php echo PUBLIC_PATH; ?>dc-admin/usuario/eliminarFacebook/<?php echo $data['id']; ?>">Desasociar Cuenta</a><br/>
                 			<!-- <a href="<?php echo PUBLIC_PATH; ?>redes/tweet/">Envia un Tweet</a> -->
                         </div>
                     </li>

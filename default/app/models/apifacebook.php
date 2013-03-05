@@ -58,9 +58,9 @@ class Apifacebook {
 					$this->usuario->setFacebook(Session::get('id'), $user_id, $access_token);
 
 					// destruimos las variables de session
-					unset($_SESSION['fb_'.$user_profile.'_code']);
-					unset($_SESSION['fb_'.$user_profile.'_user_id']);
-					unset($_SESSION['fb_'.$user_profile.'_access_token']);
+					unset($_SESSION['fb_'.$this->app_id.'_code']);
+					unset($_SESSION['fb_'.$this->app_id.'_user_id']);
+					unset($_SESSION['fb_'.$this->app_id.'_access_token']);
 				} catch ( FaceApiException $e ) {
 					Flash::error($e);
 					$user = null;
@@ -70,13 +70,13 @@ class Apifacebook {
 			}
 		} else {
 	        // Parametrizamos con la identidad que tenemos guardada
-			$this->facebookData['image'] = 'https://graph.facebook.com/'.$this->facebookData->user_id.'/picture';
-            $this->facebookData['profile'] = 'http://www.facebook.com/'.$this->facebookData->user_id;
+			$this->facebookData['image'] = 'https://graph.facebook.com/'.$this->facebookData['user_id'].'/picture';
+            $this->facebookData['profile'] = 'http://www.facebook.com/'.$this->facebookData['user_id'];
 		}
 
     }
 
-    // FIXME prepara para que funcione con Facebook
+    // FIXME: prepara para que funcione con Facebook
     public function outputError($tmhOAuth) {
 		if ( isset($tmhOAuth->response['error']) && $tmhOAuth->response['error'] == '') {
 			$error = "Llaves inválidas";

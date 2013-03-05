@@ -246,6 +246,23 @@ class UsuarioController extends AppController {
         Router::redirect($location);
     }
 
+    public function eliminarFacebook($id) {
+        $usuario = new Usuario();
+
+        if (Session::get('id') != $id)  {
+            Flash::error('No puedes eliminar una cuenta de Twitter que no es suya');
+            $location = '/dc-admin/';
+        } else {
+            if ( $usuario->setFacebook($id) ){
+                Flash::valid('Cuenta de Facebook borrada exitosamente');
+            } else {
+                Flash::error('Error al eliminar la cuenta de Facebook');
+            }
+            $location = Utils::getBack();
+        }
+        Router::redirect($location);
+    }
+
     public function checkEmail(){
         $salida['status'] = "ERROR";
 
