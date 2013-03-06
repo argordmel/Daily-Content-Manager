@@ -28,8 +28,8 @@ class Comentario extends ActiveRecord {
 
     public function filtrarComentarios($estado) {
         $conditions = 'conditions: comentario.';
-        $conditions .= ( $estado == 'todos' )? 'estado LIKE \'%\'' :  'estado = '.$estado;
-        $columns = "columns: comentario.id, autor, email, mensaje, ip, comentario.registrado_at, titulo";
+        $conditions .= ( $estado == 'todos' )? 'estado != '.self::SPAM :  'estado = '.$estado;
+        $columns = "columns: comentario.id, autor, email, mensaje, ip, comentario.registrado_at, titulo, comentario.estado";
         $join = "join: INNER JOIN post ON comentario.post_id = post.id";
 
         return $this->find($conditions, $columns, $join);
@@ -37,6 +37,11 @@ class Comentario extends ActiveRecord {
 
     public function procesarComentario(){
 
+    }
+
+    public function getContadorComentario($estado) {
+        $condicion = ( $estado == 'todos' )? 'estado LIKE \'%\'' :  'estado = '.Filter::get($estado,'int');
+        return $this->count("conditions: $condicion");
     }
 
 }

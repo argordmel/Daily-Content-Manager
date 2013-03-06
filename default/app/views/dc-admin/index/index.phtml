@@ -2,11 +2,11 @@
 
 <div class="contenido">
 
-    <div class="left medium"><h1 class="text-shadow">Página de administración</h1></div>    
+    <div class="left medium"><h1 class="text-shadow">Página de administración</h1></div>
     <div class="clr"></div>
 
     <div class="left medium">
-        
+
         <div class="box ui-corner-all ui-widget-content" id="actualmente">
             <div class="box-titulo ui-state-default ui-corner-tl ui-corner-tr box-expandido" id="actualmente-titulo">
                 <h3 class="text-shadow">Actualmente</h3><span class="box-icono ui-icon ui-icon-circle-triangle-s" style="margin: -21px 10px 0px 95%"></span>
@@ -51,8 +51,8 @@
                 <div class="right medium">
                     <div class="box-subtitulo"><h3 class="text-shadow">Comentarios</h3></div>
                     <table class="box-table" cellspacing="3" cellpadding="3">
-                        <tr><td class="box-contador">0</td><td>Total</td></tr>
-                        <tr><td class="box-contador" id="total_comentarios"><?php echo $total_comentarios; ?></td><td class="box-aprobados"><?php echo Html::link('dc-admin/comentario/',$detalle_comentario, array('class'=>'font-medium')); ?></td></tr>
+                        <tr><td class="box-contador"><?php echo $total_comentarios; ?></td><td>Total</td></tr>
+                        <tr><td class="box-contador" id="total_comentarios"><?php echo $total_aprobados; ?></td><td class="box-aprobados"><?php echo Html::link('dc-admin/comentario/',$detalle_comentario, array('class'=>'font-medium')); ?></td></tr>
                         <tr><td class="box-contador" id="total_pendientes"><?php echo $total_pendientes; ?></td><td class="box-pendientes"><?php echo Html::link('dc-admin/comentario/listar/pendiente/',$detalle_pendiente, array('class'=>'font-medium')); ?></td></tr>
                         <tr><td class="box-contador" id="total_spam"><?php echo $total_spam; ?></td><td class="box-spam"><?php echo Html::link('dc-admin/comentario/listar/spam/',$detalle_spam, array('class'=>'font-medium')); ?></td></tr>
                     </table>
@@ -72,7 +72,6 @@
         <?php endif; ?>
     </div>
 
-    
     <div class="right medium">
         <?php if ( Session::get('nivel') == Grupo::COLABORADOR ): ?>
         <?php View::partial('admin/boxes/comentarios', false, array('ipKey'=>$ipKey,'expKey'=>$expKey)); ?>
@@ -80,7 +79,7 @@
         <?php View::partial('admin/boxes/quickpress', false, array('ipKey'=>$ipKey,'expKey'=>$expKey)); ?>
         <?php endif; ?>
     </div>
-    <div class="clr"></div>   
+    <div class="clr"></div>
 </div>
 
 <?php echo Tag::js('jquery/jquery.cookie'); ?>
