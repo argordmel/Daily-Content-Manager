@@ -50,23 +50,23 @@ class Apifacebook {
 			if ($user) {
 				try {
 					// Solicitamos los datos de Usuario
-					$user_profile = $facebook->api('/me');
+					$facebook->api('/me');
 					print "Hola";
 					print 'fb_'.$this->app_id.'_user_id';
 					// Recogemos los datos de la sesión
-					$user_id = $_SESSION['fb_'.$this->app_id.'_user_id'];
+					$user_fb = $_SESSION['fb_'.$this->app_id.'_user_id'];
 					$access_token = $_SESSION['fb_'.$this->app_id.'_access_token'];
-					print $user_id.'<br/>';
-					print $access_token;
+					print $user_fb.'<br/>';
+					print $access_token.'<br/>';
 
 					// Los guardamos en la base de datos
-					$rs = $this->usuario->setFacebook(Session::get('id'), $user_id, $access_token);
+					$rs = $this->usuario->setFacebook(Session::get('id'), $user_fb, $access_token);
 
 					if ( $rs ) {
-					// destruimos las variables de session
-					unset($_SESSION['fb_'.$this->app_id.'_code']);
-					unset($_SESSION['fb_'.$this->app_id.'_user_id']);
-					unset($_SESSION['fb_'.$this->app_id.'_access_token']);
+						// destruimos las variables de session
+						unset($_SESSION['fb_'.$this->app_id.'_code']);
+						unset($_SESSION['fb_'.$this->app_id.'_user_id']);
+						unset($_SESSION['fb_'.$this->app_id.'_access_token']);
 					}
 
 					// Redireccionamos aqui despues agregarla la cuenta
@@ -80,8 +80,8 @@ class Apifacebook {
 			}
 		} else {
 	        // Parametrizamos con la identidad que tenemos guardada
-			$this->facebookData['image'] = 'https://graph.facebook.com/'.$this->facebookData['user_id'].'/picture';
-            $this->facebookData['profile'] = 'http://www.facebook.com/'.$this->facebookData['user_id'];
+			$this->facebookData['image'] = 'https://graph.facebook.com/'.$this->facebookData['user_fb'].'/picture';
+            $this->facebookData['profile'] = 'http://www.facebook.com/'.$this->facebookData['user_fb'];
 		}
 
     }

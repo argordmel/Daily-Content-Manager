@@ -249,7 +249,7 @@ class Usuario extends ActiveRecord {
 
         $o = array(
             'id' => $r->id,
-            'user_id' => $r->user_id_fb,
+            'user_id' => $r->user_fb,
             'access_token' => $r->user_token,
         );
 
@@ -261,7 +261,7 @@ class Usuario extends ActiveRecord {
 
     public function setFacebook($id, $user= '', $token = '') {
         $r = $this->find($id);
-        $r->user_id_fb = Filter::get($user, 'string');
+        $r->user_fb = Filter::get($user, 'string');
         $r->access_token = Filter::get($token, 'string');
 
         return $r->update();
