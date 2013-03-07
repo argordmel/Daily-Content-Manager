@@ -45,12 +45,13 @@ class Apifacebook {
 		if ( !$this->facebookData ) {
 			// Solicitamos una identidad al api de facebook
 			$user = $facebook->getUser();
+			print_r($_SESSION);
 
-			if ($user) { // De no ser asi solicitamos un url de logeo en Facebook
+			if ($user) {
 				try {
 					// Solicitamos los datos de Usuario
 					$user_profile = $facebook->api('/me');
-					print_r($_SESSION);
+					print "Hola";
 					print 'fb_'.$this->app_id.'_user_id';
 					// Recogemos los datos de la sesión
 					$user_id = $_SESSION['fb_'.$this->app_id.'_user_id'];
@@ -73,7 +74,7 @@ class Apifacebook {
 					Flash::error($e);
 					$user = null;
 				}
-			} else {
+			} else { // De no ser asi solicitamos un url de logeo en Facebook
 				$this->facebookLink = $facebook->getLoginUrl();
 			}
 		} else {

@@ -261,8 +261,8 @@ class Usuario extends ActiveRecord {
 
     public function setFacebook($id, $user_id = '', $token = '') {
         $r = $this->find($id);
-        $r->user_id = $user_id;
-        $r->access_token = $token;
+        $r->user_id = Filter::get($user_id, 'string');
+        $r->access_token = Filter::get($token, 'string');
 
         return $r->save();
     }
