@@ -71,6 +71,11 @@ class Apifacebook {
 
 					// Redireccionamos aqui despues agregarla la cuenta
 					// Router::to(); // FIXME: Refrescar pagina
+					$this->facebookData = array(
+			            'id' => Session::get('id'),
+			            'user_id' => $user_fb,
+			            'access_token' => $access_token,
+			        );
 				} catch ( FacebookApiException $e ) {
 					Flash::error($e);
 					$user = null;

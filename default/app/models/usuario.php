@@ -217,7 +217,7 @@ class Usuario extends ActiveRecord {
     // Redes Sociales
 
     ///// Twitter //////
-    function getTwitter($id) {
+    public function getTwitter($id) {
         $salida = False;
         $r = $this->find($id);
 
@@ -243,7 +243,7 @@ class Usuario extends ActiveRecord {
     ///// Twitter //////
 
     ///// Facebook //////
-    function getFacebook($id) {
+    public function getFacebook($id) {
         $salida = False;
         $r = $this->find($id);
 
