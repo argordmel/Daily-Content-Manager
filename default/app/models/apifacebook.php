@@ -80,8 +80,8 @@ class Apifacebook {
 			}
 		} else {
 	        // Parametrizamos con la identidad que tenemos guardada
-			$this->facebookData['image'] = 'https://graph.facebook.com/'.$this->facebookData['user_fb'].'/picture';
-            $this->facebookData['profile'] = 'http://www.facebook.com/'.$this->facebookData['user_fb'];
+			$this->facebookData['image'] = 'https://graph.facebook.com/'.$this->facebookData['user_id'].'/picture';
+            $this->facebookData['profile'] = 'http://www.facebook.com/'.$this->facebookData['user_id'];
 		}
 
     }
