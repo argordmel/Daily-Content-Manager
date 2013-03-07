@@ -54,6 +54,7 @@ class Apifacebook {
 					print 'fb_'.$this->app_id.'_user_id';
 					// Recogemos los datos de la sesión
 					$user_id = $_SESSION['fb_'.$this->app_id.'_user_id'];
+					print $user_id;
 					$access_token = $_SESSION['fb_'.$this->app_id.'_access_token'];
 
 					// Los guardamos en la base de datos
