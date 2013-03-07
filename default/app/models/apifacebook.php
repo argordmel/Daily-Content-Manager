@@ -50,17 +50,18 @@ class Apifacebook {
 				try {
 					// Solicitamos los datos de Usuario
 					$user_profile = $facebook->api('/me');
+					print_r($_SESSION);
 					// Recogemos los datos de la sesión
 					$user_id = $_SESSION['fb_'.$this->app_id.'_user_id'];
 					$access_token = $_SESSION['fb_'.$this->app_id.'_access_token'];
 
 					// Los guardamos en la base de datos
-					$this->usuario->setFacebook(Session::get('id'), $user_id, $access_token);
+					// $this->usuario->setFacebook(Session::get('id'), $user_id, $access_token);
 
 					// destruimos las variables de session
-					unset($_SESSION['fb_'.$this->app_id.'_code']);
-					unset($_SESSION['fb_'.$this->app_id.'_user_id']);
-					unset($_SESSION['fb_'.$this->app_id.'_access_token']);
+					// unset($_SESSION['fb_'.$this->app_id.'_code']);
+					// unset($_SESSION['fb_'.$this->app_id.'_user_id']);
+					// unset($_SESSION['fb_'.$this->app_id.'_access_token']);
 
 					// Redireccionamos aqui despues agregarla la cuenta
 					// Router::to(); // FIXME: Refrescar pagina

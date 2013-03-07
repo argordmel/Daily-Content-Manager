@@ -7,7 +7,7 @@
  * @category    Administracion
  * @package     Models
  * @author      Jaro Marval
- * @copyright   Copyright (c) 2010 Dailyscript Team (http://www.dailyscript.com.co)
+ * @copyright   Copyright (c) 2013 Icterus (http://www.icter.us)
  * @version     1.0
  */
 
@@ -35,8 +35,10 @@ class Comentario extends ActiveRecord {
         return $this->find($conditions, $columns, $join);
     }
 
-    public function procesarComentario(){
-
+    public function procesarComentario($id, $estado){
+        $this->id = Filter::get($id,'int');
+        $this->estado = Filter($estado,'int');
+        return $this->update();
     }
 
     public function getContadorComentario($estado) {
