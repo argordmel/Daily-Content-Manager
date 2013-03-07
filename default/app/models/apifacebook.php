@@ -51,6 +51,7 @@ class Apifacebook {
 					// Solicitamos los datos de Usuario
 					$user_profile = $facebook->api('/me');
 					print_r($_SESSION);
+					print 'fb_'.$this->app_id.'_user_id';
 					// Recogemos los datos de la sesión
 					$user_id = $_SESSION['fb_'.$this->app_id.'_user_id'];
 					$access_token = $_SESSION['fb_'.$this->app_id.'_access_token'];
