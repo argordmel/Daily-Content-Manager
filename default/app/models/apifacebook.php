@@ -71,7 +71,7 @@ class Apifacebook {
 
 					// Redireccionamos aqui despues agregarla la cuenta
 					// Router::to(); // FIXME: Refrescar pagina
-				} catch ( FaceApiException $e ) {
+				} catch ( FacebookApiException $e ) {
 					Flash::error($e);
 					$user = null;
 				}
