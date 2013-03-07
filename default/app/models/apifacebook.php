@@ -67,15 +67,10 @@ class Apifacebook {
 						unset($_SESSION['fb_'.$this->app_id.'_code']);
 						unset($_SESSION['fb_'.$this->app_id.'_user_id']);
 						unset($_SESSION['fb_'.$this->app_id.'_access_token']);
+				        // Parametrizamos con la identidad que tenemos guardada
+						$this->facebookData['image'] = 'https://graph.facebook.com/'.$user_fb.'/picture';
+            			$this->facebookData['profile'] = 'http://www.facebook.com/'.$user_fb;
 					}
-
-					// Redireccionamos aqui despues agregarla la cuenta
-					// Router::to(); // FIXME: Refrescar pagina
-					$this->facebookData = array(
-			            'id' => Session::get('id'),
-			            'user_id' => $user_fb,
-			            'access_token' => $access_token,
-			        );
 				} catch ( FacebookApiException $e ) {
 					Flash::error($e);
 					$user = null;
