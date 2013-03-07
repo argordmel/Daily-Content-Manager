@@ -264,7 +264,7 @@ class Usuario extends ActiveRecord {
         $r->user_id = Filter::get($user_id, 'string');
         $r->access_token = Filter::get($token, 'string');
 
-        return $r->save();
+        return $r->update();
     }
     ///// Twitter //////
 }
