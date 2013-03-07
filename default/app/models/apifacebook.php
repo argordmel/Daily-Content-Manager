@@ -30,12 +30,12 @@ class Apifacebook {
         $config = Api::facebook();
         $this->app_id = $config['app_id'];
         $this->app_secret = $config['app_secret'];
-        $this->usuario = new Usuario();
     }
 
     public function cuenta() {
+    	$usuario = new Usuario();
 	    // Verificamos que tengamos una sesión guardada de usuario Facebook
-	    $this->facebookData = $this->usuario->getFacebook(Session::get('id'));
+	    $this->facebookData = $usuario->getFacebook(Session::get('id'));
 		$facebook = new Facebook(array(
 		  'appId'  => $this->app_id,
 		  'secret' => $this->app_secret
@@ -60,7 +60,7 @@ class Apifacebook {
 					print $access_token.'<br/>';
 
 					// Los guardamos en la base de datos
-					$rs = $this->usuario->setFacebook(Session::get('id'), $user_fb, $access_token);
+					$rs = $usuario->setFacebook(Session::get('id'), $user_fb, $access_token);
 
 					if ( $rs ) {
 						// destruimos las variables de session
