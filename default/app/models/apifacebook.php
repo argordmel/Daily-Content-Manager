@@ -45,19 +45,14 @@ class Apifacebook {
 		if ( !$this->facebookData ) {
 			// Solicitamos una identidad al api de facebook
 			$user = $facebook->getUser();
-			print_r($_SESSION);
 
 			if ($user) {
 				try {
 					// Solicitamos los datos de Usuario
 					$facebook->api('/me');
-					print "Hola";
-					print 'fb_'.$this->app_id.'_user_id';
 					// Recogemos los datos de la sesión
 					$user_fb = $_SESSION['fb_'.$this->app_id.'_user_id'];
 					$access_token = $_SESSION['fb_'.$this->app_id.'_access_token'];
-					print $user_fb.'<br/>';
-					print $access_token.'<br/>';
 
 					// Los guardamos en la base de datos
 					$rs = $usuario->setFacebook(Session::get('id'), $user_fb, $access_token);

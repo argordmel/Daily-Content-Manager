@@ -5,6 +5,7 @@ Load::model('apifacebook');
 $modelo = new Apifacebook();
 $modelo->cuenta();
 $data = $modelo->getData();
+print_r($data)
 ?>
 
                 <?php if ($data['profile']): ?>
