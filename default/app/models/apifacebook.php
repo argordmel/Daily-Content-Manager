@@ -63,6 +63,7 @@ class Apifacebook {
 						unset($_SESSION['fb_'.$this->app_id.'_user_id']);
 						unset($_SESSION['fb_'.$this->app_id.'_access_token']);
 				        // Parametrizamos con la identidad que tenemos guardada
+				        $this->facebookData['id'] = Session::get('id');
 						$this->facebookData['image'] = 'https://graph.facebook.com/'.$user_fb.'/picture';
             			$this->facebookData['profile'] = 'http://www.facebook.com/'.$user_fb;
 					}

@@ -50,7 +50,10 @@ CREATE TABLE IF NOT EXISTS `comentario` (
 --
 
 INSERT INTO `comentario` (`id`, `post_id`, `autor`, `email`, `url`, `mensaje`, `ip`, `estado`, `me_gusta`, `no_me_gusta`, `comentario_id`, `registrado_at`, `modificado_in`) VALUES
-(1, 1, 'Jaro Marval', 'jampgold@gmail.com', NULL, 'Pepito', '127.0.0.1', 1, NULL, NULL, NULL, '2013-03-05 15:50:38', NULL);
+(1, 1, 'Jaro Marval', 'jampgold@gmail.com', NULL, 'Pepito', '127.0.0.1', 1, NULL, NULL, NULL, '2013-03-05 15:50:38', NULL),
+(2, 1, 'Jaro Marval', 'jampgold@gmail.com', NULL, 'Pepito', '127.0.0.1', 1, NULL, NULL, NULL, '2013-03-05 15:50:38', NULL),
+(3, 1, 'Jaro Marval', 'jampgold@gmail.com', NULL, 'Pepito', '127.0.0.1', 3, NULL, NULL, NULL, '2013-03-05 15:50:38', NULL),
+(4, 1, 'Jaro Marval', 'jampgold@gmail.com', NULL, 'Pepito', '127.0.0.1', 2, NULL, NULL, NULL, '2013-03-05 15:50:38', NULL);
 
 -- --------------------------------------------------------
 
@@ -220,8 +223,8 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `modificado_in` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Fecha de modificación',
   `user_token` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'User Token de Twitter',
   `user_secret` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'User Secret de Twitter',
-  `user_id` int(50) DEFAULT NULL COMMENT 'ID de usuario de facebook',
-  `access_token` int(200) DEFAULT NULL COMMENT 'Token de Acceso de facebook',
+  `user_id` varchar(50) DEFAULT NULL COMMENT 'ID de usuario de facebook',
+  `access_token` varchar(200) DEFAULT NULL COMMENT 'Token de Acceso de facebook',
   PRIMARY KEY (`id`),
   KEY `fk_usuario_grupo` (`grupo_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Tabla que contiene los usuarios del sistema' AUTO_INCREMENT=5 ;
