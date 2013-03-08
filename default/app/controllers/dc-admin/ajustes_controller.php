@@ -27,7 +27,11 @@ class AjustesController extends AppController {
     }
 
     public function index() {
-
+        Load::model('configuracion');
+        $config = new Configuracion();
+        if( Input::hasPost('general') ){
+            $config->setConfiguracion(Input::post('general'));
+        }
     }
 
     public function blog() {
