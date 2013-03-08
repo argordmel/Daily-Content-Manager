@@ -22,11 +22,11 @@
                     </li>
                     <li>
                         <label for="etiquetas" class="desc">Etiquetas</label>
-                        <div>                            
+                        <div>
                             <?php $arreglo = array(); ?>
                             <?php foreach($post_etiquetas as $fila): ?>
                             <?php $arreglo[] = $fila->nombre;?>
-                            <?php endforeach; ?>                            
+                            <?php endforeach; ?>
                             <?php echo ExtForm::text('etiquetas', array('class'=>'full'), join(', ', $arreglo) , 'Separa las etiquetas por comas', false, true); ?>
                         </div>
                         <div>

@@ -28,6 +28,7 @@ class Apifacebook {
     */
     public function __construct(){
         $config = Api::facebook();
+        $this->facebookLink = "";
         $this->app_id = $config['app_id'];
         $this->app_secret = $config['app_secret'];
     }
@@ -97,6 +98,6 @@ class Apifacebook {
     }
 
     public function getLink() {
-        return $this->facebookLink;
+        return ( $this->facebookLink != '') ? $this->facebookLink : False;
     }
 }

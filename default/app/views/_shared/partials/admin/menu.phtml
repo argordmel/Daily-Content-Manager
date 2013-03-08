@@ -36,9 +36,10 @@ Load::model('grupo');
         <?php endif; ?>
     </div>
 
-    <?php if ( Session::get('nivel') < Grupo::AUTOR ): ?>    
+    <?php if ( Session::get('nivel') == Grupo::ADMINISTRADOR ): ?>
     <div class="collapsed">
         <span class="text-shadow">Ajustes</span>
+        <?php echo Html::link('dc-admin/ajustes/','Generales'); ?>
         <?php echo Html::link('dc-admin/ajustes/blog/','Blog'); ?>
         <?php echo Html::link('dc-admin/ajustes/publicaciones/','Publicaciones'); ?>
         <?php echo Html::link('dc-admin/ajustes/comentarios/','Comentarios'); ?>

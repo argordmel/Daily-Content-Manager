@@ -26,6 +26,10 @@ class AjustesController extends AppController {
         }
     }
 
+    public function index() {
+
+    }
+
     /**
      * Método principal para listar las categorías y la búsqueda de las mismas
      */

@@ -24,7 +24,7 @@
                         <label for="post_etiqueta" class="desc">Etiquetas</label>
                         <div>
                             <?php echo ExtForm::text('etiquetas', array('class'=>'full'), null, '', false, true); ?>
-                        </div>                        
+                        </div>
                     </li>
                     <li>
                         <label for="post_usuario_id" class="desc">Autor<span class="req">*</span></label>
@@ -59,7 +59,7 @@
                     </li>
                     <li class="twoColumns">
                         <label for="post_habilitar_comentarios" class="desc">Habilitar comentarios</label>
-                        <div>                            
+                        <div>
                             <span>
                                 <?php echo ExtForm::radio('post.habilitar_comentarios', '1', array('class'=>''), $check_si, 'Si'); ?>
                             </span>
@@ -131,7 +131,7 @@
     <?php echo ExtForm::close(); ?>
     <div class="clr"></div>
 </div>
-    
+
 <!-- Alertas -->
 <script type="text/javascript">
     var link_action;

@@ -5,23 +5,21 @@ Load::model('apifacebook');
 $modelo = new Apifacebook();
 $modelo->cuenta();
 $data = $modelo->getData();
-?>
 
-                <?php if ($data['profile']): ?>
+                    if ($data['profile']): ?>
                     <li>
                         <div>
                 			<label class="desc">Tu cuenta en Facebook</label>
                 			<img src="<?php echo $data['image']; ?>" style="float:left; margin-right: 5px;"><br/>
                 			<a href="<?php echo $data['profile']; ?>" target="_blank">Ver Perfil</a><br/>
                 			<a href="<?php echo PUBLIC_PATH; ?>dc-admin/usuario/eliminarFacebook/<?php echo $data['id']; ?>">Desasociar Cuenta</a><br/>
-                			<!-- <a href="<?php echo PUBLIC_PATH; ?>redes/tweet/">Envia un Tweet</a> -->
                         </div>
                     </li>
-                <?php else: ?>
+                <?php else: $link = $modelo->getLink();?>
                     <li>
                         <div>
                             <label for="link_twitter" class="desc">Asociar cuenta de Facebook</label>
-                            <a href="<?php echo $modelo->getLink(); ?>" id="link_twitter">Login</a>
+                            <a href="<?php echo $link; ?>" id="link_twitter">Login</a>
                         </div>
                     </li>
                 <?php endif; ?>
