@@ -30,26 +30,30 @@ class AjustesController extends AppController {
 
     }
 
+    public function blog() {
+
+    }
+
     /**
      * Método principal para listar las categorías y la búsqueda de las mismas
      */
-    public function publicaciones() {
+    // public function publicaciones() {
 
-        $configuracion = new Configuracion();
-        $configuracion = $configuracion->getOpcion();
-        $configuracion->habilitar_comentarios = $configuracion;
+    //     $configuracion = new Configuracion();
+    //     $configuracion = $configuracion->getOpcion();
+    //     $configuracion->habilitar_comentarios = $configuracion;
 
-        /*
 
-        $categoria = new Taxonomia();
-        if(Input::hasPost('parametro')) {
-            $nombre = Filter::get(Input::post('parametro'),'alnum');
-            $this->categoria = (strlen($nombre) > 0) ? $categoria->buscarTaxonomia(Taxonomia::CATEGORIA,$nombre) : null;
-            $this->busqueda = $nombre;
-        } else {
-            $this->categoria = $categoria->listarTaxonomia('categoria','desc');
-        } */
-    }
+
+    //     $categoria = new Taxonomia();
+    //     if(Input::hasPost('parametro')) {
+    //         $nombre = Filter::get(Input::post('parametro'),'alnum');
+    //         $this->categoria = (strlen($nombre) > 0) ? $categoria->buscarTaxonomia(Taxonomia::CATEGORIA,$nombre) : null;
+    //         $this->busqueda = $nombre;
+    //     } else {
+    //         $this->categoria = $categoria->listarTaxonomia('categoria','desc');
+    //     }
+    // }
 
 //    /**
 //     * Método para registrar las etiquetas

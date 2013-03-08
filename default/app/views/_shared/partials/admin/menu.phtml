@@ -21,6 +21,12 @@ Load::model('grupo');
 
     <?php if ( Session::get('nivel') < Grupo::AUTOR ): ?>
     <div class="collapsed">
+        <span class="text-shadow">Galería</span>
+        <?php echo Html::link('dc-admin/galeria/album/','Crear Album'); ?>
+        <?php echo Html::link('dc-admin/galeria/administrar/','Administrar Albumnes'); ?>
+    </div>
+
+    <div class="collapsed">
         <span class="text-shadow">Enlaces</span>
         <?php echo Html::link('dc-admin/enlace/','Enlaces'); ?>
         <?php echo Html::link('dc-admin/enlace/agregar/','Agregar nuevo'); ?>
@@ -41,8 +47,8 @@ Load::model('grupo');
         <span class="text-shadow">Ajustes</span>
         <?php echo Html::link('dc-admin/ajustes/','Generales'); ?>
         <?php echo Html::link('dc-admin/ajustes/blog/','Blog'); ?>
-        <?php echo Html::link('dc-admin/ajustes/publicaciones/','Publicaciones'); ?>
-        <?php echo Html::link('dc-admin/ajustes/comentarios/','Comentarios'); ?>
+        <!-- <?php echo Html::link('dc-admin/ajustes/publicaciones/','Publicaciones'); ?>
+        <?php echo Html::link('dc-admin/ajustes/comentarios/','Comentarios'); ?> -->
     </div>
     <?php endif; ?>
 </div>

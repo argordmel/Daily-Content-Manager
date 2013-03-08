@@ -2,7 +2,7 @@
 
 <div class="contenido">
     <div class="full"><h1 class="text-shadow">Ajuste Generales</h1></div>
-    <?php echo ExtForm::open('dc-admin/usuario/agregar/', 'post', array('class'=>'post'), true); ?>
+    <?php echo ExtForm::openMultipart('dc-admin/usuario/agregar/', 'post', array('class'=>'post'), true); ?>
     <div class="left medium">
         <div class="box ui-corner-all ui-widget-content" id="contenido-post">
             <div class="box-titulo ui-state-default ui-corner-tl ui-corner-tr"><h3 class="text-shadow">Empresa</h3></div>
@@ -34,6 +34,7 @@
                     </li>
                     <li>
                         <label for="usuario_login" class="desc">Correo Electrónico Administrativo<span class="req">*</span></label>
+                        	<span>(Correo para recibir principales notificaciones de sistema)</span>
                         <div>
                             <?php echo ExtForm::text('general.email', array('class'=>'medium email'), null, '', true, true); ?>
                         </div>
@@ -44,6 +45,34 @@
 
         <div class="break"></div>
 
+        <div class="box ui-corner-all ui-widget-content" id="contenido-post">
+            <div class="box-titulo ui-state-default ui-corner-tl ui-corner-tr"><h3 class="text-shadow">Estetica</h3></div>
+            <div class="box-contenido box-form">
+                <ul>
+                    <li class="twoColumns">
+                    	<label for="general.favicon" class="desc">Habilitar favicon</label>
+                        <div>
+                            <span>
+                                <?php echo ExtForm::radio('general.favicon', '1', array('class'=>''), null, 'Si'); ?>
+                            </span>
+                            <span>
+                                <?php echo ExtForm::radio('general.favicon', '2', array('class'=>''), True, 'No'); ?>
+                            </span>
+                        </div>
+                    </li>
+                    <li>
+                        <label for="usuario_nombre" class="desc">Logo</label>
+                        <div>
+                            <?php echo Form::file('logo'); //ExtForm::text('general.logo', array('class'=>'medium'), null, '', false, true).ExtForm::submit('Subir',array('id'=>'enviarForm','name'=>'btn_crear'));; ?>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="right medium">
         <div class="box ui-corner-all ui-widget-content" id="publicar-post">
             <div class="box-titulo ui-state-default ui-corner-tl ui-corner-tr"><h3 class="text-shadow">Descripción de la Empresa</h3></div>
             <div class="box-contenido box-form">
@@ -67,9 +96,9 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="right medium">
-        <?php if ( Router::get('action') != 'editar' ) View::partial('redes_sociales/cuentas'); ?>
         <div class="break"></div>
+
+        <?php View::partial('redes_sociales/cuentas'); ?>
+
     </div>
