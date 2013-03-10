@@ -40,11 +40,13 @@ class Configuracion extends ActiveRecord {
 
     public function setOpcion($opcion, $valor) {
         $salida = False;
-        $rs = $this->find('opcion = '.$opcion);
+        $rs = $this->find_first("opcion = '$opcion'");
         if (!$rs) {
             $this->opcion = Filter::get($opcion, 'string');
             $this->valor = $valor;
             $salida = $this->create();
+        } elseif (empty($valor)) {
+            $salida = $rs->delete();
         } else {
             $rs->valor = $valor;
             $salida = $rs->update();
@@ -58,9 +60,9 @@ class Configuracion extends ActiveRecord {
         $this->begin();
         foreach ($array as $key => $value) {
             $rs = $rs && $this->setOpcion($key, $value);
-            if (!$rs) break;
+            //if (!$rs) break;
         }
-        if ($rs) ? $this->commit() : $this->rollback();
+        ($rs) ? $this->commit() : $this->rollback();
         return $rs;
     }
 }

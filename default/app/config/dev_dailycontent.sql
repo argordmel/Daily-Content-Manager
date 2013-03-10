@@ -72,6 +72,19 @@ CREATE TABLE IF NOT EXISTS `configuracion` (
 -- Volcar la base de datos para la tabla `configuracion`
 --
 
+INSERT INTO `configuracion` (`id`, `opcion`, `valor`) VALUES
+(1, 'nombre', 'Icterus, C.A.'),
+(2, 'favicon', 'off'),
+(3, 'direccion', '<p><strong>Direcci&oacute;n:</strong> Punto Fijo, Falc&oacute;n, Venezuela<br /><strong>Telef&oacute;no:</strong> 0269-5116112<br /><strong>Celular:</strong> 0424-6488489<br /><strong>Correo Electr&oacute;nico:</strong> jampgold@gmail.com</p>'),
+(4, 'rif', 'J-12345678-9'),
+(5, 'titulo', 'D-Content - Dailyscript'),
+(6, 'descripcion', 'Manejador de Contenido Web desarrollado entre los Equipos de Icterus y Dailyscript'),
+(7, 'email', 'jampgold@gmail.com'),
+(8, 'nombre_blog', 'D-Content - Dailyscript'),
+(9, 'post_por_pagina', '10'),
+(10, 'categoria_por_defecto', '1'),
+(11, 'habilitar_comentarios', 'off'),
+(12, 'post_por_widget', '7');
 
 -- --------------------------------------------------------
 
@@ -227,16 +240,16 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `access_token` varchar(200) DEFAULT NULL COMMENT 'Token de Acceso de facebook',
   PRIMARY KEY (`id`),
   KEY `fk_usuario_grupo` (`grupo_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Tabla que contiene los usuarios del sistema' AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Tabla que contiene los usuarios del sistema' AUTO_INCREMENT=4 ;
 
 --
 -- Volcar la base de datos para la tabla `usuario`
 --
 
 INSERT INTO `usuario` (`id`, `login`, `password`, `nombre`, `apellido`, `mail`, `grupo_id`, `estado`, `registrado_at`, `modificado_in`, `user_token`, `user_secret`, `user_id`, `access_token`) VALUES
-(1, 'admin', '9a9746d53945a4962910b17a572e68fd', 'Admin', '', 'argordmel@yahoo.es', 1, 1, '2012-01-01 00:00:01', '2013-01-13 12:01:26', NULL, NULL, 0, 0),
-(3, 'Jamp', '9a9746d53945a4962910b17a572e68fd', 'Jaro', 'Marval', 'jampgold@gmail.com', 2, 1, '2013-01-13 12:35:47', '2013-03-04 19:37:55', '166425171-p1fVjRik3t17ya0wq0E7YmvOLAAvGdDC99Ei4duH', '0LdAcR60mPfPoCLGJM4kCp9xIb6ceJUn4HzeWpoZs', 0, 0),
-(4, 'pepito', 'd93a5def7511da3d0f2d171d9c344e91', 'Pepito', 'Pablito', 'abadc@hg.com', 4, 1, '2013-01-13 12:38:34', NULL, NULL, NULL, 0, 0);
+(1, 'admin', '9a9746d53945a4962910b17a572e68fd', 'Admin', '', 'argordmel@yahoo.es', 1, 1, '2012-01-01 00:00:01', '2013-01-13 12:01:26', NULL, NULL, NULL, NULL),
+(2, 'Jamp', '9a9746d53945a4962910b17a572e68fd', 'Jaro', 'Marval', 'jampgold@gmail.com', 2, 1, '2013-01-13 12:35:47', '2013-03-04 19:37:55', NULL, NULL, NULL, NULL),
+(3, 'pepito', 'd93a5def7511da3d0f2d171d9c344e91', 'Pepito', 'Pablito', 'abadc@hg.com', 4, 1, '2013-01-13 12:38:34', NULL, NULL, NULL, NULL, NULL);
 
 --
 -- Filtros para las tablas descargadas (dump)

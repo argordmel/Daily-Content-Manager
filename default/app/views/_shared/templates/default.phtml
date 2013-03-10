@@ -5,18 +5,19 @@
     <meta name="copyright" content="Dailyscript &copy; 2010" />
     <meta name="keywords" content="Dailyscript" />
     <meta name="robots" content="index,follow" />
-    <meta name="languaje" content="es-CO" />
-    <meta name="geo.placename" content="Colombia" />
+    <meta name="languaje" content="es-VE" />
+    <meta name="geo.placename" content="Venezuela" />
+    <?php echo Html::includeHeadLinks(); ?>
     <title><?php echo $title ?></title>
     <?php Tag::css('default') ?>
-    <?php Tag::css('style') ?>    
+    <?php Tag::css('style') ?>
     <?php echo Html::includeCss() ?>
-    <?php echo Tag::js('jquery/jquery.min'); ?>    
+    <?php echo Tag::js('jquery/jquery.min'); ?>
     <script type="text/javascript">
-        $(document).ready(function(){            
+        $(document).ready(function(){
             $("#logo,#navegador").hide().fadeIn(1500);
-        });        
-    </script>   
+        });
+    </script>
     </head>
     <body>
 
@@ -31,6 +32,7 @@
             <!-- Contenedor principal -->
             <div class="contenedor">
                 <!-- Contenido -->
+
                 <?php View::content(); ?>
               <div class="clr"></div>
             </div>

@@ -27,15 +27,21 @@ class AjustesController extends AppController {
     }
 
     public function index() {
-        Load::model('configuracion');
-        $config = new Configuracion();
+        $title = 'Ajustes Generales';
         if( Input::hasPost('general') ){
-            $config->setConfiguracion(Input::post('general'));
+            if ( $this->configurar->setConfiguracion(Input::post('general')) ) Flash::valid('Configuración Guardada con éxito');
         }
+        $this->favon = ( $this->config['favicon'] == 'on' )?True:False;
+        $this->favoff = ( $this->config['favicon'] == 'off' )?True:False;
     }
 
     public function blog() {
-
+        $title = 'Ajustes del Blog';
+        if( Input::hasPost('blog') ){
+            if ( $this->configurar->setConfiguracion(Input::post('blog')) ) Flash::valid('Configuración Guardada con éxito');
+        }
+        $this->comentarioOn = ( $this->config['habilitar_comentarios'] == 'on' )?True:False;
+        $this->comentarioOff = ( $this->config['habilitar_comentarios'] == 'off' )?True:False;
     }
 
     /**
