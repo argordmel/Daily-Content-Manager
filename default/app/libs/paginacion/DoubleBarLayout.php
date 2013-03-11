@@ -1,10 +1,10 @@
 <?php
 class DoubleBarLayout implements PageLayout {
-   
+
     public function fetchPagedLinks($parent, $queryVars) {
 
-        $currentPage = $parent->getPageNumber();        
-        $totalPage  = $parent->fetchNumberPages();                
+        $currentPage = $parent->getPageNumber();
+        $totalPage  = $parent->fetchNumberPages();
         $str = "";
 
         //write statement that handles the previous and next phases
@@ -42,6 +42,6 @@ class DoubleBarLayout implements PageLayout {
             $str .= "</span>";
         }
         return $str;
-    }   
+    }
 }
 ?>

@@ -24,7 +24,15 @@ class Paginated {
         $this->assignPageNumber($pageNum);
         $this->setRowNumber(0);
         $this->setOffSet(($this->getPageNumber() - 1) * ($this->getPageSize()));
+        /**
+        * Corrección en la páginación por el uso de routes.ini
+        */
         $this->setUrl(Router::get('route'));
+        // $route = Router::get('controller').'/';
+        // $route .= ( Router::get('module') )? Router::get('module').'/' : '';
+        // $parameters = Router::get('parameters');
+        // $route .= ( $parameters )? $parameters[0].'/' : '';
+        // $this->setUrl($route);
     }
 
     public function setUrl($route){

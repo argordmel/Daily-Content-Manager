@@ -42,15 +42,17 @@ class BlogController extends AppController {
      * @param int|string $param5 Puede recibir valores de la página u opciones extas, como preview para ver la vista previa
      */
     public function ver($param1=null,$param2=null,$param3=null,$param4=null, $param5=null) {
+        // print 'Parametros '.$param1.' '.$param2.' '.$param3.' '.$param4.' '.$param5;
+        //if ( $param1 == 'ver' ) Router::redirect()
         //Titulo de la página
         $this->title = 'Noticias';
         //Determino si se muesta un solo post o un listado
         $this->unique_post = false;
         //Analizo las variables
         $year   = ($param1 != 'pag') ? $param1 : null;
-        $month  = ($param2 != 'pag') ? $param2 : null;
-        $day    = ($param3 != 'pag') ? $param3 : null;
-        $slug   = ($param4 != 'pag') ? $param4 : null;
+        $month  = ($param2 != 'pag' && $param1 != 'pag') ? $param2 : null;
+        $day    = ($param3 != 'pag' && $param2 != 'pag') ? $param3 : null;
+        $slug   = ($param4 != 'pag' && $param3 != 'pag') ? $param4 : null;
         $pag = 'pag';
         $num = 1;
         if($param1 == 'pag') {
@@ -76,15 +78,15 @@ class BlogController extends AppController {
         }
 
         $post = new Post();
-
         //Determino si se encuentran algunos parámetros
         if($year or $month or $day or $slug) {
             //Determino si está en la vista previa
             if($param5 == 'preview') {
                 View::template('borrador');
             }
-            $result = $post->verPost(null, $year, $month, $day, $slug);
-            if($this->unique_post) {
+            $result = $post->listarPost($this->numero, POST_POR_PAGINA, $year, $month, $day, $slug);
+
+            /*if($this->unique_post) {
                 //Si es único asigno el título a la página
                 $this->title = $result->titulo;
             } else {
@@ -92,9 +94,10 @@ class BlogController extends AppController {
                 $this->title = $year;
                 $this->title.= ($month) ? ' '.ExtDate::getMonthName($month) : '';
                 $this->title.= ($day) ? ' '.$day : '';
-            }
+            }*/
         } else { //Si no contiene alguno de esos parámetros
-            $result = $post->filtrarPost(Post::PUBLICADO, Post::PUBLICO, '', '' ,'desc');
+            // $result = $post->filtrarPost(Post::PUBLICADO, Post::PUBLICO, '', '' ,'desc');
+            $result = $post->listarPost($this->numero, POST_POR_PAGINA);
         }
         if(!$result) {
             $this->title = 'No se encontró la página';
@@ -102,10 +105,10 @@ class BlogController extends AppController {
             //View::notFound();
             //View::excepcion('No se encontró la página');
         }
-        if(!$this->unique_post) {
+        /*if(!$this->unique_post) {
             //Creo un paginador con el resultado, que muestre 15 filas y empieze por el numero de la página
             $result = new Paginated($result,POST_POR_PAGINA,$this->numero);
-        }
+        }*/
         $this->post = $result;
     }
 

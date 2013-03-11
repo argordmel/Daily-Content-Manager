@@ -1,0 +1,35 @@
+    <div class="paginacion<?php if(Router::get('module') == 'dc-admin') { echo ' ui-state-default text-shadow'; } ?> ">
+    <?php
+
+    function setUrl($route){
+        $url = explode('pag', $route);
+        $rs = $url[0];
+        return trim($rs,'/');
+    }
+
+    $url = setUrl(Router::get('route'));
+    $str = "";
+    if($objeto->prev) {
+        $str="<span class=\"paginacion-anterior\">";
+        $str.=Html::link($url."/pag/$objeto->prev/", '« Anterior');
+        $str.=" | </span> \n";
+        echo $str;
+    }
+
+    if($objeto->total > 1) { for ($i=1; $i <= $objeto->total; $i++) {
+        $str="<span class=\"paginacion-numeracion\">";
+        $id=($objeto->current == $i)?'<b>'.$i.'</b>':$i;
+        $str.=Html::link($url."/pag/$i/", $id, "title='Página $i de $objeto->total'");
+        $str.=($objeto->total == $i)?'':' | ';
+        $str .= "</span>\n";
+        echo $str;
+    } }
+
+    if($objeto->next) {
+        $str="<span class=\"paginacion-siguiente\"> | ";
+        $str.=Html::link($url."/pag/$objeto->next/", 'Siguiente »');
+        $str.="</span>\n";
+        echo $str;
+    }
+    ?>
+    </div>

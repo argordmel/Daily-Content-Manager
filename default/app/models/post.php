@@ -103,7 +103,7 @@ class Post extends ActiveRecord {
      * Metodo que retorna el listado de post segun el filtro desado
      *
      * @param int|string $estado Estado de los post a filtrar
-     * * @param int|string $visibilidad Visibilidad de los post a filtrar
+     * @param int|string $visibilidad Visibilidad de los post a filtrar
      * @param string $parametro Pametro de los post a filtrar
      * @param string $valor Valor del parametro a filtrar
      * @param string $orden Orden a mostrar los post
@@ -227,11 +227,12 @@ class Post extends ActiveRecord {
 
         //Armo la consulta
         $sql = 'SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios ';
+        // $sql = 'SELECT post.*,usuario.login,usuario.grupo_id AS comentarios ';
         $sql.= 'FROM post ';
         $sql.= 'INNER JOIN usuario ON usuario.id = post.usuario_id ';
         $sql.= 'LEFT JOIN comentario ON comentario.post_id = post.id ';
         $sql.= "WHERE post.estado != '".self::ELIMINADO."'";
-
+        print 'sql ->'.$sql;
         if($codigo) { //Si tiene el código del post
             $sql.=" AND post.id = '$codigo'";
             $rs = $this->find_by_sql($sql);
@@ -259,6 +260,73 @@ class Post extends ActiveRecord {
             Flash::info('Lo sentimos, pero no podemos encontrar lo que estás buscando. Quizás la búsqueda te ayudará.');
         }
         return $rs;
+    }
+
+    /**
+     * Método que retorna el post o un listado de post dependiendo del año de publicacion,
+     * el mes, el día y el slug del mimo
+     *
+     * @param int $year Año de la publicacion
+     * @param int $month Mes de la publicacion
+     * @param int $day Dia de la publicacion
+     * @param string $slug Url amigable de la publicacion
+     * @return string
+     */
+    public function listarPost($page, $per_page,$year=null, $month=null, $day=null, $slug=null) {
+
+        $year = Filter::get($year,'numeric');
+        $month = Filter::get($month,'numeric');
+        $day = Filter::get($day,'numeric');
+        $slug = Filter::get($slug, 'stripslashes', 'striptags','string');
+
+        //Armo la consulta
+        $sql = 'SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios ';
+        // $sql = 'SELECT post.*,usuario.login,usuario.grupo_id AS comentarios ';
+        $sql.= 'FROM post ';
+        $sql.= 'INNER JOIN usuario ON usuario.id = post.usuario_id ';
+        $sql.= 'LEFT JOIN comentario ON comentario.post_id = post.id ';
+        $sql.= "WHERE post.estado != '".self::ELIMINADO."'";
+
+        if($slug) { //Si tiene la url del post
+            $sql.=" AND post.slug = '$slug'";
+            $rs = $this->find_by_sql($sql);
+        } else { //Si tiene el año, mes y/o día
+            if($year && !$month && !$day) {
+                $sql.=" AND post.fecha_publicacion LIKE '$year-%'";
+            } else if($year && $month && !$day) {
+                //Verificar el último día del mes
+                $month = ($month<10) ? '0'.$month:$month;
+                $sql.=" AND post.fecha_publicacion LIKE '$year-$month-%'";
+            } else if($year && $month && $day) {
+                $sql.=" AND post.fecha_publicacion = '$year-$month-$day'";
+            // } else {
+            //     return false;
+            }
+
+            $sql.= ' GROUP BY post.id';
+            $sql.= ' ORDER BY post.fecha_publicacion DESC';
+            // $rs = $this->find_all_by_sql($sql);
+            $rs = $this->paginate_by_sql($sql, "page: $page", "per_page: $per_page");
+        }
+
+        if(!$rs) {
+            Flash::info('Lo sentimos, pero no podemos encontrar lo que estás buscando. Quizás la búsqueda te ayudará.');
+        }
+        return $rs;
+    }
+
+
+    public function test($page=1){
+
+        //Armo la consulta
+        // $sql = 'SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios ';
+        $sql = 'SELECT post.*,usuario.login,usuario.grupo_id AS comentarios ';
+        $sql.= 'FROM post ';
+        $sql.= 'INNER JOIN usuario ON usuario.id = post.usuario_id ';
+        $sql.= 'LEFT JOIN comentario ON comentario.post_id = post.id ';
+        $sql.= "WHERE post.estado != '".self::ELIMINADO."'";
+        return $this->paginate_by_sql($sql, "page: $page", "per_page: 1");
+        // return $this->paginate("page: $page", "per_page: 1", 'order: fecha_publicacion desc');
     }
 
     /**

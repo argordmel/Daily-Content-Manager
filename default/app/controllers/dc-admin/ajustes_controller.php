@@ -28,6 +28,7 @@ class AjustesController extends AppController {
 
     public function index() {
         $title = 'Ajustes Generales';
+        print_r(Router::get());
         if( Input::hasPost('general') ){
             if ( $this->configurar->setConfiguracion(Input::post('general')) ) Flash::valid('Configuración Guardada con éxito');
         }
