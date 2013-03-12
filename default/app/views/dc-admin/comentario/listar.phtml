@@ -5,7 +5,7 @@
     <div class="right small"><?php View::partial('admin/form_busqueda', false, array('action'=>'post')); ?></div>
     <div class="clr"></div>
 
-    <?php View::partial('admin/usuario/sub-nav'); ?>
+    <?php View::partial('admin/comentario/sub-nav'); ?>
 
     <div class="full">
 
@@ -23,7 +23,7 @@
                     <?php // ExtDate::loadDate(); ?>
                     <?php while($fila = $comentario->fetchPagedRow())  { ?>
 
-                    <?php $validKey = md5($fila->id.$ipKey.$expKey.'usuario'); ?>
+                    <?php $validKey = md5($fila->id.$ipKey.$expKey.'comentario'); ?>
                     <tr <?php echo ( $fila->estado == Comentario::PENDIENTE )? 'class="pendient"' : ''; ?>>
                         <td><?php echo Form::check('', 1); ?></td>
                         <td class="">
@@ -33,17 +33,19 @@
                                 <span class="post-titulo font-small"><?php echo '<br/>'.$fila->email.'<br/>'.$fila->ip; ?></span>
                             </div>
                         </td>
-                        <td class="font-small">
+                        <td style="height:100%;" class="font-small">
                             <?php echo $fila->mensaje; ?>
                             <div class="row-actions font-small">
                     <?php if ( $fila->estado != Comentario::APROBADO ): ?>
-                    <span class="row-action-approve"><?php echo Html::link("dc-admin/usuario/editar/$fila->id/key/$validKey/",'Aprobar');?> | </span>
+                    <span class="row-action-approve"><?php echo Html::link("dc-admin/comentario/procesar/$fila->id/aprobado/key/$validKey/",'Aprobar');?> | </span>
                     <?php else: ?>
-                    <span class="row-action-reject"><?php echo Html::link("dc-admin/usuario/editar/$fila->id/key/$validKey/",'Rechazar');?> | </span>
+                    <span class="row-action-reject"><?php echo Html::link("dc-admin/comentario/procesar/$fila->id/pendiente/key/$validKey/",'Rechazar');?> | </span>
                 <?php endif; ?>
-                    <span class="row-action-show"><?php echo Html::link("dc-admin/usuario/editar/$fila->id/key/$validKey/",'Responder');?> | </span>
-                    <span class="row-action-delete"><?php echo Html::link("dc-admin/usuario/eliminar/$fila->id/key/$validKey/",'Spam');?> | </span>
-                    <span class="row-action-delete"><?php echo Html::link("dc-admin/usuario/eliminar/$fila->id/key/$validKey/",'Eliminar');?></span>
+                <?php if ( $fila->estado != Comentario::SPAM ): ?>
+                    <span class="row-action-show"><?php echo Html::link("#",'Responder');?> | </span>
+                    <span class="row-action-spam"><?php echo Html::link("dc-admin/comentario/procesar/$fila->id/spam/key/$validKey/",'Spam');?> | </span>
+                    <?php endif; ?>
+                    <span class="row-action-delete"><?php echo Html::link("dc-admin/comentario/procesar/$fila->id/eliminado/key/$validKey/",'Eliminar');?></span>
                             </div>
                         </td>
                         <td class="font-small"><?php echo $fila->titulo; ?></td>
@@ -61,15 +63,22 @@
 
 <!-- Alertas -->
 <script type="text/javascript">
+    $(document).ready(function(){
     var link_action;
-    $('a','.row-action-delete').click(function(event){ event.preventDefault(); link_action = $(this).attr('href'); $('#eliminar-post').dialog('open'); });
-    $(function() { $("#eliminar-post").dialog({ autoOpen: false, width: 400, height:155, modal: true, buttons: { 'Cancelar': function() { $(this).dialog('close'); } ,'Aceptar': function() { location.href = link_action; } } }); });
+    $('a','.row-action-delete').on('click',function(event){ event.preventDefault(); link_action = $(this).attr('href'); $('#eliminar-post').dialog('open'); });
+    $("#eliminar-post").dialog({
+        autoOpen: false,
+        width: 400,
+        height:155,
+        modal: true,
+        resizable: false,
+        buttons: {
+            'Cancelar': function() { $(this).dialog('close'); } ,
+            'Aceptar': function() { location.href = link_action;
+            }
+        } });
+    });
 </script>
 <div id="eliminar-post" title="Dailyscript - Web | App | Media" class="confirm-dialog">
-    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Deseas borrar permantentemente esta publicación?. </p>
+    <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>Deseas borrar permantentemente esta publicación?. </p>
 </div>
-<script type="text/javascript">
-    $(function() {
-        $('tr','tbody').hover(function(){$(this).addClass('tr-hover'); },function(){$(this).removeClass('tr-hover'); },function() {});
-    });
- </script>

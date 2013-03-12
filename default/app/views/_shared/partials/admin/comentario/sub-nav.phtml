@@ -1,0 +1,22 @@
+<?php
+Load::model('comentario');
+$comentario = new Comentario();
+
+$total = $comentario->getContadorComentario('todos');
+$pendientes = $comentario->getContadorComentario(Comentario::PENDIENTE);
+$aprobados = $comentario->getContadorComentario(Comentario::APROBADO);
+$spam = $comentario->getContadorComentario(Comentario::SPAM);
+$base = "dc-admin/comentario/listar/";
+?>
+<div class="left medium">
+    <ul class="sub-nav font-medium">
+        <li>
+        	<?php echo Html::link($base,"Todas <span class=\"counter\">($total)</span>");?>
+        </li>
+        <?php
+        if($pendientes > 0) echo '<li><span class="separador"> | </span>'. Html::link($base.'pendiente/',"Pendientes<span class=\"counter\">($pendientes)</span>").'</li>'; ?>
+        <?php if($aprobados > 0) echo '<li><span class="separador"> | </span>'. Html::link($base.'aprobado/',"Aprobados<span class=\"counter\">($aprobados)</span>").'</li>'; ?>
+        <?php if($spam > 0) echo '<li><span class="separador"> | </span>'. Html::link($base.'spam/',"Spam<span class=\"counter\">($spam)</span>").'</li>'; ?>
+    </ul>
+</div>
+<div class="clr"></div>

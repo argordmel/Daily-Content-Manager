@@ -28,7 +28,8 @@ class Comentario extends ActiveRecord {
 
     public function filtrarComentarios($estado) {
         $conditions = 'conditions: comentario.';
-        $conditions .= ( $estado == 'todos' )? 'estado != '.self::SPAM :  'estado = '.$estado;
+        $estado = strtoupper($estado);
+        $conditions .= ( $estado == 'TODOS' )? 'estado != '.self::SPAM.' AND comentario.estado != '.self::ELIMINADO :  'estado = '.constant('self::'.$estado);
         $columns = "columns: comentario.id, autor, email, mensaje, ip, comentario.registrado_at, titulo, comentario.estado";
         $join = "join: INNER JOIN post ON comentario.post_id = post.id";
 
@@ -36,13 +37,13 @@ class Comentario extends ActiveRecord {
     }
 
     public function procesarComentario($id, $estado){
-        $this->id = Filter::get($id,'int');
-        $this->estado = Filter($estado,'int');
-        return $this->update();
+        $rs = $this->find(Filter::get($id,'int'));
+        $rs->estado = Filter::get($estado,'int');
+        return $rs->update();
     }
 
     public function getContadorComentario($estado) {
-        $condicion = ( $estado == 'todos' )? 'estado LIKE \'%\'' :  'estado = '.Filter::get($estado,'int');
+        $condicion = ( $estado == 'todos' )? 'estado != '.self::SPAM.' AND estado != '.self::ELIMINADO:  'estado = '.Filter::get($estado,'int');
         return $this->count("conditions: $condicion");
     }
 

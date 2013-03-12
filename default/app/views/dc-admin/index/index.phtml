@@ -51,10 +51,18 @@
                 <div class="right medium">
                     <div class="box-subtitulo"><h3 class="text-shadow">Comentarios</h3></div>
                     <table class="box-table" cellspacing="3" cellpadding="3">
-                        <tr><td class="box-contador"><?php echo $total_comentarios; ?></td><td>Total</td></tr>
-                        <tr><td class="box-contador" id="total_comentarios"><?php echo $total_aprobados; ?></td><td class="box-aprobados"><?php echo Html::link('dc-admin/comentario/',$detalle_comentario, array('class'=>'font-medium')); ?></td></tr>
-                        <tr><td class="box-contador" id="total_pendientes"><?php echo $total_pendientes; ?></td><td class="box-pendientes"><?php echo Html::link('dc-admin/comentario/listar/pendiente/',$detalle_pendiente, array('class'=>'font-medium')); ?></td></tr>
-                        <tr><td class="box-contador" id="total_spam"><?php echo $total_spam; ?></td><td class="box-spam"><?php echo Html::link('dc-admin/comentario/listar/spam/',$detalle_spam, array('class'=>'font-medium')); ?></td></tr>
+                        <tr>
+                            <td class="box-contador"><?php echo $total_comentarios; ?></td>
+                            <td><?php echo Html::link('dc-admin/comentario/listar/','Total', array('class'=>'font-medium')); ?></td></tr>
+                        <tr>
+                            <td class="box-contador" id="total_comentarios"><?php echo $total_aprobados; ?></td>
+                            <td class="box-aprobados"><?php echo Html::link('dc-admin/comentario/listar/aprobado/',$detalle_comentario, array('class'=>'font-medium')); ?></td></tr>
+                        <tr>
+                            <td class="box-contador" id="total_pendientes"><?php echo $total_pendientes; ?></td>
+                            <td class="box-pendientes"><?php echo Html::link('dc-admin/comentario/listar/pendiente/',$detalle_pendiente, array('class'=>'font-medium')); ?></td></tr>
+                        <tr>
+                            <td class="box-contador" id="total_spam"><?php echo $total_spam; ?></td>
+                            <td class="box-spam"><?php echo Html::link('dc-admin/comentario/listar/spam/',$detalle_spam, array('class'=>'font-medium')); ?></td></tr>
                     </table>
                 </div>
                 <div class="clr"></div>

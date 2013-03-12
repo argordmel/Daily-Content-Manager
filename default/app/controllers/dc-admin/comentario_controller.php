@@ -21,6 +21,19 @@ class ComentarioController extends AppController {
 		Router::toAction('listar/');
 	}
 
+    public function procesar($id=null,$estado=null,$key='key',$valueKey=''){
+        if ($valueKey === md5($id.$this->ipKey.$this->expKey.'comentario')) {
+            $estado = strtoupper($estado);
+            $rs = Load::model('comentario')->procesarComentario($id,constant('Comentario::'.$estado));
+            if ($rs) {
+                Flash::valid('Comentario procesado de forma éxitosa!!!');
+            }
+        } else {
+            Flash::error('Acceso incorrecto al sistema.');
+        }
+        Router::redirect(Utils::getBack());
+    }
+
 	public function listar($comentarios=null, $parametro=null, $valor=null, $pag='pag',$num='') {
 		$comentario = new Comentario();
 

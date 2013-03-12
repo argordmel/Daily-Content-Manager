@@ -8,13 +8,16 @@
     <?php Tag::css('admin') ?>
     <?php Tag::css('style') ?>
     <?php Tag::css('formulario'); ?>
-    <?php Tag::css('jquery-ui/jquery.ui.all');?>
+    <?php // Tag::css('jquery-ui/jquery.ui.all');?>
     <?php echo Html::includeCss() ?>
+    <link href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" media="screen" />
     <?php echo Tag::js('menu');?>
     <?php echo Tag::js('formulario'); ?>
-    <?php echo Tag::js('jquery/jquery.min'); ?>
-    <?php echo Tag::js('jquery/jquery-ui.min');?>
-    <?php echo Tag::js('jquery/jquery.kumbiaphp');?>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+    <?php // echo Tag::js('jquery/jquery.min'); ?>
+    <?php // echo Tag::js('jquery/jquery-ui.min');?>
+    <?php // echo Tag::js('jquery/jquery.kumbiaphp');?>
     <script type="text/javascript">
         $(function() {$('input:submit, input:button, input:reset').button();$('a','#menu-principal').button();$('a','.box-botones').button();});
         // <![CDATA[

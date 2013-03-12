@@ -176,9 +176,9 @@ class Utils {
 
     /**
      * Obtener el lugar de donde vienes
-     * 
+     *
      * @return String
-     */    
+     */
     public static function getBack() {
         $here = $_SERVER['HTTP_REFERER'];
 
@@ -197,6 +197,17 @@ class Utils {
         );
 
         return str_replace($url, '', $here);
+    }
+
+    /**
+     * Obtener el lugar de donde vienes para paginación
+     *
+     * @return String
+     */
+    public static function getUrl($route){
+        $url = explode('pag', $route);
+        $rs = $url[0];
+        return trim($rs,'/');
     }
 }
 
