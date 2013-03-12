@@ -137,20 +137,20 @@ class BlogController extends AppController {
                 //Numero de la pagina
                 $this->numero   = ( Filter::get($num,'numeric') > 0 ) ? Filter::get($num,'numeric') : 1;
                 //Contador del datagrid que depende del numero de la página
-                $this->contador = ( ($pag === 'pag') && ($this->numero > 1) ) ? ( ($this->numero * POST_POR_PAGINA) - (POST_POR_PAGINA-1) ) : 1;
+                // $this->contador = ( ($pag === 'pag') && ($this->numero > 1) ) ? ( ($this->numero * POST_POR_PAGINA) - (POST_POR_PAGINA-1) ) : 1;
                 $post = new Post();
-                $post = $post->filtrarPost(Post::PUBLICADO, Post::PUBLICO, $tipo, $slug, 'desc');
+                $post = $post->listarTaxonomiaPost(Post::PUBLICADO, Post::PUBLICO, $this->numero, POST_POR_PAGINA, $tipo, $slug, 'desc');
             }
         }
         if($post) {
-            $this->post = new Paginated($post,POST_POR_PAGINA,$this->numero);
+            // $this->post = new Paginated($post,POST_POR_PAGINA,$this->numero);
+            $this->post = $post;
             View::select('ver_listado');
         } else {
             $this->title = 'No se encontró la página';
             $this->detalle_error = 'Clasificación no encontrada';
             //View::notFound();
         }
-
     }
 
     /**
@@ -174,10 +174,12 @@ class BlogController extends AppController {
             //Contador del datagrid que depende del numero de la página
             $this->contador = ( ($pag === 'pag') && ($this->numero > 1) ) ? ( ($this->numero * POST_POR_PAGINA) - (POST_POR_PAGINA-1) ) : 1;
             $post = new Post();
-            $post = $post->filtrarPost(Post::PUBLICADO, Post::PUBLICO, 'autor', $login, 'desc');
+            // $post = $post->filtrarPost(Post::PUBLICADO, Post::PUBLICO, 'autor', $login, 'desc');
+            $post = $post->listarTaxonomiaPost(Post::PUBLICADO, Post::PUBLICO, $this->numero, POST_POR_PAGINA, 'autor', $login, 'desc');
         }
         if($post) {
-            $this->post = new Paginated($post,POST_POR_PAGINA,$this->numero);
+            // $this->post = new Paginated($post,POST_POR_PAGINA,$this->numero);
+            $this->post = $post;
             View::select('ver_listado');
         } else {
             $this->title = 'No se encontró la página';
@@ -198,17 +200,18 @@ class BlogController extends AppController {
             $this->title = 'Búsqueda';
             if($param){
                 $post = new Post();
-                $post = (strlen($param) > 2) ? $post->buscarPost($param) : null;
                 //Aplico un filtro para reemplazar los + por espacios
                 $this->parametro = Filter::get($param,'agregar_espacio');
                 //Numero de la pagina
                 $this->numero   = ( Filter::get($num,'numeric') > 0 ) ? Filter::get($num,'numeric') : 1;
                 //Contador del datagrid que depende del numero de la página
-                $this->contador = ( ($pag === 'pag') && ($this->numero > 1) ) ? ( ($this->numero * POST_POR_PAGINA) - (POST_POR_PAGINA-1)) : 1;
+                // $this->contador = ( ($pag === 'pag') && ($this->numero > 1) ) ? ( ($this->numero * POST_POR_PAGINA) - (POST_POR_PAGINA-1)) : 1;
+                $post = (strlen($param) > 2) ? $post->buscarListarPost($param, $this->numero, POST_POR_PAGINA) : null;
             }
             if($post) {
                 //Creo un paginador con el resultado, que muestre 15 filas y empieze por el numero de la página
-                $this->post = new Paginated($post,POST_POR_PAGINA,$this->numero);
+                // $this->post = new Paginated($post,POST_POR_PAGINA,$this->numero);
+                $this->post = $post;
                 View::select('ver_listado');
             } else {
                 $this->detalle_error = isset($this->parametro) ? 'Resultado para "'.$this->parametro.'"' : 'Búsqueda de publicaciones';

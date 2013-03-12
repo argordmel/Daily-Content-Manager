@@ -6,8 +6,12 @@
         $rs = $url[0];
         return trim($rs,'/');
     }
-
-    $url = setUrl(Router::get('route'));
+    if (isset($destiny)) {
+        $parametros = implode('/', Router::get('parameters')).'/';
+        $url = setUrl($destiny.$parametros);
+    } else {
+        $url = setUrl(Router::get('route'));
+    }
     $str = "";
     if($objeto->prev) {
         $str="<span class=\"paginacion-anterior\">";

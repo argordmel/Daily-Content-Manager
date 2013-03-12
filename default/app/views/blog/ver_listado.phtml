@@ -71,12 +71,12 @@
             </div>
         </div>
         <?php } ?>
-        <?php View::partial('blog/paginacion',false,array('objeto'=>$post)); ?>
+        <?php View::partial('blog/paginacion',false,array('objeto'=>$post,'destiny'=>'/blog/')); ?>
     </div>
     </div>
 
     <div class="right">
-        <?php //View::partial('blog/sidebar', false); ?>
+        <?php View::partial('blog/sidebar', false); ?>
     </div>
 
     <div class="clr"></div>

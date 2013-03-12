@@ -263,73 +263,6 @@ class Post extends ActiveRecord {
     }
 
     /**
-     * Método que retorna el post o un listado de post dependiendo del año de publicacion,
-     * el mes, el día y el slug del mimo
-     *
-     * @param int $year Año de la publicacion
-     * @param int $month Mes de la publicacion
-     * @param int $day Dia de la publicacion
-     * @param string $slug Url amigable de la publicacion
-     * @return string
-     */
-    public function listarPost($page, $per_page,$year=null, $month=null, $day=null, $slug=null) {
-
-        $year = Filter::get($year,'numeric');
-        $month = Filter::get($month,'numeric');
-        $day = Filter::get($day,'numeric');
-        $slug = Filter::get($slug, 'stripslashes', 'striptags','string');
-
-        //Armo la consulta
-        $sql = 'SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios ';
-        // $sql = 'SELECT post.*,usuario.login,usuario.grupo_id AS comentarios ';
-        $sql.= 'FROM post ';
-        $sql.= 'INNER JOIN usuario ON usuario.id = post.usuario_id ';
-        $sql.= 'LEFT JOIN comentario ON comentario.post_id = post.id ';
-        $sql.= "WHERE post.estado != '".self::ELIMINADO."'";
-
-        if($slug) { //Si tiene la url del post
-            $sql.=" AND post.slug = '$slug'";
-            $rs = $this->find_by_sql($sql);
-        } else { //Si tiene el año, mes y/o día
-            if($year && !$month && !$day) {
-                $sql.=" AND post.fecha_publicacion LIKE '$year-%'";
-            } else if($year && $month && !$day) {
-                //Verificar el último día del mes
-                $month = ($month<10) ? '0'.$month:$month;
-                $sql.=" AND post.fecha_publicacion LIKE '$year-$month-%'";
-            } else if($year && $month && $day) {
-                $sql.=" AND post.fecha_publicacion = '$year-$month-$day'";
-            // } else {
-            //     return false;
-            }
-
-            $sql.= ' GROUP BY post.id';
-            $sql.= ' ORDER BY post.fecha_publicacion DESC';
-            // $rs = $this->find_all_by_sql($sql);
-            $rs = $this->paginate_by_sql($sql, "page: $page", "per_page: $per_page");
-        }
-
-        if(!$rs) {
-            Flash::info('Lo sentimos, pero no podemos encontrar lo que estás buscando. Quizás la búsqueda te ayudará.');
-        }
-        return $rs;
-    }
-
-
-    public function test($page=1){
-
-        //Armo la consulta
-        // $sql = 'SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios ';
-        $sql = 'SELECT post.*,usuario.login,usuario.grupo_id AS comentarios ';
-        $sql.= 'FROM post ';
-        $sql.= 'INNER JOIN usuario ON usuario.id = post.usuario_id ';
-        $sql.= 'LEFT JOIN comentario ON comentario.post_id = post.id ';
-        $sql.= "WHERE post.estado != '".self::ELIMINADO."'";
-        return $this->paginate_by_sql($sql, "page: $page", "per_page: 1");
-        // return $this->paginate("page: $page", "per_page: 1", 'order: fecha_publicacion desc');
-    }
-
-    /**
      * Método para buscar un post por algún parametro que coincida
      * con el titulo o con con algún texto dentro del post
      *
@@ -466,6 +399,170 @@ class Post extends ActiveRecord {
         }
         return $rs;
     }
+
+
+    /**
+     * Correcciones de Jamp para implementar el paginate
+     */
+
+    /**
+     * Método que retorna el post o un listado de post dependiendo del año de publicacion,
+     * el mes, el día y el slug del mimo
+     *
+     * @param int $year Año de la publicacion
+     * @param int $month Mes de la publicacion
+     * @param int $day Dia de la publicacion
+     * @param string $slug Url amigable de la publicacion
+     * @return string
+     */
+    public function listarPost($page, $per_page,$year=null, $month=null, $day=null, $slug=null) {
+
+        $year = Filter::get($year,'numeric');
+        $month = Filter::get($month,'numeric');
+        $day = Filter::get($day,'numeric');
+        $slug = Filter::get($slug, 'stripslashes', 'striptags','string');
+
+        //Armo la consulta
+        $sql = 'SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios ';
+        // $sql = 'SELECT post.*,usuario.login,usuario.grupo_id AS comentarios ';
+        $sql.= 'FROM post ';
+        $sql.= 'INNER JOIN usuario ON usuario.id = post.usuario_id ';
+        $sql.= 'LEFT JOIN comentario ON comentario.post_id = post.id ';
+        $sql.= "WHERE post.estado != '".self::ELIMINADO."'";
+
+        if($slug) { //Si tiene la url del post
+            $sql.=" AND post.slug = '$slug'";
+            $rs = $this->find_by_sql($sql);
+        } else { //Si tiene el año, mes y/o día
+            if($year && !$month && !$day) {
+                $sql.=" AND post.fecha_publicacion LIKE '$year-%'";
+            } else if($year && $month && !$day) {
+                //Verificar el último día del mes
+                $month = ($month<10) ? '0'.$month:$month;
+                $sql.=" AND post.fecha_publicacion LIKE '$year-$month-%'";
+            } else if($year && $month && $day) {
+                $sql.=" AND post.fecha_publicacion = '$year-$month-$day'";
+            // } else {
+            //     return false;
+            }
+
+            $sql.= ' GROUP BY post.id';
+            $sql.= ' ORDER BY post.fecha_publicacion DESC';
+            // $rs = $this->find_all_by_sql($sql);
+            $rs = $this->paginate_by_sql($sql, "page: $page", "per_page: $per_page");
+        }
+
+        if(!$rs) {
+            Flash::info('Lo sentimos, pero no podemos encontrar lo que estás buscando. Quizás la búsqueda te ayudará.');
+        }
+        return $rs;
+    }
+
+
+    /**
+     * Metodo que retorna el listado de post segun el filtro desado
+     *
+     * @param int|string $estado Estado de los post a filtrar
+     * @param int|string $visibilidad Visibilidad de los post a filtrar
+     * @param string $parametro Pametro de los post a filtrar
+     * @param string $valor Valor del parametro a filtrar
+     * @param string $orden Orden a mostrar los post
+     * @param int $limite Limite del listado
+     * @return array
+     */
+    public function listarTaxonomiaPost($estado, $visibilidad,  $page, $per_page, $parametro='', $valor='', $orden = 'asc', $limite = '', $mensaje = false) {
+
+        $estado = $this->_getEstadoPost($estado);
+
+        //Filtro algunas variables
+        $parametro = Filter::get($parametro,'stripslashes', 'striptags', 'string');
+        $valor = Filter::get($valor,'stripslashes', 'striptags', 'string');
+        //Si no se recibe el valor retorna false
+        if($parametro && !$valor) {
+            return false;
+        }
+
+        //Armo la consulta
+        $sql = 'SELECT post.*,usuario.login,usuario.grupo_id,COUNT(comentario.post_id) AS comentarios ';
+        $sql.= 'FROM post ';
+        $sql.= 'INNER JOIN usuario ON usuario.id = post.usuario_id ';
+        $sql.= 'INNER JOIN post_taxonomia ON post.id = post_taxonomia.post_id ';
+        $sql.= 'INNER JOIN taxonomia ON post_taxonomia.taxonomia_id = taxonomia.id  ';
+        $sql.= 'LEFT JOIN comentario ON comentario.post_id = post.id ';
+        $sql.= 'WHERE ';
+        $sql.= ($estado && $estado != 'todos') ? "post.estado = '$estado'" : "post.estado != '".self::ELIMINADO."'";
+        $sql.= (strtolower($visibilidad) != 'todos') ? ' AND post.visibilidad = \''.Filter::get($visibilidad,'numeric').'\'' : '';
+
+        //Determino si se ha enviado parametros con su respectivo valor
+        $sql.= ($parametro == 'autor')      ?   " AND usuario.login = '$valor'"                             : " AND usuario.estado = '1'";
+        $sql.= ($parametro == 'categoria')  ?   " AND taxonomia.tipo = '1' AND taxonomia.url = '$valor'"    : '';
+        $sql.= ($parametro == 'etiqueta')   ?   " AND taxonomia.tipo = '2' AND taxonomia.url = '$valor'"    : '';
+
+        //Si está en el módulo de administración
+        if(Router::get('module') == 'dc-admin')  {
+            //Obtengo el usuario logueado
+            $usuario = Load::model('usuario')->getUsuarioLogueado();
+            if($usuario) {
+                //Si el usuario no pertenece al grupo administrador o editor, solo se muestran los del usuario logueado.
+                if ($usuario->grupo_id != Grupo::ADMINISTRADOR && ($usuario->grupo_id != Grupo::EDITOR)) {
+                    $sql.= " AND usuario.id = $usuario->id";
+                }
+            } else {
+                return false;
+            }
+        }
+
+        //Determino el orden
+        $orden = strtoupper($orden);
+        if($orden != 'ASC' && $orden != 'DESC') {
+            if($mensaje) {
+                Flash::error('Error: PST-FTR001. Se ha producido un error en la verificación de la información. <br />Al parecer no se logró establecer el orden del listado.');
+            }
+            return false;
+        }
+
+        $sql.= ' GROUP BY post.id';
+        $sql.= ' ORDER BY post.fecha_publicacion '.$orden;
+
+        $sql.= ($limite) ? ' LIMIT '.Filter::get($limite,'numeric') : '';
+
+        return $this->paginate_by_sql($sql, "page: $page", "per_page: $per_page");
+    }
+
+    /**
+     * Método para buscar un post por algún parametro que coincida
+     * con el titulo o con con algún texto dentro del post
+     *
+     * @param string $param Palabra o frase a buscar
+     * @param int $estado Permite buscar solo en los estados de los post
+     * @return array
+     */
+    public function buscarListarPost($param,$page,$per_page,$estado=POST::PUBLICADO,$visibilidad=POST::PUBLICO) {
+        //Aplico un filtro al parametro
+        $param = Filter::get($param, 'stripslashes', 'striptags');
+        if(strlen($param) > 2) {
+            //Aplico un filtro para el estado
+            $estado = Filter::get($estado, 'int');
+            //Armo la consulta
+            $sql = 'SELECT post.*,usuario.login,usuario.grupo_id,usuario.nombre, usuario.apellido,COUNT(comentario.post_id) AS comentarios ';
+            $sql.= 'FROM post ';
+            $sql.= 'INNER JOIN usuario ON usuario.id = post.usuario_id ';
+            $sql.= 'LEFT JOIN comentario ON comentario.post_id = post.id ';
+            $sql.= 'WHERE ';
+            $sql.= ($estado) ? "post.estado = '$estado'" : "post.estado != '".self::ELIMINADO."'";
+            $sql.= " AND post.titulo like '%".$param."%' OR post.contenido like '%".$param."%'";
+            $sql.= ' GROUP BY post.id';
+            $sql.= ' ORDER BY post.fecha_publicacion DESC';
+            return $this->paginate_by_sql($sql, "page: $page", "per_page: $per_page");
+
+        } else {
+            Flash::info('Ingresa algún parámetro para inicializar la búsqueda.');
+            return false;
+        }
+    }
+    /**
+     * Correcciones de Jamp para implementar el paginate
+     */
 
     /**
      * Callback que se ejecuta antes de insertar un nuevo registro
