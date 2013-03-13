@@ -18,6 +18,7 @@ class Grupo extends ActiveRecord {
     const EDITOR= 2;
     const AUTOR = 3;
     const COLABORADOR = 4;
+    const LECTOR = 5;
 
 
     /**
