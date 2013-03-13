@@ -131,7 +131,7 @@ class Usuario extends ActiveRecord {
     }*/
 
     public function listarUsuarios($estado) {
-        $usuario = $this->getUsuarioLogueado();
+        $usuario = Auth::get('grupo_id');
         $condicion = "grupo_id >= $usuario->grupo_id";
         $condicion .= ($estado != 'todos') ? " AND grupo_id = $estado": '';
         // $condicion = ($estado != 'todos') ? "grupo_id = $estado": "grupo_id >= $usuario->grupo_id"; // Testing
@@ -154,11 +154,10 @@ class Usuario extends ActiveRecord {
 
     public function registrarUsuario(){
         // Determino el usuario logueado
-        $usuario = $this->getUsuarioLogueado();
-
-        if ($usuario->grupo_id == Grupo::COLABORADOR || $usuario->grupo_id == Grupo::LECTOR) {
+        $usuario = Auth::get('grupo_id');
+        if ($usuario == Grupo::COLABORADOR || $usuario == Grupo::LECTOR) {
             Flash::error('Este usuario no puede crear ning&uacute;n tipo de usuario. ');
-        } elseif ( $usuario->grupo_id <= $this->grupo_id ) {
+        } elseif ( $usuario <= $this->grupo_id ) {
             $this->password = md5($this->password);
             $result = $this->save();
             if ( $result ) {
@@ -186,7 +185,7 @@ class Usuario extends ActiveRecord {
     public function eliminarUsuario($id) {
         $rs = False;
         $usuario = $this->buscarUsuario($id);
-        $usuarioLogueado = $this->getUsuarioLogueado();
+        $usuarioLogueado = Auth::get('grupo_id');;
         if( $usuarioLogueado->grupo_id > $usuario->grupo_id ) {
             Flash::error('Error no puede eliminar a un usuario de mayor nivel');
         } elseif( $usuarioLogueado->id == $id ) {
@@ -203,7 +202,7 @@ class Usuario extends ActiveRecord {
     }
 
     public function getContadorUsuarios($nivel) {
-        $usuario = $this->getUsuarioLogueado();
+        $usuario = Auth::get('grupo_id');
         $salida = 0;
         if ($usuario->grupo_id <= (int)$nivel || $nivel == 'todos') {
             $condicion = ($nivel != 'todos') ? "grupo_id = ".Filter::get($nivel,'int') : "grupo_id >= ".$usuario->grupo_id;
