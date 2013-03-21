@@ -132,7 +132,7 @@ class Usuario extends ActiveRecord {
 
     public function listarUsuarios($estado) {
         $usuario = Auth::get('grupo_id');
-        $condicion = "grupo_id >= $usuario->grupo_id";
+        $condicion = "grupo_id >= ".Auth::get('grupo_id');
         $condicion .= ($estado != 'todos') ? " AND grupo_id = $estado": '';
         // $condicion = ($estado != 'todos') ? "grupo_id = $estado": "grupo_id >= $usuario->grupo_id"; // Testing
         $sql = "SELECT

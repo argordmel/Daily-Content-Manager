@@ -30,7 +30,7 @@ class PostController extends AppController {
      */
     public function index() {
         //Titulo de la página
-        $this->title = 'Publicaciones';
+        $this->title = 'Publicaciones ';
         //Verifico si ha enviado algún parámetro para inicializar la búsqueda
         if(Input::hasPost('parametro')) {
             $param = Input::post('parametro');

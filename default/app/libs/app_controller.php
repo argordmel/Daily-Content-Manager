@@ -36,34 +36,7 @@ class AppController extends Controller
     final protected function initialize()
     {
 
-
-        //
-        // @FIXME: Los parametros de arranque deberían estar en bootstrap
-        // pero momentaneamente no funciona lo repare luego
-        //
-        Load::model('configuracion');
-        $this->configurar = new Configuracion();
-        // Configuración Inicial de CMS
-        $this->config = $this->configurar->getOpcion();
-
-        // Establezco el nombre de la aplicacion
-        define('APP_NAME', $this->config['titulo']);
-        /*Cargo las opciones generales de la aplicacion*/
-
-        //Defino el nombre del blog
-        define('NOMBRE_DEL_BLOG', $this->config['nombre_blog']);
-        //Defino el numero de post a mostrar por página
-        define('POST_POR_PAGINA', $this->config['post_por_pagina']);
-        //Defino el numero de post a mostrar en el widget
-        define('POST_POR_WIDGET', $this->config['post_por_widget']);
-
-
-        //Defino la categoría por defecto
-        define('CATEGORIA_POR_DEFECTO', $this->config['categoria_por_defecto']);
-        //Defino si se habilitan o no comentarios por defecto
-        define('HABILITAR_COMENTARIOS', $this->config['habilitar_comentarios']);
-
-        if ($this->config['favicon'] == 'on') Html::headlink(PUBLIC_PATH.'img/icon.png','rel="shortcut icon"');
+        if (FAVICON == 'on') Html::headlink(PUBLIC_PATH.'img/icon.png','rel="shortcut icon"');
 
         // Verifico si esta en el módulo de administración
         if (Router::get('module') == 'dc-admin') {

@@ -78,4 +78,4 @@ $url = isset($_GET['_url']) ? $_GET['_url'] : '/';
  * @see Bootstrap
  */
 require( APP_PATH . 'libs/bootstrap.php' ); //bootstrap de app
-//require CORE_PATH . 'kumbia/bootstrap.php'; //bootstrap del core
+// require CORE_PATH . 'kumbia/bootstrap.php'; //bootstrap del core

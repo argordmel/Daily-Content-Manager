@@ -209,6 +209,20 @@ class Utils {
         $rs = $url[0];
         return trim($rs,'/');
     }
+
+    public static function fileInfo($path,$archivo, $tipo){
+        $salida=array();
+        $tipo=explode('/', $tipo);
+        $dimensiones = "width='80px' height='60px'";
+        if ($tipo[0]=='image'){
+            $salida['tipo'] = 'image';
+            $salida['icono'] = "<img src='$path$archivo' $dimensiones />";
+        } else {
+            $salida['tipo'] = 'others';
+            $salida['icono'] = "<img src='".PUBLIC_PATH."/img/logo_negro.png' $dimensiones />";
+        }
+        return $salida;
+    }
 }
 
 ?>

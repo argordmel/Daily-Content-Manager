@@ -137,14 +137,3 @@ require_once APP_PATH . 'libs/app_controller.php';
 
 // @see KumbiaView
 require_once APP_PATH . 'libs/view.php';
-
-// Ejecuta el request
-try {
-    // Dispatch y renderiza la vista
-    View::render(Router::execute($url), $url);
-} catch (KumbiaException $e) {
-    KumbiaException::handle_exception($e);
-}
-
-// Fin del request
-exit();

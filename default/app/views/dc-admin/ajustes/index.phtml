@@ -62,9 +62,9 @@
                         </div>
                     </li>
                     <li>
-                        <label for="usuario_nombre" class="desc">Logo</label>
+                        <label for="usuario_nombre" class="desc">Favicon</label>
                         <div>
-                            <?php echo Form::file('logo'); //ExtForm::text('general.logo', array('class'=>'medium'), null, '', false, true).ExtForm::submit('Subir',array('id'=>'enviarForm','name'=>'btn_crear'));; ?>
+                            <?php echo Form::file('favicon'); ?>
                         </div>
                     </li>
                 </ul>
@@ -93,7 +93,7 @@
                     <div class="right small">
                         <span><?php echo ExtForm::submit('Guardar Configuración',array('id'=>'enviarForm','name'=>'btn_crear')); ?></span>
                     </div>
-                    <?php View::partial('tiny_mce/post'); ?>
+                    <?php View::partial('tiny_mce/quickpress'); ?>
                     <div class="clr"></div>
                 </div>
             </div>
@@ -104,3 +104,4 @@
         <?php View::partial('redes_sociales/cuentas'); ?>
 
     </div>
+    <?php echo ExtForm::close(); ?>

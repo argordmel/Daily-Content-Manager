@@ -27,7 +27,7 @@ class ExtForm extends Form {
             $id = "{$formField[0]}";
             $name = "{$formField[0]}";
         }
-        
+
         return array('id' => $id, 'name' => $name);
     }
 
@@ -48,31 +48,31 @@ class ExtForm extends Form {
             }
             self::$_form++;
         } else {
-            if(isset($attrs['class'])) {                
+            if(isset($attrs['class'])) {
                 /* Clases text, select, textarea, checkbox, radio, file */
                 //$attrs['class'] = preg_match("/[a-z]*.$input.[a-z]*/i", $attrs['class']) ? $attrs['class'] : $input." ".$attrs['class'];
                 $attrs['class'] = preg_match("/\b$input\b/i", $attrs['class']) ? $attrs['class'] : $input." ".$attrs['class'];
-                
+
                 /* Clase Field */
                 str_replace('field',  '', $attrs['class'], $checked);
-                $attrs['class'] = (!$checked) ? "field ".$attrs['class'] : $attrs['class'];                
+                $attrs['class'] = (!$checked) ? "field ".$attrs['class'] : $attrs['class'];
 
                 /* Clase requerido */
                 str_replace('requerido',  '', $attrs['class'], $checked);
                 $attrs['class'] = ($req == true && !$checked) ? "requerido ".$attrs['class'] : $attrs['class'];
-               
+
             } else {
                 if( ($input != 'checkbox') && ($input != 'radio') ){
                     $attrs['class'] = "field ".$input." full ";
                 } else {
                     $attrs['class'] = "field ".$input." ";
                 }
-                
+
             }
         }
-      
+
         return $attrs;
-        
+
     }
 
     public static function _getValidationForm($valid,$extension) {
@@ -95,7 +95,7 @@ class ExtForm extends Form {
     }
 
     public static function label($field, $label='', $attrs='', $req = false, $err = false, $choice = false, $textarea = false, $range=70) {
-        
+
         extract(self::getFieldName($field));
 
         if(is_array($attrs)) {
@@ -104,7 +104,7 @@ class ExtForm extends Form {
 
         $getLabel = '';
 
-        if($label != '') {            
+        if($label != '') {
             if($choice) {
                 $getLabel .= "<label for=\"$id".self::$_counter."\" class=\"choice\">$label";
                 self::$_counter++;
@@ -117,12 +117,12 @@ class ExtForm extends Form {
         if( (!$choice) && ($err) ) {
             $getLabel .= ($label != '') ? "<br /><span class=\"err\" id=\"err_$id\">&nbsp;</span>" : "<label for=\"$id\"><span class=\"err\" id=\"err_$id\">&nbsp;</span>";
         }
-        
+
         $getLabel .= "</label>";
-        
-        
+
+
         return $getLabel;
-        
+
     }
 
     public static function open($action = null, $method = 'post', $attrs = null, $valid = false, $ext = false) {
@@ -145,7 +145,7 @@ class ExtForm extends Form {
     public static function close() {
 
         return parent::close()."\n";
-        
+
     }
 
     public static function text($field, $attrs = null, $value = null, $label ='', $req = false, $err = false) {
@@ -155,7 +155,7 @@ class ExtForm extends Form {
         $input .= self::label($field, $label, null, $req, $err);
 
         return $input."\n";
-        
+
     }
 
     public static function textUpper($field, $attrs = null, $value = null, $label ='', $req = false, $err = false) {
@@ -170,7 +170,7 @@ class ExtForm extends Form {
                 }
             }
         }
-        
+
         $input  = self::text($field, $attrs, $value, $label, $req, $err)."\n";
 
         return $input;
@@ -179,7 +179,7 @@ class ExtForm extends Form {
 
     public static function select($field, $data, $attrs = null, $value = null, $label = '', $req = false, $err = false) {
 
-        $attrs = self::_getAttrsClass($attrs, 'select', $req);        
+        $attrs = self::_getAttrsClass($attrs, 'select', $req);
         $input  = "\n".parent::select($field, $data, $attrs, $value)."\n";
         $input .= self::label($field, $label, null, $req, $err);
 
@@ -221,7 +221,7 @@ class ExtForm extends Form {
         $input .= self::label($field, $label, null, $req, $err);
 
         return $input."\n";
-        
+
     }
 
     public static function dbSelect($field, $show = NULL, $data = NULL, $blank = 'Seleccione', $attrs = NULL, $value = NULL, $label = '', $req = false, $err = false) {
@@ -235,11 +235,11 @@ class ExtForm extends Form {
     }
 
     public static function dbCity($field, $data, $show, $blank = null, $attrs = null, $value = null, $label = '', $req = false, $err = false) {
-        
+
         if(is_array($attrs)) {
             $attrs = Tag::getAttrs($attrs);
         }
-        
+
         extract(parent::_getFieldData($field, $value === null), EXTR_OVERWRITE);
 
         if(is_null($blank)) {
@@ -248,7 +248,7 @@ class ExtForm extends Form {
         else {
             $options = '<option value="">' . htmlspecialchars($blank, ENT_COMPAT, APP_CHARSET) . '</option>';
         }
-        
+
         foreach($data as $p) {
             $options .= "<option value=\"$p->id\"";
             if($p->id == $value) {
@@ -264,9 +264,9 @@ class ExtForm extends Form {
         return $input."\n";
 
     }
-    
+
     public static function textarea($field, $attrs = null,  $value = null, $label = '', $range=70, $req = false, $err = false) {
-        
+
         extract(self::getFieldName($field));
         if($range > 0) {
             if(!isset($attrs['onkeyup'])) {
@@ -279,7 +279,7 @@ class ExtForm extends Form {
         $attrs = self::_getAttrsClass($attrs, 'textarea', $req);
         $input  = "\n".parent::textarea($field, $attrs, $value)."\n";
         $input .= self::label($field, $label, null, $req, $err, false, true, $range);
-        
+
         return $input."\n";
 
     }
@@ -291,9 +291,9 @@ class ExtForm extends Form {
         } else {
             $attrs['onchange'] .= '; this.value=this.value.toUpperCase()';
         }
-        
+
         $input = self::textarea($field, $attrs, $value, $label, $range, $req, $err);
-        
+
         return $input;
 
     }
@@ -306,7 +306,7 @@ class ExtForm extends Form {
 
         return $input."\n";
     }
-    
+
     public static function date($field, $attrs = null, $value = null, $label = '', $req = false, $err = false) {
 
         static $i = false;
@@ -322,11 +322,11 @@ class ExtForm extends Form {
         $attrs = self::_getAttrsClass($attrs, 'text', $req);
         $input .= "\n".parent::text($field, $attrs, $value)."\n";
         $input .= self::label($field, $label, null, $req, $err);
-      
+
         return $input."\n";
-      
+
   }
-    
+
 }
 
 ?>

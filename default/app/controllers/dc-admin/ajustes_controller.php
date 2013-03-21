@@ -28,12 +28,25 @@ class AjustesController extends AppController {
 
     public function index() {
         $title = 'Ajustes Generales';
-        print_r(Router::get());
+        Load::model('configuracion');
+        $c = new Configuracion();
+        $this->config = $c->getOpcion();
+
         if( Input::hasPost('general') ){
-            if ( $this->configurar->setConfiguracion(Input::post('general')) ) Flash::valid('Configuración Guardada con éxito');
+            if ( $c->setConfiguracion(Input::post('general')) ) Flash::valid('Configuración Guardada con éxito');
         }
         $this->favon = ( $this->config['favicon'] == 'on' )?True:False;
         $this->favoff = ( $this->config['favicon'] == 'off' )?True:False;
+
+        if ( $_FILES['favicon']['name'] ) {
+            $subir =Load::model('subir');
+            if ( $subir->subirFavicon() ) {
+                Flash::valid('Favicon subido exitosamente');
+            } else {
+                Flash::error('Error al intentar subir favicon!!!');
+            }
+        }
+
     }
 
     public function blog() {

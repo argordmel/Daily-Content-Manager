@@ -1,0 +1,14 @@
+p img {
+    float: left;
+    margin: 5px;
+}
+
+p img.left {
+    float: left;
+    margin: 5px;
+}
+
+p img.right {
+    float: right;
+    margin: 5px;
+}

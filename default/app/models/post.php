@@ -37,18 +37,16 @@ class Post extends ActiveRecord {
      */
     public function registrarPost() {
 
-        //Determino el usuario logueado
-        $usuario = Load::model('usuario')->getUsuarioLogueado();
         //Si el usuario pertenece al grupo de colaboradores no permite publicar, <br>
         //si no se encuentra en borrador lo deja en estado pendiente.
-        if ($usuario->grupo_id == Grupo::COLABORADOR) {
+        if (Auth::get('grupo_id') == Grupo::COLABORADOR) {
             if($this->estado != self::BORRADOR) {
                 $this->estado = self::PENDIENTE;
             }
         }
         //Determino el creador del post
         if(!isset($this->usuario_id)) {
-            $this->usuario_id = $usuario->id;
+            $this->usuario_id = Auth::get('id');
         }
 
         //Verifico si se ha enviado a traves de un quickpress
@@ -58,13 +56,10 @@ class Post extends ActiveRecord {
             $this->visibilidad = self::PUBLICO;
             $this->habilitar_comentarios = HABILITAR_COMENTARIOS;
             $this->contenido = "<p style=\"text-align: justify\">".nl2br($this->contenido)."</p>";
-            $this->fecha_publicacion = date("Y-m-d H:i:s");
-        } else {
-            //Si no es quickpress le agrego la hora a la fecha de publicación
-            $this->fecha_publicacion = $this->fecha_publicacion.' '.date("H:i:s");
         }
 
-	$this->hora_publicacion = date("H:i:s");
+        $this->fecha_publicacion = date("Y-m-d");
+        $this->hora_publicacion = date("H:i:s");
 
         $rs = $this->save();
 
@@ -232,7 +227,7 @@ class Post extends ActiveRecord {
         $sql.= 'INNER JOIN usuario ON usuario.id = post.usuario_id ';
         $sql.= 'LEFT JOIN comentario ON comentario.post_id = post.id ';
         $sql.= "WHERE post.estado != '".self::ELIMINADO."'";
-        print 'sql ->'.$sql;
+
         if($codigo) { //Si tiene el código del post
             $sql.=" AND post.id = '$codigo'";
             $rs = $this->find_by_sql($sql);

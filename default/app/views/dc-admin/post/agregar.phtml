@@ -18,6 +18,7 @@
                         <label for="post_contenido" class="desc">Contenido<span class="req">*</span></label>
                         <div>
                             <?php echo ExtForm::textarea('post.contenido', array('class'=>'tinymce large'), null, '', 0, false, true); ?>
+                            <a href='#' id="subir">Subir Archivo</a>
                         </div>
                     </li>
                     <li>
@@ -135,6 +136,10 @@
 <!-- Alertas -->
 <script type="text/javascript">
     var link_action;
+    function e(imageTag) { tinyMCE.execCommand('mceInsertContent',false,imageTag); }
+    $('#subir').on('click', function() {
+        window.open('<?php echo PUBLIC_PATH; ?>dc-admin/biblioteca/upload','','width=500,height=250');
+    });
     $('a','.row-action-delete').click(function(event){ event.preventDefault(); link_action = $(this).attr('href'); $('#eliminar-post').dialog('open'); });
     $(function() { $("#eliminar-post").dialog({ autoOpen: false, width: 400, height:155, modal: true, buttons: { 'Cancelar': function() { $(this).dialog('close'); } ,'Aceptar': function() { location.href = link_action; } } }); });
 </script>

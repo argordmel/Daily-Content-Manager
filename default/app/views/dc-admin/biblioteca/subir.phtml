@@ -1,0 +1,32 @@
+<?php View::partial('mensaje');?>
+
+<div class="contenido">
+    <div class="full"><h1 class="text-shadow">Biblioteca de Multimedios</h1></div>
+    <?php echo ExtForm::openMultipart(null, 'post', array('class'=>'post'), true); ?>
+    <div class="left medium">
+        <div class="box ui-corner-all ui-widget-content" id="contenido-post">
+            <div class="box-titulo ui-state-default ui-corner-tl ui-corner-tr"><h3 class="text-shadow">Subir Imagenes</h3></div>
+            <div class="box-contenido box-form">
+                <ul>
+                    <li>
+                        <label for="usuario_nombre" class="desc">Seleccione una imagen</label>
+                        <div>
+                            <?php echo extForm::file('archivo'); ?>
+                        </div>
+                    </li>
+                </ul>
+                <div class="box-botones">
+                    <div>
+                        <?php echo SecurityKey::generateKey(); ?>
+                    </div>
+                    <div class="right small">
+                        <span><?php echo ExtForm::submit('Guardar Configuración',array('id'=>'enviarForm','name'=>'btn_crear')); ?></span>
+                    </div>
+                    <div class="clr"></div>
+                </div>
+              </div>
+            </div>
+
+        </div>
+        <?php echo ExtForm::close(); ?>
+</div>

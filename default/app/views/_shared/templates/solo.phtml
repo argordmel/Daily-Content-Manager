@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title></title>
+    <?php Tag::css('admin') ?>
+    <?php Tag::css('style') ?>
+    <?php echo Html::includeCss() ?>
+    <link href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" media="screen" />
+    <?php echo Tag::js('formulario'); ?>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+    <script type="text/javascript">
+        $(function() {$('input:submit, input:button, input:reset').button();$('a','#menu-principal').button();$('a','.box-botones').button();});
+        // <![CDATA[
+            var myMenu;window.onload = function() { myMenu = new Menu("menu-items"); myMenu.init(); };
+	// ]]>
+    </script>
+    </head>
+    <body>
+        <div style="min-height:100%; position:relative; margin-bottom: 0;">
+
+        <!-- Pagina -->
+        <div id="cuerpo">
+
+            <!-- Contenedor -->
+            <div style="position:relative; margin-left: 10px;">
+                <div id="contenedor">
+                    <?php View::content(); ?>
+                </div>
+            </div>
+
+            <div class="clr"></div>
+
+        </div>
+   </div>
+
+        <!-- Alertas -->
+        <script type="text/javascript">
+            $(function() { $("#error-form").dialog({ autoOpen: false, width: 400, height:165, modal: true, buttons: { 'Aceptar': function() { $(this).dialog('close'); } } }); });
+        </script>
+        <div id="error-form" title="<?php echo APP_NAME; ?>" class="confirm-dialog">
+            <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Se han encontrado errores al procesar el formulario. </p>
+            <p>Por favor verifica los datos e intenta nuevamente</p>
+        </div>
+
+    </body>
+</html>
