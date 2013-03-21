@@ -14,17 +14,16 @@ class SecurityKey {
 
     /**
      * Genera un input tipo hidden con el valor de la llave
-     *     
+     *
      * @return string
      */
     public static function generateKey(){
-
         $h = date("G")>12 ? 1 : 0;
-        $time = uniqid().mktime($h, 0, 0, date("m"), date("d"), date("Y"));
+        // $time = uniqid().mktime($h, 0, 0, date("m"), date("d"), date("Y"));
+        $time = mktime($h, 0, 0, date("m"), date("d"), date("Y"));
         $key = sha1($time);
         $_SESSION['rsa32_key'] = $key;
-                
-        return "<input type='hidden' id='rsa32_key' name='rsa32_key' value='$key' />\r\n";
+        return "<input type='hidden' id='rsa32_key' name='rsa32_key' value='$key' data='".mktime($h, 0, 0, date("m"), date("d"), date("Y"))."' />\r\n";
     }
 
     /**
@@ -56,6 +55,6 @@ class SecurityKey {
         return $key;
 
     }
-    
+
 }
 ?>

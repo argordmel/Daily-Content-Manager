@@ -16,7 +16,6 @@ p a {
     color: blue !important;
 }
 </style>
-<?php print APP_PATH; ?>
 <div class="contenido">
     <div class="full"><h1 class="text-shadow">Biblioteca de Multimedios</h1></div>
     <?php echo ExtForm::openMultipart(null, 'post', array('class'=>'post'), true); ?>
@@ -58,17 +57,17 @@ p a {
         </div>
     </div>
 </div>
- <script>
+<script type="text/javascript">
 $(function() {
 $( "#tabs" ).tabs();
 });
 function importar(archivo,tipo) {
     if (tipo == 'image') {
-        objeto="<img src='<?php echo $ruta ?>"+archivo+"'/>";
+        objeto="<img src='<?php echo 'http://'.$_SERVER['SERVER_NAME'].$ruta ?>"+archivo+"'>";
     } else {
-        objeto="<a href='<?php echo $ruta ?>"+archivo+"'/>"+archivo+"</a>";
+        objeto="<a href='<?php echo 'http://'.$_SERVER['SERVER_NAME'].$ruta ?>"+archivo+"'>"+archivo+"</a>";
     }
     window.opener.e(objeto);
-    // window.close();
+    window.close();
 }
 </script>

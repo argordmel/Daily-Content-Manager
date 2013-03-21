@@ -18,6 +18,7 @@
                         <label for="post_contenido" class="desc">Contenido<span class="req">*</span></label>
                         <div>
                             <?php echo ExtForm::textarea('post.contenido', array('class'=>'tinymce large'), $post->contenido, '', 0, false, true); ?>
+                            <?php View::partial('subir'); ?>
                         </div>
                     </li>
                     <li>

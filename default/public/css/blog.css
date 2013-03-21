@@ -16,7 +16,9 @@ div.post-meta { color: #333;font-size: 12px; border: 0; padding: 0; margin: 0; l
 div.post-meta a:hover { text-decoration: underline; }
 
 div.post-contenido { font-size: 14px;line-height: 20px;padding: 12px 0px 0px;text-align: inherit;}
-div.post-contenido p { margin-bottom: 24px; color: #5d5d5d; padding-left: 0px;}
+div.post-contenido { font-size: 14px;line-height: 20px;padding: 12px 0px 0px;text-align: inherit;}
+div.post-contenido p img { float: left;margin: 5px; }
+
 
 #sidebar { margin: 20px auto 0 auto; width:  100%; font-size: 13px; }
 #sidebar h3.widget-titulo { font-size: 13px; text-align: left;}

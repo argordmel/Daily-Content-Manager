@@ -1,8 +1,10 @@
-jQuery(function($){    
-	$.datepicker.myscript= {           
+var path = location.pathname;
+var dir = path.split("dc-admin");
+jQuery(function($){
+	$.datepicker.myscript= {
             showOn: 'both',
             autoSize: false,
-            buttonImage: '/dailyscript/img/admin/calendario.png',
+            buttonImage: 'http://'+location.hostname+dir[0]+'img/admin/calendario.png',
             buttonImageOnly: true,
             closeText: 'Cerrar',
             prevText: '&#x3c;Ant',
@@ -20,7 +22,7 @@ jQuery(function($){
             changeYear: true,
             buttonText: 'Calendario',
             showButtonPanel: true
-        };        
+        };
 	$.datepicker.setDefaults($.datepicker.myscript);
 });
 

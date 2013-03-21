@@ -1,0 +1,7 @@
+<a href='#' id="subir">Subir Archivo</a>
+<script type="text/javascript">
+    function e(tag) { alert(tag);tinyMCE.execCommand('mceInsertContent',false,tag); }
+    $('#subir').on('click', function() {
+        window.open('<?php echo PUBLIC_PATH; ?>dc-admin/biblioteca/upload','','width=500,height=250');
+    });
+</script>
