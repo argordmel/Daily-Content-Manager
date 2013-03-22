@@ -20,7 +20,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php // ExtDate::loadDate(); ?>
                     <?php while($fila = $comentario->fetchPagedRow())  { ?>
 
                     <?php $validKey = md5($fila->id.$ipKey.$expKey.'comentario'); ?>

@@ -219,7 +219,7 @@ class Utils {
             $salida['icono'] = "<img src='$path$archivo' $dimensiones />";
         } else {
             $salida['tipo'] = 'others';
-            $salida['icono'] = "<img src='".PUBLIC_PATH."/img/logo_negro.png' $dimensiones />";
+            $salida['icono'] =  Html::img('logo_negro.png', null, $dimensiones); // "<img src='".PUBLIC_PATH."/img/logo_negro.png' $dimensiones />";
         }
         return $salida;
     }

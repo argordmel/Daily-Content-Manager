@@ -35,8 +35,10 @@ class AppController extends Controller
 
     final protected function initialize()
     {
+        // Configuración Inicial de CMS
+        $this->app = Load::model('configuracion')->getOpcion();
 
-        if (FAVICON == 'on') Html::headlink(PUBLIC_PATH.'img/icon.png','rel="shortcut icon"');
+        if ($this->app['favicon'] == 'on') Html::headlink(PUBLIC_PATH.'img/icon.png','rel="shortcut icon"');
 
         // Verifico si esta en el módulo de administración
         if (Router::get('module') == 'dc-admin') {

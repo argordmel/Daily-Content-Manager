@@ -32,6 +32,18 @@ class BibliotecaController extends AppController {
     public function upload() {
         View::template('solo');
 
+        if ( Input::hasPost('rsa32_key') ) {
+            $subir = Load::model('subir');
+            if ( $subir->subirArchivo() ) {
+                print "<script>
+                    window.opener.e('<img src=\"".$subir->getSaved()."\" />');
+                    window.close();
+                    </script>";
+            } else {
+                Flash::error('Error al intentar subir imagen!!!');
+            }
+        }
+
         // Listar Archivos
         $this->path = 'files/dcm/';
         $this->system_path=dirname($_SERVER['SCRIPT_FILENAME']).'/'.$this->path;
@@ -44,18 +56,6 @@ class BibliotecaController extends AppController {
         }
         $this->directorio->close();
 
-
-        if ( Input::hasPost('rsa32_key') ) {
-            $subir = Load::model('subir');
-            if ( $subir->subirArchivo() ) {
-                print "<script>
-                    window.opener.e('<img src=\"".$subir->getSaved()."\" />');
-                    window.close();
-                    </script>";
-            } else {
-                Flash::error('Error al intentar subir imagen!!!');
-            }
-        }
     }
 
 

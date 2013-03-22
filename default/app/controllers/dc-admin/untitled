@@ -1,0 +1,17 @@
+<?php
+
+Load::model('album');
+Load::model('fotos');
+
+class Galeria extends AppController {
+
+    public function index() {
+
+    }
+
+    public function album() {
+
+    }
+}
+
+?>

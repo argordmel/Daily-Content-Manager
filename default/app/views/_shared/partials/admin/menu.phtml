@@ -21,9 +21,15 @@ Load::model('grupo');
 
     <?php if ( Session::get('nivel') < Grupo::AUTOR ): ?>
     <div class="collapsed">
+        <span class="text-shadow">Multimedia</span>
+        <?php echo Html::link('dc-admin/biblioteca/subir/','Subir Archivo'); ?>
+        <?php echo Html::link('dc-admin/biblioteca/administrar/','Administrar Archivos'); ?>
+    </div>
+
+    <div class="collapsed">
         <span class="text-shadow">Galería</span>
-        <?php echo Html::link('dc-admin/galeria/album/','Crear Album'); ?>
-        <?php echo Html::link('dc-admin/galeria/administrar/','Administrar Albumnes'); ?>
+        <?php echo Html::link('dc-admin/galeria/crear_album/','Crear Album'); ?>
+        <?php echo Html::link('dc-admin/galeria/administrar/','Administrar Album'); ?>
     </div>
 
     <div class="collapsed">

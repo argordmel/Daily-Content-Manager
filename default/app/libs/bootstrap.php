@@ -8,10 +8,8 @@ require_once CORE_PATH . 'kumbia/bootstrap.php';
 // Configuración Inicial de CMS
 $config = Load::model('configuracion')->getOpcion();
 
-// Establezco el nombre de la aplicacion
+// Establecer el nombre de la aplicacion
 define('APP_NAME', $config['titulo']);
-// Defino el favicon
-define('FAVICON', $config['favicon']);
 
 /*Cargo las opciones generales de la aplicacion*/
 

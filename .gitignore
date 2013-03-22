@@ -1,3 +1,6 @@
+default/public/files/dcm/*.*
+default/public/img/dcm/galeria/*.+
+
 # Logs & "Backup" #
 ###################
 *~
@@ -11,4 +14,3 @@ log*.txt
 ehthumbs.db
 Icon?
 Thumbs.db
-

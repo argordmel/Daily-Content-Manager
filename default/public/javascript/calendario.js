@@ -1,10 +1,11 @@
+var server = location.hostname;
 var path = location.pathname;
 var dir = path.split("dc-admin");
 jQuery(function($){
 	$.datepicker.myscript= {
             showOn: 'both',
             autoSize: false,
-            buttonImage: 'http://'+location.hostname+dir[0]+'img/admin/calendario.png',
+            buttonImage: 'http://'+server+dir[0]+'img/admin/calendario.png',
             buttonImageOnly: true,
             closeText: 'Cerrar',
             prevText: '&#x3c;Ant',

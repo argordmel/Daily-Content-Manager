@@ -5,7 +5,7 @@
 <div class="contenido">
     <!-- Mensaje -->
     <div class="contenedor-mensaje">
-        <div class="mensaje">                        
+        <div class="mensaje">
             <?php View::content(); echo "\r\n"; ?>
         </div>
     </div>
@@ -17,49 +17,42 @@
             <?php echo ExtForm::open('contacto/', 'post', array('id'=>'formulario', 'name'=>'formulario'), true); ?>
             <ul>
                 <li>
-                    <div>                        
+                    <div>
                         <?php echo ExtForm::text('contacto.nombre', array('class'=>'alfabetico full'), null, 'Nombre', true, true); ?>
                     </div>
-                </li>                
+                </li>
                 <li>
-                    <div>                        
+                    <div>
                         <?php echo ExtForm::text('contacto.empresa', array('class'=>'especial full'), null, 'Empresa', false, true); ?>
                     </div>
                 </li>
                 <li>
-                    <div>                        
+                    <div>
                         <?php echo ExtForm::text('contacto.email', array('class'=>'email full'), null, 'Email', true, true); ?>
                     </div>
-                </li>                
+                </li>
                 <li>
-                    <div>                        
+                    <div>
                         <?php echo ExtForm::text('contacto.asunto', array('class'=>'texto full', 'maxlength'=>'100'), null, 'Asunto', true, true); ?>
                     </div>
                 </li>
                 <li>
-                    <div>                        
+                    <div>
                         <?php echo ExtForm::textarea('contacto.mensaje', array('class'=>'texto large', 'maxlength'=>'1500'), null, 'Mensaje', 1500, true, true); ?>
                     </div>
-                </li>                
+                </li>
             </ul>
             <div class="botones">
                 <?php echo ExtForm::submitImage('pagina/enviar.png'); ?>
             </div>
-            <?php echo Form::close(); ?>           
+            <?php echo Form::close(); ?>
             <div class="clr"></div>
         </div>
     </div>
     <div class="right">
         <div class="texto">
             <h3 class="contenido-subtitulo">Encuéntrenos!</h3>
-            <p>
-               <strong>Dirección</strong>: <?php echo $empresa->direccion.", ".$empresa->ciudad." - ".$empresa->pais.".";?><br />
-               <strong>Teléfono</strong>: <?php echo $empresa->telefono." ".$empresa->telefonoaux; ?><br />
-               <strong>FAX:</strong> <?php echo $empresa->fax; ?><br />
-               <strong>Móvil</strong>: <?php echo $empresa->movil." ".$empresa->movilaux; ?><br />
-               <strong>E-mail</strong>: <span style="text-transform: lowercase;"><?php echo $empresa->email; ?></span><br />
-               <strong>Horario</strong>: <?php echo $empresa->horario_atencion; ?>
-            </p>
+            <?php echo $app['direccion']; ?>
         </div>
         <div class="bg"></div>
     </div>
@@ -72,4 +65,3 @@
     </div>
     <div class="clr"></div>
 </div>
-  
