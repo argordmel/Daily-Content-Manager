@@ -46,8 +46,6 @@ class BlogController extends AppController {
         //if ( $param1 == 'ver' ) Router::redirect()
         //Titulo de la página
         $this->title = 'Noticias';
-        //Determino si se muesta un solo post o un listado
-        $this->unique_post = false;
         //Analizo las variables
         $year   = ($param1 != 'pag') ? $param1 : null;
         $month  = ($param2 != 'pag' && $param1 != 'pag') ? $param2 : null;
@@ -64,9 +62,11 @@ class BlogController extends AppController {
         } else if($param4 == 'pag') {
             $num = $param5;
         }
+
         //Si contiene el slug del post, indico que es único para ser utilizado en la vista
         if($slug) {
-            $this->unique_post = true;
+            // Definimos que va ser único este articulo
+            $this->numero = 1;
             View::select('ver_post');
         } else {
             //Numero de la pagina
@@ -86,17 +86,7 @@ class BlogController extends AppController {
             }
             $result = $post->listarPost($this->numero, POST_POR_PAGINA, $year, $month, $day, $slug);
 
-            /*if($this->unique_post) {
-                //Si es único asigno el título a la página
-                $this->title = $result->titulo;
-            } else {
-                //Creo el título dependiendo de los filtros posibles
-                $this->title = $year;
-                $this->title.= ($month) ? ' '.ExtDate::getMonthName($month) : '';
-                $this->title.= ($day) ? ' '.$day : '';
-            }*/
         } else { //Si no contiene alguno de esos parámetros
-            // $result = $post->filtrarPost(Post::PUBLICADO, Post::PUBLICO, '', '' ,'desc');
             $result = $post->listarPost($this->numero, POST_POR_PAGINA);
         }
         if(!$result) {
@@ -105,10 +95,6 @@ class BlogController extends AppController {
             //View::notFound();
             //View::excepcion('No se encontró la página');
         }
-        /*if(!$this->unique_post) {
-            //Creo un paginador con el resultado, que muestre 15 filas y empieze por el numero de la página
-            $result = new Paginated($result,POST_POR_PAGINA,$this->numero);
-        }*/
         $this->post = $result;
     }
 
