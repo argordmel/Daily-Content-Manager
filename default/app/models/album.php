@@ -12,7 +12,7 @@ class Album extends ActiveRecord {
         $path = dirname($_SERVER['SCRIPT_FILENAME']).self::PATH;
 
         $this->estado = self::$this->estado;
-        $path .= $this->ruta = Util::underscore(strtolower($this->nombre)).'/';
+        $path .= $this->ruta = Utils::slug($this->nombre).'/';
         $this->usuario_id = Auth::get('id');
 
         if ( $this->exists("nombre = '$this->nombre'") || file_exists($path) ) {
@@ -33,14 +33,20 @@ class Album extends ActiveRecord {
     }
 
     public function cambiarEstado($id, $estado) {
-        $album = $this->find($id);
-        $album->estado = "'".constant('self::'.$estado)."'";
-        return $album->update();
+        $cantidad = Load::model('fotos')->count("album_id = $id");
+        if ( $cantidad == 0 && $estado == 'ACTIVO' ) {
+            Flash::error('No se puede activar un album vacío');
+        } else {
+            $album = $this->find($id);
+            $album->estado = constant('self::'.$estado);
+            return $album->update();
+        }
     }
 
-    public function listarAlbum($page, $per_page) {
+     public function listarAlbum($page, $per_page, $estado='ACTIVO') {
         $page = Filter::get($page, 'int');
         $per_page = Filter::get($per_page, 'int');
+        $conditions = ($estado=='todos')?'':"WHERE `album`.`estado` = ". constant('self::'.$estado);
 
         $sql = "SELECT `album`.`id`, `album`.`nombre`, `album`.`ruta`, `album`.`estado`,
         `usuario`.`login`, `album`.`fecha_creacion_at`, `album`.`hora_creacion_at`,
@@ -48,6 +54,7 @@ class Album extends ActiveRecord {
         FROM `album`
         LEFT JOIN `fotos` ON `album`.`id` = `fotos`.`album_id`
         INNER JOIN `usuario` ON `album`.`usuario_id` = `usuario`.`id`
+        $conditions
         GROUP BY `album`.`id`";
         return $this->paginate_by_sql($sql, "page: $page", "per_page: $per_page");
     }

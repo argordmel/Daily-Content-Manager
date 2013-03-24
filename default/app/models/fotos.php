@@ -11,7 +11,7 @@ class Fotos extends ActiveRecord {
 
         $this->begin();
         $ext = '.'.pathinfo($_FILES['fotos']['name'], PATHINFO_EXTENSION);
-        $this->nombre_ruta = Util::underscore(strtolower($_FILES['fotos']['name']));
+        $this->nombre_ruta = Utils::slug($_FILES['fotos']['name']);
         $nombre_ruta = str_replace($ext, '', $this->nombre_ruta);
         $this->usuario_id = Auth::get('id');
         $path = dirname($_SERVER['SCRIPT_FILENAME']).Album::PATH;
@@ -55,6 +55,7 @@ class Fotos extends ActiveRecord {
         $ruta =  dirname($_SERVER['SCRIPT_FILENAME']).Album::PATH.Load::model('album')->getRuta($this->album_id);
         $imagen = $ruta.$foto->nombre_ruta;
         if ( $foto->delete() ) {
+            if ( $this->count("album_id=$this->album_id") == 0 ) Load::model('album')->cambiarEstado($this->album_id, 'INACTIVO');
             if ( unlink($imagen) ) {
                 $this->commit();
                 return True;

@@ -584,7 +584,8 @@ class Post extends ActiveRecord {
         Load::lib('utils');
         $this->slug = isset($this->slug) ? $this->slug : Utils::slug($this->titulo);
         //Realizo el resumen del post
-        if (preg_match('/<!-- pagebreak(.*?)?-->/', $this->contenido, $matches)) {
+        // if (preg_match('/<!-- pagebreak(.*?)?-->/', $this->contenido, $matches)) {
+        if (preg_match('/<\/p>/', $this->contenido, $matches)) {
             $matches = explode($matches[0], $this->contenido, 2);
             $this->resumen = Utils::balanceTags($matches[0]) . '<a href="' . PUBLIC_PATH . $this->getUrlPost('blog') . '" title="Sigue Leyendo">Sigue leyendo...</a>';
         } else {

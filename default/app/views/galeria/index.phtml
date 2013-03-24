@@ -1,33 +1,28 @@
-
 <?php Tag::css('galeria')?>
-<section class="left">
-	<hr>
-	<article class="album">
-				<h3>Titulo un Poco más Largo</h3>
-		<p>Fecha:31/02/2014</p>
-		<?php echo Html::img('logo_negro.png', 'esto es una foto')?>
-
-	</article>
-	<article class="album">
-		<?php echo Html::img('slide/noticiero_que_pasa_11.jpg', 'esto es una foto')?>
-				<h3>las mujeres haciendo un harlem shake</h3>
-		<p>Fecha:31/02/2014</p>
-		
-
-	</article>
-
-
-
-
-
-</section>
-
-
-
-<section class="right">
-
-
-</section>
+<div class="contenedor">
+    <div class="contenido">
+		<section class="left">
+			<article class="album">
+				<?php
+                    if ( $album->total == 0)
+                        print "<td colspan='6' class='strong font-large font-center'>Galería Vacía</td>";
+                    else
+                    foreach ($album->items as $fila):
+                    ?>
+                    <article class="album">
+						<h3><?php echo $fila->nombre.'('.$fila->cantidad.')'; ?></h3>
+						<?php echo Html::img('dcm/galeria/'.$fila->ruta.$fila->nombre_ruta, null, "width='80px' height='60px'"); ?>
+						<p>
+							<?php echo 'Publicado por: '.$fila->login; ?>
+							<br/>
+							<?php echo ExtDate::getHowLong($fila->fecha_creacion_at.' '.$fila->hora_creacion_at);?>
+						</p>
+					</article>
+                    <?php endforeach;?>
+		</section>
+		<!-- <section class="right"></section> -->
+	</div>
+</div>
 
 
 

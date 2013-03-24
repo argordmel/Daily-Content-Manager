@@ -262,7 +262,7 @@ CREATE TABLE IF NOT EXISTS `album` (
   `fecha_creacion_at` date NOT NULL,
   `hora_creacion_at` time NOT NULL,
   `ruta` varchar(500) COLLATE utf8_spanish_ci NOT NULL,
-  `estado` int(1) NOT NULL,
+  `estado` int(1) NULL DEFAULT '0',
   `usuario_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `album_usuario_id` (`usuario_id`)

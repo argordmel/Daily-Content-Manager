@@ -22,7 +22,7 @@ class GaleriaController extends AppController {
     public function administrar($pag='pag', $num=1) {
         View::select('listar');
         $albumnes = new Album();
-        $this->album = $albumnes->listarAlbum($num, $this->per_page);
+        $this->album = $albumnes->listarAlbum($num, $this->per_page, 'todos');
     }
 
     public function album($id=null,$key='key',$valueKey='',$pag='pag',$num=1) {
