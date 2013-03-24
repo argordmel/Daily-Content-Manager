@@ -1,7 +1,7 @@
 <?php View::partial('mensaje'); ?>
 
 <div class="contenido">
-    <div class="left large"><h1 class="text-shadow">Usuarios <span><?php if(isset($parametro)) { echo "Resultado de la búsqueda para \"$parametro\""; }; ?></span></h1></div>
+    <div class="left large"><h1 class="text-shadow">Galería <span><?php if(isset($parametro)) { echo "Resultado de la búsqueda para \"$parametro\""; }; ?></span></h1></div>
     <div class="right small"><?php View::partial('admin/form_busqueda', false, array('action'=>'post')); ?></div>
     <div class="clr"></div>
 
@@ -14,38 +14,46 @@
                 <thead class="ui-state-default ui-corner-tl ui-corner-tr">
                     <tr class="text-shadow">
                         <th class="columna-check">&nbsp</th>
-                        <th class="columna-categoria">Usuario</th>
-                        <th class="columna-categoria">Nombre</th>
-                        <th class="columna-categoria">Correo Electrónico</th>
-                        <th class="columna-autor">Perfil</th>
-                        <th class="columna-comentario img">Post</th>
+                        <th class="columna-titulo">Nombre</th>
+                        <th class="columna-autor font-center">Estado</th>
+                        <th class="columna-autor font-center">Autor</th>
+                        <th class="columna-comentario font-center">Fotos</th>
+                        <th class="columna-fecha font-center">Fecha</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($post->items as $fila) { ?>
+                    <?php
+                    if ( $album->total == 0)
+                        print "<td colspan='6' class='strong font-large font-center'>Galería Vacía</td>";
+                    else
+                    foreach ($album->items as $fila) {
+                        $estado = ($fila->estado ==0)?'INACTIVO':'ACTIVO';
+                        $cambio = ($fila->estado ==1)?'INACTIVO':'ACTIVO';
+                    ?>
 
                     <?php $validKey = md5($fila->id.$ipKey.$expKey.'galeria'); ?>
                     <tr>
-                        <th>&nbsp;</th>
+                        <td>&nbsp;</td>
                         <td class="">
-                            <?php echo Html::img( $fila->mail, $fila->login, 60); ?>
+                            <?php $dimensiones = "width='80px' height='60px'"; echo ( !empty($fila->nombre_ruta) )?Html::img('dcm/galeria/'.$fila->ruta.$fila->nombre_ruta, null, $dimensiones):Html::img('logo_negro.png', null, $dimensiones); ?>
                             <div style="display:inline-block; width:60%; vertical-align:top">
-                                <span class="strong post-titulo font-large"><?php echo $fila->login; ?></span>
+                                <span class="strong post-titulo font-large"><?php echo $fila->nombre; ?></span>
                                 <div class="row-actions font-small">
-                                    <span class="row-action-edit"><?php echo Html::link("dc-admin/usuario/editar/$fila->id/key/$validKey/",'Editar');?> | </span>
-                                    <span class="row-action-delete"><?php echo Html::link("dc-admin/usuario/eliminar/$fila->id/key/$validKey/",'Eliminar');?></span>
+                                    <span class="row-action-approve"><?php echo Html::link("dc-admin/galeria/album/$fila->id/key/$validKey/",'Agregar');?> |
+                                    <span class="row-action-edit"><?php echo Html::link("dc-admin/galeria/modificar_album/$fila->id/$cambio/key/$validKey/","Cambiar a $cambio");?> | </span>
+                                    <span class="row-action-delete"><?php echo Html::link("dc-admin/galeria/eliminar_album/$fila->id/key/$validKey/",'Eliminar');?></span>
                                 </div>
                             </div>
                         </td>
-                        <td class="font-small"><?php echo $fila->nombre; ?></td>
-                        <td class="font-small"><?php echo $fila->mail; ?></td>
-                        <td class="font-small"><?php echo $fila->perfil; ?></td>
+                        <td class="font-small font-center"><?php echo $estado; ?></td>
+                        <td class="font-small font-center"><?php echo $fila->login; ?></td>
                         <td class="font-small font-center"><?php echo $fila->cantidad; ?></td>
+                        <td class="font-small"><?php echo ExtDate::getHowLong($fila->fecha_creacion_at.' '.$fila->hora_creacion_at);?></td>
                     </tr>
                     <?php } ?>
                 </tbody>
             </table>
-            <?php // View::partial('paginacion',false,array('objeto'=>$usuario, 'tipo'=>'dc-admin')); ?>
+            <?php View::partial('paginate',false,array('objeto'=>$album, 'tipo'=>'dc-admin')); ?>
         </div>
         <div class="break"></div>
 
@@ -60,7 +68,7 @@
     $(function() { $("#eliminar-post").dialog({ autoOpen: false, width: 400, height:155, modal: true, buttons: { 'Cancelar': function() { $(this).dialog('close'); } ,'Aceptar': function() { location.href = link_action; } } }); });
 </script>
 <div id="eliminar-post" title="Dailyscript - Web | App | Media" class="confirm-dialog">
-    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Deseas borrar permantentemente esta publicación?. </p>
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Deseas borrar permantentemente este álbum?. </p>
 </div>
 <script type="text/javascript">
     $(function() {

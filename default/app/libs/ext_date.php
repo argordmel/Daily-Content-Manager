@@ -61,7 +61,7 @@ class ExtDate {
      *
      * @var array
      */
-    protected static $_monthAbrevSpanish = array('','Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov', 'Dic');   
+    protected static $_monthAbrevSpanish = array('','Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov', 'Dic');
 
     /**
      * Metodo para cargar la fecha actual, mas o menos como el contructor <br> Ejemplo: MyDate::loadDate();
@@ -94,7 +94,7 @@ class ExtDate {
      *
      * @return string
      */
-    public static function getDate() {        
+    public static function getDate() {
         return self::$_date;
     }
 
@@ -111,7 +111,7 @@ class ExtDate {
             } else {
                 return (int) $date;
             }
-        } else {            
+        } else {
             return self::$_day;
         }
     }
@@ -120,7 +120,7 @@ class ExtDate {
      * Devuelve el mes de la fecha. <br> Ejemplo: 11
      *
      * @param string $date Fecha en formato YYYY-MM-DD
-     * @return int     
+     * @return int
      */
     public static function getMonth($date='') {
         if($date) {
@@ -129,7 +129,7 @@ class ExtDate {
             } else {
                 return (int) $date;
             }
-        } else {            
+        } else {
             return self::$_month;
         }
     }
@@ -143,7 +143,7 @@ class ExtDate {
     public static function getYear($date='') {
         if($date) {
             return (int) substr($date, 0, 4);
-        } else {           
+        } else {
             return self::$_year;
         }
     }
@@ -157,16 +157,16 @@ class ExtDate {
     public static function getTimestamp($date='') {
         if($date) {
             $hou = substr($date, 11, 2);
-            $min = substr($date, 14, 2);            
+            $min = substr($date, 14, 2);
             return (int) mktime($hou, $min, 0, self::getMonth($date), self::getDay($date), self::getYear($date));
         } else {
             return self::$_timestamp;
-        }        
+        }
     }
 
     /**
      * Devuelve nombre del día de la fecha. <br> Ejemplo: Miércoles
-     * 
+     *
      * @param string $date Fecha en formato YYYY-MM-DD
      * @return string
      */
@@ -185,7 +185,7 @@ class ExtDate {
      * @return string
      */
     public static function getMonthName($date='') {
-        if($date!='') {            
+        if($date!='') {
             return self::$_monthSpanish[self::getMonth($date)];
         } else {
             return self::$_monthSpanish[date('n', self::$_timestamp)];
@@ -264,7 +264,7 @@ class ExtDate {
             $fecha = date("Y-m-d", mktime(0, 0, 0, (self::getMonth($date)+$month), self::getDay($date), self::getYear($date)));
         } else {
             $fecha = date("Y-m-d", mktime(0, 0, 0, (self::$_month+$month), self::$_day, self::$_year));
-        }                
+        }
         return $fecha;
     }
 
@@ -351,7 +351,7 @@ class ExtDate {
      * @param string $date Fecha opcional
      * @return string
      */
-    public static function getDateSpecial($date = '') {        
+    public static function getDateSpecial($date = '') {
         $fecha = self::getDayName($date).", ".self::getDay($date). " de ".self::getMonthName($date)." de ".self::getYear($date);
         return $fecha;
     }
@@ -367,7 +367,7 @@ class ExtDate {
         $first = self::getTimestamp($first_date);
         $last = ($last_date) ? self::getTimestamp($last_date) : self::getTimestamp(date("Y-m-d H:i:s"));
         $diff = ($last - $first)/60;
-        //$diff = $diff + 50;        
+        //$diff = $diff + 50;
         if($diff < 60) {
             return "Hace $diff min.";
         } else if(($diff/60) < 24) {
@@ -387,7 +387,7 @@ class ExtDate {
         } else {
             return date("Y-m-d", strtotime($first_date));
         }
-       
+
     }
 
     public static function getLastDayOfMonth($date='') {

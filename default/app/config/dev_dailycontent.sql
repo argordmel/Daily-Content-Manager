@@ -252,6 +252,41 @@ INSERT INTO `usuario` (`id`, `login`, `password`, `nombre`, `apellido`, `mail`, 
 (3, 'pepito', 'd93a5def7511da3d0f2d171d9c344e91', 'Pepito', 'Pablito', 'abadc@hg.com', 4, 1, '2013-01-13 12:38:34', NULL, NULL, NULL, NULL, NULL);
 
 --
+-- Estructura de tabla para la tabla `album`
+--
+
+CREATE TABLE IF NOT EXISTS `album` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `descripcion` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  `fecha_creacion_at` date NOT NULL,
+  `hora_creacion_at` time NOT NULL,
+  `ruta` varchar(500) COLLATE utf8_spanish_ci NOT NULL,
+  `estado` int(1) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `album_usuario_id` (`usuario_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
+
+--
+-- Estructura de tabla para la tabla `fotos`
+--
+
+CREATE TABLE IF NOT EXISTS `fotos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `descripcion` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  `fecha_creacion_at` date NOT NULL,
+  `hora_creacion_at` time NOT NULL,
+  `nombre_ruta` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `usuario_id` int(11) NOT NULL,
+  `album_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `album_usuario_id` (`usuario_id`),
+  KEY `fotos_album_id` (`album_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
+
+--
 -- Filtros para las tablas descargadas (dump)
 --
 
@@ -279,3 +314,16 @@ ALTER TABLE `post_taxonomia`
 --
 ALTER TABLE `usuario`
   ADD CONSTRAINT `fk_usuario_grupo` FOREIGN KEY (`grupo_id`) REFERENCES `grupo` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `album`
+--
+ALTER TABLE `album`
+  ADD CONSTRAINT `album_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `fotos`
+--
+ALTER TABLE `fotos`
+  ADD CONSTRAINT `fotos_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fotos_ibfk_2` FOREIGN KEY (`album_id`) REFERENCES `album` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;

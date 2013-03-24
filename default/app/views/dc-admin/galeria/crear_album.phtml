@@ -70,6 +70,12 @@
 
 <!-- Alertas -->
 <script type="text/javascript">
+    var base = $('#ruta').val();
+    $('#galeria_nombre').on('keyup', function(){
+        var text = $(this).val();
+        text = text.replace(/ /g,'_');
+        $('#ruta').val(base+text.toLowerCase());
+    });
     $(function() { $('tr','tbody').hover(function(){$(this).addClass('tr-hover'); },function(){$(this).removeClass('ui-state-highlight tr-hover'); },function() {});});
 
     function mensaje(div, mensaje, tipo){

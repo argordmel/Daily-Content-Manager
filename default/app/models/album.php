@@ -1,8 +1,7 @@
 <?php
 
-Load::lib('upload');
-
 class Album extends ActiveRecord {
+    protected $logger = True;
     const PATH = '/img/dcm/galeria/';
     const INACTIVO = 0;
     const ACTIVO = 1;
@@ -13,12 +12,12 @@ class Album extends ActiveRecord {
         $path = dirname($_SERVER['SCRIPT_FILENAME']).self::PATH;
 
         $this->estado = self::$this->estado;
-        $path .= $this->ruta = Util::underscore(strtolower($this->nombre));
+        $path .= $this->ruta = Util::underscore(strtolower($this->nombre)).'/';
         $this->usuario_id = Auth::get('id');
 
-        if ( $this->exists("nombre = '$this->nombre'") ) {
+        if ( $this->exists("nombre = '$this->nombre'") || file_exists($path) ) {
             $this->rollback();
-            Flash::error('Ya existe una galería con ese nombre');
+            Flash::error('Ya existe un álbum con ese nombre');
             return False;
         } elseif ( Util::mkpath($path) && $this->create() ) {
             $this->commit();
@@ -28,17 +27,48 @@ class Album extends ActiveRecord {
                 rmdir($path);
             }
             $this->rollback();
-            Flash::error('Error al intentar subir imagen!!!');
+            Flash::error('Error al intentar crear álbum!!!');
             return False;
         }
     }
 
-    public function listarAlbum() {
-        return $this->find();
+    public function cambiarEstado($id, $estado) {
+        $album = $this->find($id);
+        $album->estado = "'".constant('self::'.$estado)."'";
+        return $album->update();
     }
 
-    public function verAlbum($id) {
+    public function listarAlbum($page, $per_page) {
+        $page = Filter::get($page, 'int');
+        $per_page = Filter::get($per_page, 'int');
 
+        $sql = "SELECT `album`.`id`, `album`.`nombre`, `album`.`ruta`, `album`.`estado`,
+        `usuario`.`login`, `album`.`fecha_creacion_at`, `album`.`hora_creacion_at`,
+        count(`fotos`.`id`) AS cantidad, `fotos`.`nombre_ruta`
+        FROM `album`
+        LEFT JOIN `fotos` ON `album`.`id` = `fotos`.`album_id`
+        INNER JOIN `usuario` ON `album`.`usuario_id` = `usuario`.`id`
+        GROUP BY `album`.`id`";
+        return $this->paginate_by_sql($sql, "page: $page", "per_page: $per_page");
+    }
+
+    public function eliminarAlbum($id){
+        $this->begin();
+        $album = $this->find_first($id);
+        $ruta = dirname($_SERVER['SCRIPT_FILENAME']).self::PATH.$album->ruta;
+        if ( $album->delete() ) {
+            if ( rmdir($ruta) ) {
+                $this->commit();
+                return True;
+            }
+        }
+        $this->rollback();
+        return False;
+    }
+
+    public function getRuta($id) {
+        $album = $this->find_first($id);
+        return $album->ruta;
     }
 
 }
